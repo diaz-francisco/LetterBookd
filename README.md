@@ -1,2 +1,0 @@
-# BookClub
-Official Bookclub Application
