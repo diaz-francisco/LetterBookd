@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 
 function App() {
@@ -6,12 +6,15 @@ function App() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3002")
-      .then((response) => {
+      .get("http://localhost:3001")
+      .then(response => {
         setMessage(response.data);
       })
-      .catch((error) => {
-        console.error("There was an error fetching the data!", error);
+      .catch(error => {
+        console.error(
+          "There was an error fetching the data!",
+          error
+        );
       });
   }, []);
 
