@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import BookSubmission from "./components/BookSubmission";
 
 function App() {
   const [message, setMessage] = useState("");
@@ -23,6 +24,7 @@ function App() {
       <header className="App-header">
         <p>{message}</p>
       </header>
+      <BookSubmission />
     </div>
   );
 }
