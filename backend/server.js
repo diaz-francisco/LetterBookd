@@ -1,12 +1,14 @@
 const app = require("./index");
+const mongoose = require("mongoose");
+
+const errorHandler = require("./middleware/errorHandler");
+app.use(errorHandler);
 
 const cors = require("cors");
 app.use(cors());
 
 const dotenv = require("dotenv");
 dotenv.config({ path: "./config.env" });
-
-const mongoose = require("mongoose");
 
 const DB = process.env.DATABASE.replace(
   "<PASSWORD>",

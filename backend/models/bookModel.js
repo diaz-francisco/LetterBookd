@@ -5,7 +5,6 @@ const bookSchema = new mongoose.Schema({
     type: String,
     required: [true, "Please enter a title."],
     trim: true,
-    unique: true,
   },
   author: {
     type: String,
@@ -18,12 +17,17 @@ const bookSchema = new mongoose.Schema({
   },
   rating: {
     type: Number,
-    defualt: 3.0,
-    required: true,
+    default: 3.0,
+    required: [true, "Please leave a rating."],
     min: [0.0, "Rating must be over a 0."],
     max: [5.0, "Rating cant be over 5."],
   },
   description: { type: String, trim: true },
+  review: {
+    type: String,
+    trim: true,
+    required: [true, "Please leave a review"],
+  },
 });
 
 const Book = new mongoose.model(

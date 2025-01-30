@@ -1,59 +1,44 @@
 const Book = require("./../models/bookModel");
+const catchAsync = require("./../utils/catchAsync");
 
-exports.getAllBooks = async (req, res) => {
-  try {
-    const books = await Book.find(req.query);
+exports.getAllBooks = catchAsync(
+  async (req, res, _next) => {
+    const books = await Book.find(req.body);
 
     res.status(200).json({
-      status: "success",
-      result: books.length,
+      status: "Success",
+      results: books.length,
       data: {
         book: books,
       },
     });
-  } catch (err) {
-    res.status(400).json({
-      status: "failed",
-      message: ["Invalid data sent!", err],
-    });
   }
-};
+);
 
-exports.getBook = async (req, res) => {
-  try {
+exports.getBook = catchAsync(
+  async (req, res, _next) => {
     const book = await Book.findById(
       req.params.id
     );
 
     res.status(200).json({
-      status: "success",
-      data: {
+      status: "Success",
+      book: {
         book,
       },
     });
-  } catch (err) {
-    res.status(400).json({
-      status: "Failed",
-      message: err.message,
-    });
   }
-};
+);
 
-exports.submitBook = async (req, res) => {
-  try {
-    const newBook = await Book.create(req.body);
+exports.submitBook = catchAsync(
+  async (req, res, _next) => {
+    const addBook = await Book.create(req.body);
 
     res.status(201).json({
-      status: "success",
-      data: { book: newBook },
-    });
-  } catch (err) {
-    res.status(400).json({
-      status: "failed",
-      message: "Invalid data sent!",
-      error: err.message,
+      status: "Success",
+      data: { book: addBook },
     });
   }
-};
+);
 
 module.exports;
