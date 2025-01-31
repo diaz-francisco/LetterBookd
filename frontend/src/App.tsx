@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import BookSubmission from "./components/BookSubmission";
+// import BookSubmission from "./components/BookSubmission";
+// import Login from "./components/Login";
+import LandingPage from "./components/LandingPage";
 
 function App() {
   const [message, setMessage] = useState("");
@@ -24,7 +26,9 @@ function App() {
       <header className="App-header">
         <p>{message}</p>
       </header>
-      <BookSubmission />
+      <LandingPage />
+      {/* <Login /> */}
+      {/* <BookSubmission /> */}
     </div>
   );
 }

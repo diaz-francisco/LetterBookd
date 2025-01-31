@@ -9,22 +9,10 @@ const BookSubmission: React.FC = () => {
 
   return (
     <div>
-      <form
-        action=""
-        method="get"
-        className="form-example"
-      >
-        <div className="form-example">
-          <label htmlFor="name">
-            Enter your name:{" "}
-          </label>
-          <input
-            type="text"
-            name="name"
-            id="name"
-            required
-          />
-        </div>
+      <form>
+        <label>
+          <h1>{/* <input></input> */}</h1>
+        </label>
       </form>
     </div>
   );

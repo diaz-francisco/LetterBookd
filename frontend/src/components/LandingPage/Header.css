@@ -1,0 +1,34 @@
+.header {
+  display: flex;
+  background-color: #7ac08e;
+  padding: 20px;
+  margin: 0;
+  position: absolute;
+  top: 0;
+  width: 100vw;
+}
+
+a {
+  text-decoration: none;
+  color: antiquewhite;
+}
+
+a:visited {
+  text-decoration: none;
+}
+
+a:focus {
+  text-decoration: underline;
+  color: blueviolet;
+}
+
+a:hover,
+a:active {
+  text-decoration: underline;
+  color: gray;
+}
+
+ul {
+  list-style: none;
+  color: whitesmoke;
+}
