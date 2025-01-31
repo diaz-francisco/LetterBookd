@@ -1,7 +1,11 @@
+:root {
+  font-size: x-large;
+}
+
 .header {
   display: flex;
   background-color: #7ac08e;
-  padding: 20px;
+  padding: 15px;
   margin: 0;
   position: absolute;
   top: 0;
@@ -10,25 +14,28 @@
 
 a {
   text-decoration: none;
-  color: antiquewhite;
+  color: #363031;
+  margin: 10px;
+  padding: 5px;
+  transition: 0.3s;
 }
 
 a:visited {
   text-decoration: none;
 }
 
-a:focus {
-  text-decoration: underline;
-  color: blueviolet;
-}
-
 a:hover,
 a:active {
-  text-decoration: underline;
-  color: gray;
+  /* background-color: #f4511e; */
+  color: #a386ac;
 }
 
 ul {
+  display: flex;
   list-style: none;
   color: whitesmoke;
+}
+
+input {
+  border: none;
 }
