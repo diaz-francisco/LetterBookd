@@ -1,15 +1,17 @@
 :root {
-  font-size: x-large;
+  font-size: xx-large;
 }
 
-.header {
+.header-container {
   display: flex;
+  align-items: center;
   background-color: #7ac08e;
   padding: 15px;
   margin: 0;
   position: absolute;
   top: 0;
   width: 100vw;
+  height: 10vh;
 }
 
 a {
@@ -32,10 +34,13 @@ a:active {
 
 ul {
   display: flex;
+  margin: 0;
+  padding: 0;
   list-style: none;
   color: whitesmoke;
 }
 
-input {
-  border: none;
+ul li {
+  margin: 20px;
+  border: 1px solid red;
 }

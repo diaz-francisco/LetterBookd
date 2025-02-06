@@ -5,10 +5,9 @@ const Header: React.FC = () => {
   // const [search, setSearch] = useState("");
 
   return (
-    <header className="header">
-      <h1></h1>
+    <header className="header-container">
       <nav>
-        <ul>
+        <ul className="nav-menu">
           <li>
             <a href="#home">Home</a>
           </li>
