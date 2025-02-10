@@ -6,7 +6,7 @@ const Header: React.FC = () => {
 
   return (
     <header className="header-container">
-      <nav>
+      <nav className="navbar">
         <ul className="nav-menu">
           <li>
             <a href="#home">Home</a>

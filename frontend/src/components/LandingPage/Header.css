@@ -4,14 +4,27 @@
 
 .header-container {
   display: flex;
-  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
   background-color: #7ac08e;
-  padding: 15px;
-  margin: 0;
-  position: absolute;
+  position: sticky;
   top: 0;
-  width: 100vw;
-  height: 10vh;
+  left: 0;
+  width: 100%;
+  border: 2px solid blue;
+  z-index: 999;
+}
+
+.navbar .header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: none;
+  margin: 0;
+  padding: 20px 60px;
+  width: 100%;
+  border: 10px solid yellow;
+  border-radius: 0;
 }
 
 a {
@@ -41,6 +54,5 @@ ul {
 }
 
 ul li {
-  margin: 20px;
   border: 1px solid red;
 }
