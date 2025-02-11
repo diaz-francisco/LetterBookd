@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Header.css";
 
 const Header: React.FC = () => {
@@ -17,12 +17,10 @@ const Header: React.FC = () => {
             </a>
           </li>
           <li>
-            <form>
-              <input
-                type="text"
-                placeholder="Search..."
-              ></input>
-            </form>
+            <a href="#monthly-book">Events</a>
+          </li>
+          <li>
+            <a href="#monthly-book">Members</a>
           </li>
           <li>
             <a href="#sign-up">Sign Up</a>
