@@ -2,12 +2,31 @@ import React, { useState } from "react";
 import "./Header.css";
 
 const Header: React.FC = () => {
-  // const [search, setSearch] = useState("");
+  const [burgerClass, setBurgerClass] = useState(
+    "burger unclicked"
+  );
+
+  const [menuClass, setMenuClass] = useState(
+    "menu hidden"
+  );
+
+  const [isClicked, setIsClicked] =
+    useState(false);
+
+  const updateMenu = () => {
+    if (!isClicked) {
+      setBurgerClass("burger clicked");
+      setMenuClass("menu shown");
+    } else {
+      setBurgerClass("burger unclicked");
+      setMenuClass("menu hidden");
+    }
+  };
 
   return (
-    <header className="header-container">
-      <nav className="navbar">
-        <ul className="nav-menu">
+    <header>
+      <nav>
+        <ul className="navbar">
           <li>
             <a href="#home">Home</a>
           </li>
@@ -22,14 +41,31 @@ const Header: React.FC = () => {
           <li>
             <a href="#monthly-book">Members</a>
           </li>
-          <li>
-            <a href="#sign-up">Sign Up</a>
-          </li>
-          <li>
-            <a href="#login">Login</a>
-          </li>
+          <div>
+            <li>
+              <a href="#sign-up">Sign Up</a>
+            </li>
+            <li>
+              <a href="#login">Login</a>
+            </li>
+          </div>
         </ul>
+        <div className="burger">
+          <div
+            className={burgerClass}
+            onClick={updateMenu}
+          ></div>
+          <div
+            className={burgerClass}
+            onClick={updateMenu}
+          ></div>
+          <div
+            className={burgerClass}
+            onClick={updateMenu}
+          ></div>
+        </div>
       </nav>
+      <div className={menuClass}></div>
     </header>
   );
 };
