@@ -41,7 +41,7 @@ const Header: React.FC = () => {
           <li>
             <a href="#monthly-book">Members</a>
           </li>
-          <div>
+          <div className="right-item">
             <li>
               <a href="#sign-up">Sign Up</a>
             </li>

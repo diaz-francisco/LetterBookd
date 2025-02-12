@@ -16,23 +16,12 @@ header {
 
 .navbar {
   display: flex;
-  justify-content: space-between; /* This will spread items apart */
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  border: 2px solid yellow;
-}
-
-.navbar li {
-  margin: 0 15px; /* Space out list items */
-}
-
-.navbar .left-item {
-  margin-right: auto; /* Push left items to the left */
+  border: 1px solid yellow;
 }
 
 .navbar .right-item {
-  margin-left: 100px; /* Push right items to the right */
+  display: flex;
+  justify-content: flex-end;
 }
 
 a {
