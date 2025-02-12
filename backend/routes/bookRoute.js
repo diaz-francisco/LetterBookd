@@ -8,6 +8,10 @@ router
   .get(bookController.getAllBooks)
   .post(bookController.submitBook);
 
-router.route("/:id").get(bookController.getBook);
+router
+  .route("/:id")
+  .get(bookController.getBook)
+  .patch(bookController.updateBook)
+  .delete(bookController.deleteBook);
 
 module.exports = router;

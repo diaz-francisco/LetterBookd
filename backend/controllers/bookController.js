@@ -41,4 +41,34 @@ exports.submitBook = catchAsync(
   }
 );
 
+exports.updateBook = catchAsync(
+  async (req, res, _next) => {
+    const updatedBook =
+      await Book.findByIdAndUpdate(
+        req.params.id,
+        req.body,
+        {
+          new: true,
+          runValidators: true,
+        }
+      );
+
+    res.status(200).json({
+      status: "Success",
+      data: { updatedBook },
+    });
+  }
+);
+
+exports.deleteBook = catchAsync(
+  async (req, res, _next) => {
+    await Book.findByIdAndDelete(req.params.id);
+
+    res.status(400).json({
+      status: "Success, content deleted",
+      data: null,
+    });
+  }
+);
+
 module.exports;
