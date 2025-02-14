@@ -1,27 +1,30 @@
-:root {
-  font-size: 2rem;
+* {
+  font-size: 1.3rem;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-header {
+.navbar {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   background-color: #7ac08e;
   position: sticky;
-  top: 0;
-  left: 0;
   width: 100%;
   border: 2px solid blue;
   z-index: 999;
 }
 
-.navbar {
+.right-item {
   display: flex;
-  border: 1px solid yellow;
+  margin-right: 15px;
+  margin-left: 20px;
+  border: 2px solid purple;
 }
 
-.navbar .right-item {
-  display: flex;
-  justify-content: flex-end;
+.title {
+  border: solid 1px black;
 }
 
 a {
@@ -29,7 +32,7 @@ a {
   color: #363031;
   margin: 10px;
   padding: 5px;
-  transition: 0.3s;
+  transition: 0.5s;
 }
 
 a:visited {
@@ -38,16 +41,17 @@ a:visited {
 
 a:hover,
 a:active {
-  /* background-color: #f4511e; */
   color: #a386ac;
 }
 
 ul {
   display: flex;
-  margin: 0;
-  padding: 0;
+  flex-direction: row;
   list-style: none;
-  color: whitesmoke;
+  border: 2px solid yellow;
+  padding: 0;
+  margin: 0;
+  white-space: nowrap;
 }
 
 li {
