@@ -33,7 +33,7 @@ const Header: React.FC = () => {
           <li>
             <a href="/home">Home</a>
           </li>
-          <li>
+          <li className="monthly">
             <a href="/monthly">Monthly Book</a>
           </li>
           <li>
@@ -45,10 +45,10 @@ const Header: React.FC = () => {
           <div></div>
           <div className="right-item">
             <li>
-              <a href="#sign-up">Sign Up</a>
-            </li>
-            <li>
               <a href="#login">Login</a>
+            </li>
+            <li className="signup">
+              <a href="#sign-up">Sign Up</a>
             </li>
           </div>
         </ul>

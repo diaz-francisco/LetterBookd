@@ -1,5 +1,5 @@
 * {
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -12,15 +12,30 @@
   background-color: #7ac08e;
   position: sticky;
   width: 100%;
-  border: 2px solid blue;
   z-index: 999;
+  box-shadow: inset;
 }
 
 .right-item {
   display: flex;
-  margin-right: 15px;
-  margin-left: 20px;
-  border: 2px solid purple;
+  margin-right: 30px;
+  margin-left: 30px;
+}
+
+.signup {
+  background-color: rgb(192, 120, 98);
+  /* border: dashed 3px rgb(192, 120, 98);
+  margin-top: -3px; */
+  border-radius: 10px;
+  margin-right: 10px;
+}
+
+.signup a {
+  color: #f3f2ef;
+}
+
+.monthly a {
+  color: rgb(192, 120, 98);
 }
 
 .title {
@@ -41,22 +56,24 @@ a:visited {
 
 a:hover,
 a:active {
-  color: #a386ac;
+  color: #ffffff;
+  /* color: #a386ac; */
 }
 
 ul {
   display: flex;
   flex-direction: row;
   list-style: none;
-  border: 2px solid yellow;
+
   padding: 0;
   margin: 0;
   white-space: nowrap;
 }
 
+/* 
 li {
   border: 1px solid red;
-}
+} */
 
 @media (min-width: 320px) and (max-width: 480px) {
   .header-container {

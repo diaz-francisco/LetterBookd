@@ -1,6 +1,9 @@
 :root {
   background-color: #e9e6de;
-  color: white;
+  color: grey;
+  font-family: "Trebuchet MS",
+    "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
 }
 
 html,
