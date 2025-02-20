@@ -31,15 +31,27 @@ const Header: React.FC = () => {
         </a>
         <ul>
           <li className="house">
-            <a href="/home">
+            <a
+              style={{
+                display: "flex",
+                alignItems: "center",
+              }}
+              href="/home"
+            >
               Home
-              <span className="material-symbols-outlined">
+              <span
+                style={{ marginLeft: "5px" }}
+                className="material-symbols-outlined"
+              >
                 house
               </span>
             </a>
           </li>
           <li className="monthly">
             <a href="/monthly">Monthly Book</a>
+          </li>
+          <li>
+            <a href="/monthly">Events</a>
           </li>
           <li>
             <a href="#monthly-book">Members</a>

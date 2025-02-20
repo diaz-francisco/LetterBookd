@@ -2,6 +2,11 @@
   font-family: "Trebuchet MS",
     "Lucida Sans Unicode", "Lucida Grande",
     "Lucida Sans", Arial, sans-serif;
+  background: linear-gradient(
+    to right,
+    #7ac08e,
+    #396e48
+  );
 }
 
 html,
