@@ -27,31 +27,34 @@ const Header: React.FC = () => {
     <header>
       <nav className="navbar">
         <a href="/" className="title">
-          Book Club
+          Filler Title
         </a>
         <ul>
-          <li>
-            <a href="/home">Home</a>
+          <li className="house">
+            <a href="/home">
+              Home
+              <span className="material-symbols-outlined">
+                house
+              </span>
+            </a>
           </li>
           <li className="monthly">
             <a href="/monthly">Monthly Book</a>
-          </li>
-          <li>
-            <a href="#monthly-book">Events</a>
           </li>
           <li>
             <a href="#monthly-book">Members</a>
           </li>
           <div></div>
           <div className="right-item">
-            <li>
-              <a href="#login">Login</a>
-            </li>
             <li className="signup">
               <a href="#sign-up">Sign Up</a>
             </li>
+            <li>
+              <a href="#login">Login</a>
+            </li>
           </div>
         </ul>
+
         {/* <div className="burger">
           <div
             className={burgerClass}

@@ -1,10 +1,21 @@
+@import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap");
+
 :root {
   --brown: rgb(192, 120, 98);
   --green: #7ac08e;
+  --dark-green: #396e48;
+  --blue: #4660d4;
+  --white: #e9e6de;
+  background: linear-gradient(
+    to right,
+    #7ac08e,
+    #396e48
+  );
+  scroll-behavior: smooth;
 }
 
 * {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -14,9 +25,9 @@
 .navbar {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  background-color: var(--green);
+  background-color: var(--white);
   position: sticky;
+  min-height: 10vh;
   width: 100%;
   z-index: 999;
   box-shadow: inset;
@@ -24,29 +35,57 @@
 
 .right-item {
   display: flex;
+  align-items: center;
   margin-right: 30px;
   margin-left: 30px;
 }
 
 .signup {
-  border: dashed 3px var(--brown);
-  margin-top: -3px;
-  border-radius: 10px;
+  background-color: var(--brown);
+  height: 35px;
+  display: flex;
+  border-radius: 5px;
   margin-right: 10px;
 }
 
 .signup a {
-  color: var(--brown);
+  display: flex;
+  color: var(--white);
+  align-items: center;
 }
 
-.monthly a {
+.monthly a,
+.title {
   color: var(--brown);
 }
 
 .title {
-  color: var(--brown);
+  display: flex;
+  align-items: center;
   font-size: 1.5rem;
-  margin-left: 30px;
+  margin-left: 3vw;
+}
+
+.material-symbols-outlined {
+  margin-top: 5px;
+  margin-left: 5px;
+  border: 1px solid black;
+}
+
+.house {
+  border: solid 1px red;
+}
+
+.house span:hover {
+  color: #0047bb;
+  transition: 0.4s;
+}
+
+.material-symbols-outlined {
+  font-variation-settings: "FILL" 0, "wght" 400,
+    "GRAD" 0, "opsz" 24;
+
+  font-size: 1.5rem;
 }
 
 a {
@@ -61,20 +100,15 @@ a:visited {
   text-decoration: none;
 }
 
-a:hover,
-a:active {
-  color: #ffffff;
-  /* color: #a386ac; */
-}
-
 ul {
   display: flex;
-  flex-direction: row;
+  align-items: center;
   list-style: none;
-
-  padding: 0;
-  margin: 0;
 }
+
+/* li {
+  border: solid 1px black;
+} */
 
 @media (min-width: 320px) and (max-width: 480px) {
   .header-container {
