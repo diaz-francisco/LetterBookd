@@ -20,11 +20,11 @@
   display: flex;
   justify-content: space-between;
   background-color: var(--white);
-  position: sticky;
   min-height: 10vh;
   width: 100%;
-  z-index: 999;
-  box-shadow: inset;
+  z-index: 1000;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  flex-wrap: wrap;
 }
 
 .right-item {
@@ -77,6 +77,7 @@ a {
   color: #363031;
   margin: 10px;
   padding: 5px;
+  white-space: nowrap;
 }
 
 a:visited {

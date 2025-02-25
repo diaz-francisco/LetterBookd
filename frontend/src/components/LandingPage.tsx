@@ -15,7 +15,11 @@ export default function LandingPage() {
 
   return (
     <div>
-      <Header />
+      <div
+        style={{ position: "sticky", top: "0px" }}
+      >
+        <Header />
+      </div>
       <Home />
     </div>
   );
