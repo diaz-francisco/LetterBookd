@@ -100,4 +100,16 @@ ul {
     font-size: 0.5rem;
     height: 5vh;
   }
+
+  .navbar ul,
+  .right-item {
+    position: fixed;
+    top: 0;
+    right: 0;
+    flex-direction: column;
+    background-color: white;
+    z-index: 999;
+    align-items: center;
+    justify-content: space-evenly;
+  }
 }
