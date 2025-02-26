@@ -7,10 +7,16 @@ export default function Banner() {
       <div className="main-banner">
         <div className="banner-words">
           <h1>Join a Club Today!</h1>
-          <p>This is a test</p>
+          <p>
+            Be a part of something bigger than
+            just reading.
+          </p>
           <button>Join Today!</button>
         </div>
-        <img src={groupImage} alt="group" />
+        <picture>
+          <source media="(max-width: 600px)" />
+          <img src={groupImage} alt="Group" />
+        </picture>
       </div>
     </div>
   );
