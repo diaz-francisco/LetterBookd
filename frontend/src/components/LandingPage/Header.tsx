@@ -24,7 +24,7 @@ const Header: React.FC = () => {
   // };
 
   return (
-    <header>
+    <header className="header-container">
       <nav className="navbar">
         <a href="/" className="title">
           Filler Title
@@ -61,8 +61,8 @@ const Header: React.FC = () => {
             <li className="signup">
               <a href="#sign-up">Sign Up</a>
             </li>
-            <li>
-              <a href="#login">Login</a>
+            <li id="sign-in">
+              <a href="#sign-in">Sign in</a>
             </li>
           </div>
         </ul>
