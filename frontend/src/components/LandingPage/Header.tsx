@@ -2,34 +2,29 @@ import React, { useState } from "react";
 import "./Header.css";
 
 const Header: React.FC = () => {
-  // const [burgerClass, setBurgerClass] = useState(
-  //   "burger unclicked"
-  // );
+  const [openMenu, setOpenMenu] = useState(true);
 
-  // const [menuClass, setMenuClass] = useState(
-  //   "menu hidden"
-  // );
-
-  // const [isClicked, setIsClicked] =
-  //   useState(false);
-
-  // const updateMenu = () => {
-  //   if (!isClicked) {
-  //     setBurgerClass("burger clicked");
-  //     setMenuClass("menu shown");
-  //   } else {
-  //     setBurgerClass("burger unclicked");
-  //     setMenuClass("menu hidden");
-  //   }
-  // };
+  const toggleMenu = () => {
+    setOpenMenu(!openMenu);
+  };
 
   return (
     <header className="header-container">
       <nav className="navbar">
+        <div
+          className="burger-menu"
+          onClick={toggleMenu}
+        >
+          <span className="menu"></span>
+          <span className="menu"></span>
+          <span className="menu"></span>
+        </div>
         <a href="/" className="title">
           Filler Title
         </a>
-        <ul>
+        <ul
+          className={openMenu ? "closed" : "open"}
+        >
           <li className="house">
             <a
               style={{
@@ -66,23 +61,7 @@ const Header: React.FC = () => {
             </li>
           </div>
         </ul>
-
-        {/* <div className="burger">
-          <div
-            className={burgerClass}
-            onClick={updateMenu}
-          ></div>
-          <div
-            className={burgerClass}
-            onClick={updateMenu}
-          ></div>
-          <div
-            className={burgerClass}
-            onClick={updateMenu}
-          ></div>
-        </div> */}
       </nav>
-      {/* <div className={menuClass}></div> */}
     </header>
   );
 };
