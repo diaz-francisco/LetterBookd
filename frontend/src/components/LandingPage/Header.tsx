@@ -33,51 +33,43 @@ const Header: React.FC = () => {
         <a href="/" className="title">
           Filler Title
         </a>
-        {openMenu && (
-          <div onClick={toggleMenu}>
-            <ul className="open">
-              <li className="house">
-                <a
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                  }}
-                  href="/home"
-                >
-                  Home
-                  <span
-                    style={{ marginLeft: "5px" }}
-                    className="material-symbols-outlined"
-                  >
-                    house
-                  </span>
-                </a>
-              </li>
-              <li className="monthly">
-                <a href="/monthly">
-                  Monthly Book
-                </a>
-              </li>
-              <li>
-                <a href="/monthly">Events</a>
-              </li>
-              <li>
-                <a href="#monthly-book">
-                  Members
-                </a>
-              </li>
-              <div></div>
-              <div className="right-item">
-                <li className="signup">
-                  <a href="#sign-up">Sign Up</a>
-                </li>
-                <li id="sign-in">
-                  <a href="#sign-in">Sign in</a>
-                </li>
-              </div>
-            </ul>
+        <ul className={openMenu ? "open" : ""}>
+          <li className="house">
+            <a
+              style={{
+                display: "flex",
+                alignItems: "center",
+              }}
+              href="/home"
+            >
+              Home
+              <span
+                style={{ marginLeft: "5px" }}
+                className="material-symbols-outlined"
+              >
+                house
+              </span>
+            </a>
+          </li>
+          <li className="monthly">
+            <a href="/monthly">Monthly Book</a>
+          </li>
+          <li>
+            <a href="/monthly">Events</a>
+          </li>
+          <li>
+            <a href="#monthly-book">Members</a>
+          </li>
+          <div></div>
+          <div className="right-item">
+            <li className="signup">
+              <a href="#sign-up">Sign Up</a>
+            </li>
+            <li id="sign-in">
+              <a href="#sign-in">Sign in</a>
+            </li>
           </div>
-        )}
+        </ul>
       </nav>
     </header>
   );
