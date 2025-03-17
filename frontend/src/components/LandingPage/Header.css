@@ -100,7 +100,6 @@ ul {
     width: 100%;
     font-size: 0.5rem;
     z-index: 999;
-    border: 1px solid red;
   }
 
   .navbar {
@@ -110,11 +109,6 @@ ul {
 
   .signup {
     height: 50px;
-  }
-
-  .header-container,
-  .navbar {
-    overflow-y: hidden;
   }
 
   .burger-menu {
@@ -137,6 +131,10 @@ ul {
     background-color: #363031;
     margin: 2px 0;
     transition: 0.4s ease;
+  }
+
+  .title {
+    margin-left: -1000vw;
   }
 
   ul.closed {

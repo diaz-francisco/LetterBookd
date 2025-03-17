@@ -8,10 +8,10 @@
 
 .main-banner {
   display: flex;
-  border: 1px solid red;
   align-items: center;
   width: 80%;
   justify-content: space-evenly;
+  padding-top: 10px;
 }
 
 .main-banner img {
