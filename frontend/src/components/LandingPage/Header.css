@@ -18,14 +18,13 @@
 
 .navbar {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
   background-color: var(--white);
   min-height: 10vh;
   width: 100%;
   z-index: 1000;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  padding: 0 20px; /* Add padding to the navbar */
 }
 
 .right-item {
@@ -47,7 +46,6 @@
   display: flex;
   color: var(--white);
   align-items: center;
-  padding: 0 10px; /* Add padding to the link */
 }
 
 .monthly a,
@@ -59,8 +57,7 @@
   display: flex;
   align-items: center;
   font-size: 1.5rem;
-  margin-left: 3vw;
-  flex-grow: 1; /* Allow the title to take up available space */
+  margin-left: 3.5vw;
 }
 
 .house span:hover {
@@ -94,44 +91,8 @@ a:visited {
 
 ul {
   display: flex;
-  flex-direction: row;
   align-items: center;
   list-style: none;
-  transition: max-height 0.4s ease-out,
-    opacity 0.4s ease-out;
-  overflow: hidden;
-  max-height: none; /* Initially show the menu */
-  opacity: 1; /* Initially show the menu */
-}
-
-ul.open {
-  max-height: 500px; /* Adjust this value as needed */
-  opacity: 1;
-}
-
-.burger-menu {
-  display: none; /* Hide the burger menu by default */
-}
-.menu {
-  display: block;
-  height: 3px;
-  width: 25px;
-  background-color: #363031;
-  margin: 2px 0;
-  transition: 0.4s ease;
-}
-
-#sign-in {
-  position: relative; /* Change to relative to align within the navbar */
-  padding: 0;
-  margin: 0;
-  border: solid 1px black;
-  border-radius: 5px;
-  height: 35px; /* Ensure the height matches the signup button */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0 10px; /* Add padding to the button */
 }
 
 @media (min-width: 320px) and (max-width: 480px) {
@@ -143,22 +104,27 @@ ul.open {
   }
 
   .navbar {
-    flex-direction: column;
-    align-items: flex-start;
+    z-index: 999;
+    justify-content: center;
   }
 
   .signup {
     height: 50px;
   }
 
+  .header-container,
+  .navbar {
+    overflow-y: hidden;
+  }
+
   .burger-menu {
-    display: flex; /* Show the burger menu on smaller screens */
+    display: flex;
     flex-direction: column;
     cursor: pointer;
     position: fixed;
     left: 10vw;
     top: 4vh;
-    z-index: 1000;
+    z-index: 1;
   }
 
   .burger-menu span:hover {
@@ -166,7 +132,6 @@ ul.open {
   }
 
   .menu {
-    display: block;
     height: 3px;
     width: 25px;
     background-color: #363031;
@@ -179,8 +144,16 @@ ul.open {
   }
 
   ul.open {
-    max-height: 100vh; /* Adjust this value as needed */
-    opacity: 1;
+    position: absolute;
+    top: 10vh;
+    right: 0;
+    flex-direction: column;
+    background-color: white;
+    align-items: center;
+    justify-content: space-evenly;
+    min-height: 90vh;
+    width: 100%;
+    transition: 0.4s ease;
   }
 
   #sign-in {
@@ -196,12 +169,5 @@ ul.open {
 
   #sign-in a {
     font-size: 15px;
-  }
-
-  ul {
-    flex-direction: column;
-    align-items: flex-start;
-    max-height: 0; /* Initially hide the menu */
-    opacity: 0; /* Initially hide the menu */
   }
 }
