@@ -23,7 +23,9 @@ const Header: React.FC = () => {
     <header className="header-container">
       <nav className="navbar">
         <div
-          className="burger-menu"
+          className={`burger-menu ${
+            openMenu ? "open" : ""
+          }`}
           onClick={toggleMenu}
         >
           <span className="menu"></span>

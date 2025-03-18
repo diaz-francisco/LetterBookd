@@ -95,6 +95,18 @@ ul {
   list-style: none;
 }
 
+.burger-menu.open .menu:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.burger-menu.open .menu:nth-child(2) {
+  opacity: 0;
+}
+
+.burger-menu.open .menu:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
 @media (min-width: 320px) and (max-width: 480px) {
   .header-container {
     width: 100%;
@@ -119,10 +131,6 @@ ul {
     left: 10vw;
     top: 4vh;
     z-index: 1;
-  }
-
-  .burger-menu span:hover {
-    color: #7ac08e;
   }
 
   .menu {
