@@ -1,3 +1,4 @@
+const bcrypt = require("bcrypt");
 const mongoose = require("mongoose");
 const validator = require("validator");
 
@@ -24,7 +25,10 @@ const userSchema = new mongoose.Schema({
       true,
       "Please provide a password!",
     ],
-    minlength: 8,
+    minlength: [
+      8,
+      "Password must be atleas 8 characters long",
+    ],
   },
   passwordConfirm: {
     type: String,
@@ -32,7 +36,27 @@ const userSchema = new mongoose.Schema({
       true,
       "Please provide a password!",
     ],
+    validate: {
+      validator: function (el) {
+        return el === this.password;
+      },
+    },
   },
+});
+
+userSchema.pre("save", async function (next) {
+  //Only runs if password is modified
+  if (!this.isModified("password")) return next();
+
+  //Hash with cost of 12
+  this.password = await bcrypt.hash(
+    this.password,
+    12
+  );
+  //Delete passwordConfirmed field
+  this.passwordConfirm = undefined;
+
+  next();
 });
 
 const User = new mongoose.model(
