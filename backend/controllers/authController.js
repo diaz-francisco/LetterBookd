@@ -2,30 +2,72 @@ const User = require("./../models/userModel.js");
 const catchAsync = require("./../utils/catchAsync");
 const jwt = require("jsonwebtoken");
 
-const {
-  DefaultAzureCredential,
-} = require("@azure/identity");
-const {
-  SecretClient,
-} = require("@azure/keyvault-secrets");
-
-const keyVaultUrl =
-  "https://<your-keyvault-name>.vault.azure.net/";
+const signToken = id => {
+  return jwt.sign(
+    { id },
+    process.env.JWT_SECRET,
+    {
+      expiresIn: process.env.JWT_EXPIRES_IN,
+    }
+  );
+};
 
 exports.signup = catchAsync(
   async (req, res, _next) => {
     const newUser = await User.create(req.body);
 
-    const token = jwt.sign(
-      { id: newUser._id },
-      "secret"
-    );
+    const token = signToken(newUser._id);
 
     res.status(201).json({
       status: "Success",
+      token,
       data: {
         user: newUser,
       },
+    });
+  }
+);
+
+exports.login = catchAsync(
+  async (req, res, next) => {
+    const { email, password } = req.body;
+    //Check Exists
+    if (!email || !password) {
+      return next(
+        new Error(
+          "Please Provide email and password",
+          400
+        )
+      );
+    }
+    //Check If correct
+    const user = await User.findOne({
+      email,
+    }).select("+password");
+
+    if (
+      !user ||
+      !(await user.correctPassword(
+        password,
+        user.password
+      ))
+    ) {
+      return next(
+        new Error(
+          "Incorrect email or password",
+          401
+        )
+      );
+    }
+
+    // console.log(user);
+
+    //Send Token
+    const token = signToken(user._id);
+
+    res.status(200).json({
+      status: "Success",
+      token,
     });
   }
 );
