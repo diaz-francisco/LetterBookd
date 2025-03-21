@@ -1,9 +1,6 @@
 const app = require("./index");
 const mongoose = require("mongoose");
 
-const errorHandler = require("./middleware/errorHandler");
-app.use(errorHandler);
-
 const cors = require("cors");
 app.use(cors());
 
