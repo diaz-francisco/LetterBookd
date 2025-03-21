@@ -60,8 +60,6 @@ exports.login = catchAsync(
       );
     }
 
-    // console.log(user);
-
     //Send Token
     const token = signToken(user._id);
 
@@ -69,6 +67,20 @@ exports.login = catchAsync(
       status: "Success",
       token,
     });
+  }
+);
+
+exports.protect = catchAsync(
+  async (req, res, next) => {
+    //Get Token and Check
+
+    //Verification
+
+    //Check If Still Exists
+
+    //Check if user changed password
+
+    next();
   }
 );
 

@@ -1,11 +1,15 @@
 const epxress = require("express");
 const bookController = require("./../controllers/bookController");
+const authController = require("../controllers/authController");
 
 const router = epxress.Router();
 
 router
   .route("/")
-  .get(bookController.getAllBooks)
+  .get(
+    authController.protect,
+    bookController.getAllBooks
+  )
   .post(bookController.submitBook);
 
 router
