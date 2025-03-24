@@ -2,6 +2,7 @@ const { promisify } = require("util");
 const User = require("./../models/userModel.js");
 const catchAsync = require("./../utils/catchAsync");
 const jwt = require("jsonwebtoken");
+const AppError = require("../utils/appError.js");
 
 const signToken = id => {
   return jwt.sign(
@@ -101,12 +102,34 @@ exports.protect = catchAsync(
       process.env.JWT_SECRET
     );
 
-    console.log(decoded);
-
     //Check If Still Exists
+    const decodedUser = await User.findById(
+      decoded.id
+    );
+
+    if (!decodedUser) {
+      return next(
+        new AppError(
+          "The user belonging to this token no longer exists!",
+          401
+        )
+      );
+    }
 
     //Check if user changed password
+    if (
+      decodedUser.changedPassword(decoded.iat)
+    ) {
+      return next(
+        new AppError(
+          "User Recently Changed password. Please login again!",
+          401
+        )
+      );
+    }
 
+    //Access now granted to route
+    req.user = decodedUser;
     next();
   }
 );

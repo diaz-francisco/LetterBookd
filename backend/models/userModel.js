@@ -43,6 +43,7 @@ const userSchema = new mongoose.Schema({
       },
     },
   },
+  passwordChangedAt: Date,
 });
 
 userSchema.pre("save", async function (next) {
@@ -71,6 +72,21 @@ userSchema.methods.correctPassword =
       userPassword
     );
   };
+
+userSchema.methods.changedPassword = function (
+  JWTTimeStamp
+) {
+  if (this.passwordChangedAt) {
+    const changedTimestamp = parseInt(
+      this.passwordChangedAt.getTime() / 1000,
+      10
+    );
+
+    return JWTTimeStamp < changedTimestamp;
+  }
+
+  return false;
+};
 
 const User = new mongoose.model(
   "User",
