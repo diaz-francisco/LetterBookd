@@ -24,7 +24,7 @@ app.use("/api/v1/users", userRoute);
 const globalErrorHandler = require("./controllers/errorController");
 const AppError = require("./utils/appError");
 
-app.all("*", (req, res, next) => {
+app.all("*", (req, _res, next) => {
   next(
     new AppError(
       `Can't find ${req.originalUrl} on this server!`,

@@ -64,7 +64,7 @@ exports.deleteBook = catchAsync(
   async (req, res, _next) => {
     await Book.findByIdAndDelete(req.params.id);
 
-    res.status(400).json({
+    res.status(204).json({
       status: "Success, content deleted",
       data: null,
     });
