@@ -16,19 +16,27 @@ const signToken = id => {
   );
 };
 
+const createSendToken = (
+  user,
+  statusCode,
+  res
+) => {
+  const token = signToken(user._id);
+
+  res.status(statusCode).json({
+    status: "Success",
+    token,
+    data: {
+      user: user,
+    },
+  });
+};
+
 exports.signup = catchAsync(
   async (req, res, _next) => {
     const newUser = await User.create(req.body);
 
-    const token = signToken(newUser._id);
-
-    res.status(201).json({
-      status: "Success",
-      token,
-      data: {
-        user: newUser,
-      },
-    });
+    createSendToken(newUser, 201, res);
   }
 );
 
@@ -65,12 +73,7 @@ exports.login = catchAsync(
     }
 
     //Send Token
-    const token = signToken(user._id);
-
-    res.status(200).json({
-      status: "Success",
-      token,
-    });
+    createSendToken(user, 200, res);
   }
 );
 
@@ -240,12 +243,39 @@ exports.resetPassword = catchAsync(
     //Update changedPasswordAt property for user
 
     //Log user in
-    const token = signToken(user._id);
+    createSendToken(user, 200, res);
+  }
+);
 
-    res.status(200).json({
-      status: "Success",
-      token,
-    });
+exports.updatePassword = catchAsync(
+  async (req, res, next) => {
+    //Get user from collection
+    const user = await User.findById(
+      req.user.id
+    ).select("+password");
+
+    //Check if posted current password is correct
+    if (
+      !(await user.correctPassword(
+        req.body.passwordCurrent,
+        user.password
+      ))
+    )
+      return next(
+        new AppError(
+          "Current password is wrong",
+          400
+        )
+      );
+
+    /// If so, update password
+    user.password = req.body.password;
+    user.passwordConfirm =
+      req.body.passwordConfirm;
+
+    await user.save();
+    // Log user in
+    createSendToken(user, 200, res);
   }
 );
 
