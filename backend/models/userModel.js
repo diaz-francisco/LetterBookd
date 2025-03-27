@@ -52,11 +52,20 @@ const userSchema = new mongoose.Schema({
       validator: function (el) {
         return el === this.password;
       },
+      message: "Passwords are not the same!",
     },
   },
   passwordChangedAt: Date,
   passwordResetToken: String,
   passwordResetExpires: Date,
+});
+
+userSchema.pre("save", async function (next) {
+  if (!this.isModified("password") || this.isNew)
+    return next();
+
+  this.passwordChangedAt = Date.now() - 1000;
+  next();
 });
 
 userSchema.pre("save", async function (next) {
