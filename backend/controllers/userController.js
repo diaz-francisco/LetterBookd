@@ -76,4 +76,10 @@ exports.deleteUser = catchAsync(
   }
 );
 
+exports.updateMe = catchAsync(
+  async (req, res, next) => {
+    a;
+  }
+);
+
 module.exports;
