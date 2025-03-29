@@ -1,5 +1,15 @@
 const User = require("./../models/userModel");
 const catchAsync = require("./../utils/catchAsync");
+const AppError = require("../utils/appError");
+
+const filterObj = (obj, ...allowedFields) => {
+  const newObj = {};
+  Object.keys(obj).forEach(el => {
+    if (allowedFields.includes(el))
+      newObj[el] = obj[el];
+  });
+  return newObj;
+};
 
 exports.getAllUsers = catchAsync(
   async (req, res, _next) => {
@@ -78,7 +88,38 @@ exports.deleteUser = catchAsync(
 
 exports.updateMe = catchAsync(
   async (req, res, next) => {
-    a;
+    //Error if user POSTS password data
+    if (
+      req.body.password ||
+      req.body.passwordConfirm
+    ) {
+      return next(
+        new AppError(
+          "This is not the intended route for password resseting, please use /updatePassword",
+          400
+        )
+      );
+    }
+    //Filtered unwanted field names
+    const filteredBody = filterObj(
+      req.body,
+      "name",
+      "email"
+    );
+
+    //Find User
+    const updatedUser =
+      await User.findByIdAndUpdate(
+        req.user.id,
+        filteredBody,
+        { new: true, runValidators: true }
+      );
+
+    //Update user data
+    res.status(200).json({
+      staus: "Success",
+      data: { user: updatedUser },
+    });
   }
 );
 
