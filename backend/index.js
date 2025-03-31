@@ -1,22 +1,73 @@
 const morgan = require("morgan");
 const express = require("express");
-const bookRoute = require("./routes/bookRoute");
-const userRoute = require("./routes/userRoute");
+const rateLimit = require("express-rate-limit");
+const helmet = require("helmet");
+const mongoSanitize = require("express-mongo-sanitize");
+const { body } = require("express-validator");
+const hpp = require("hpp");
 
 const app = express();
 
-app.use(express.json());
-app.use(morgan("dev"));
+//Global Middleware
 
-app.get("/", (_req, res) => {
-  res.status(200).send(`Hello World!`);
+// Set Security HTTP Headers
+app.use(helmet());
+
+//Node Environment
+if (process.env.NODE_ENV === "development") {
+  app.use(morgan("dev"));
+}
+
+//Rate Limiter (requests from same api)
+const limiter = rateLimit({
+  max: 100,
+  windowMs: 60 * 60 * 1000,
+  message:
+    "Too many requests from this IP, please try again in an hour.",
 });
 
+app.use("/api", limiter);
+
+//Body parser, reading data from body into req.body
+app.use(
+  express.json({
+    limit: "10kb",
+  })
+);
+
+//Data sanitization against NoSQL query injection
+
+app.use(mongoSanitize());
+
+//Data sanitization against XSS
+app.post(
+  "/api/v1/example",
+  body("input").escape(), // Escapes HTML to prevent XSS
+  (req, res) => {
+    res.send(req.body.input);
+  }
+);
+
+//Prevent parameter pollution
+app.use(
+  hpp({
+    whitelist: [
+      "author",
+      "pages",
+      "rating",
+      "title",
+    ],
+  })
+);
+
+//Test Middleware
 app.use((req, _res, next) => {
   req.requestTime = new Date().toISOString();
-  // console.log(req.headers);
   next();
 });
+
+const bookRoute = require("./routes/bookRoute");
+const userRoute = require("./routes/userRoute");
 
 app.use("/api/v1/books", bookRoute);
 app.use("/api/v1/users", userRoute);
