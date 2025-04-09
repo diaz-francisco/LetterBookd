@@ -42,6 +42,10 @@ const userSchema = new mongoose.Schema({
     ],
     select: false,
   },
+  dateCreated: {
+    type: String,
+    default: Date.now(),
+  },
   passwordConfirm: {
     type: String,
     required: [

@@ -5,10 +5,17 @@ const helmet = require("helmet");
 const mongoSanitize = require("express-mongo-sanitize");
 const { body } = require("express-validator");
 const hpp = require("hpp");
+const cors = require("cors");
 
 const app = express();
 
 //Global Middleware
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    credentials: true,
+  })
+);
 
 // Set Security HTTP Headers
 app.use(helmet());

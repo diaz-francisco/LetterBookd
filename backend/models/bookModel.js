@@ -15,6 +15,7 @@ const bookSchema = new mongoose.Schema({
     type: Number,
     min: [1, "Book cant have 0 pages."],
   },
+  isbn: { type: String, unique: true },
   rating: {
     type: Number,
     default: 3.0,
@@ -27,6 +28,11 @@ const bookSchema = new mongoose.Schema({
     type: String,
     trim: true,
     required: [true, "Please leave a review"],
+  },
+  cover: { type: String },
+  dateCreated: {
+    type: String,
+    default: Date.now(),
   },
 });
 

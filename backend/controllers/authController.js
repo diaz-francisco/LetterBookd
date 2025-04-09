@@ -33,10 +33,16 @@ const createSendToken = (
           1000
     ),
     httpOnly: true,
+    secure: true,
+    sameSite:
+      process.env.NODE_ENV === "production"
+        ? "strict"
+        : "none",
+    partitioned: true,
   };
 
-  if (process.env.NODE_ENV === "production")
-    cookieOptions.secure = true;
+  // if (process.env.NODE_ENV === "production")
+  //   cookieOptions.secure = true;
 
   res.cookie("jwt", token, cookieOptions);
 
