@@ -3,7 +3,7 @@ import React, {
   useEffect,
 } from "react";
 import "./Header.css";
-import Login from "./Login";
+// import Login from "./Login";
 
 const Header: React.FC = () => {
   const [openMenu, setOpenMenu] = useState(false);
@@ -58,7 +58,7 @@ const Header: React.FC = () => {
             <a href="/monthly">Monthly Book</a>
           </li>
           <li>
-            <a href="/monthly">Events</a>
+            <a href="/books">Books</a>
           </li>
           <li>
             <a href="#monthly-book">Members</a>
@@ -68,8 +68,8 @@ const Header: React.FC = () => {
             <li className="signup">
               <a href="#sign-up">Sign Up</a>
             </li>
-            <li>
-              <Login />
+            <li id="sign-in">
+              <a>Sign in</a>
             </li>
           </div>
         </ul>
