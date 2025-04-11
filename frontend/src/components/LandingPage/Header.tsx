@@ -1,9 +1,6 @@
-import React, {
-  useState,
-  useEffect,
-} from "react";
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import "./Header.css";
-// import Login from "./Login";
 
 const Header: React.FC = () => {
   const [openMenu, setOpenMenu] = useState(false);
@@ -23,18 +20,13 @@ const Header: React.FC = () => {
   return (
     <header className="header-container">
       <nav className="navbar">
-        <div
-          className={`burger-menu ${
-            openMenu ? "open" : ""
-          }`}
-          onClick={toggleMenu}
-        >
+        <div className={`burger-menu ${openMenu ? "open" : ""}`} onClick={toggleMenu}>
           <span className="menu"></span>
           <span className="menu"></span>
           <span className="menu"></span>
         </div>
         <a href="/" className="title">
-          Filler Title
+          LetterBookd
         </a>
         <ul className={openMenu ? "open" : ""}>
           <li className="house">
@@ -46,10 +38,7 @@ const Header: React.FC = () => {
               href="/home"
             >
               Home
-              <span
-                style={{ marginLeft: "5px" }}
-                className="material-symbols-outlined"
-              >
+              <span style={{ marginLeft: "5px" }} className="material-symbols-outlined">
                 house
               </span>
             </a>
@@ -68,9 +57,7 @@ const Header: React.FC = () => {
             <li className="signup">
               <a href="#sign-up">Sign Up</a>
             </li>
-            <li id="sign-in">
-              <a>Sign in</a>
-            </li>
+            <li id="sign-in">Sign In</li>
           </div>
         </ul>
       </nav>
