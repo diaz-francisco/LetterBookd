@@ -6,7 +6,7 @@ const BooksPage: React.FC = () => {
   const [searchedFor, setSearchedFor] = useState("");
 
   const [searchParams] = useSearchParams();
-  const query = searchParams.get("Naruto") || "Mistborne";
+  const query = searchParams.get("Naruto") || "Way of Kings";
   const [books, setBooks] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -31,6 +31,7 @@ const BooksPage: React.FC = () => {
   return (
     <div>
       <form>
+        <h1>Look for a book</h1>
         <input type="text"></input>
       </form>
       {loading ? (
@@ -52,6 +53,7 @@ const BooksPage: React.FC = () => {
                     }
                   />
                 </a>
+                <p>{book.title}</p>
               </div>
             ))}
           </div>
