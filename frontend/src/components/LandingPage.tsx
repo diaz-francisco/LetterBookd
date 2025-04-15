@@ -1,26 +1,31 @@
+import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
 import Header from "./LandingPage/Header";
-import Home from "./LandingPage/Home";
-// import Monthly from "./LandingPage/Monthly";
+import MainPage from "./MainPage";
+import BooksPage from "./BooksPage";
 
-export default function LandingPage() {
-  // let component;
-  // switch (window.location.pathname) {
-  //   case "/home":
-  //     component = <Home />;
-  //     break;
-  //   case "/monthly":
-  //     component = <Monthly />;
-  //     break;
-  // }
-
+const Layout: React.FC = () => {
   return (
     <div>
-      <div
-        style={{ position: "sticky", top: "0px" }}
-      >
+      <div style={{ position: "sticky", top: "0px" }}>
         <Header />
       </div>
-      <Home />
+      <Outlet /> {/* Route content injected here*/}
+    </div>
+  );
+};
+
+export default function LandingPage() {
+  return (
+    <div>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<MainPage />} />
+            <Route path="home" element={<MainPage />} />
+            <Route path="books" element={<BooksPage />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }

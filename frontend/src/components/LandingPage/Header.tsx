@@ -25,39 +25,41 @@ const Header: React.FC = () => {
           <span className="menu"></span>
           <span className="menu"></span>
         </div>
-        <a href="/" className="title">
+        <Link to="/" className="title">
           LetterBookd
-        </a>
+        </Link>
         <ul className={openMenu ? "open" : ""}>
           <li className="house">
-            <a
+            <Link
               style={{
                 display: "flex",
                 alignItems: "center",
               }}
-              href="/home"
+              to="/home"
             >
               Home
               <span style={{ marginLeft: "5px" }} className="material-symbols-outlined">
                 house
               </span>
-            </a>
+            </Link>
           </li>
           <li className="monthly">
-            <a href="/monthly">Monthly Book</a>
+            <Link to="/monthly">Monthly Book</Link>
           </li>
           <li>
-            <a href="/books">Books</a>
+            <Link to={"books"}>Books</Link>
           </li>
           <li>
-            <a href="#monthly-book">Members</a>
+            <Link to="#monthly-book">Members</Link>
           </li>
           <div></div>
           <div className="right-item">
             <li className="signup">
-              <a href="#sign-up">Sign Up</a>
+              <Link to="signup">Sign Up</Link>
             </li>
-            <li id="sign-in">Sign In</li>
+            <li id="sign-in">
+              <Link to="signin">Sign In</Link>
+            </li>
           </div>
         </ul>
       </nav>

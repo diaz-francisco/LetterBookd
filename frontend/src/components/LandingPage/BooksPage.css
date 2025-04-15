@@ -1,0 +1,26 @@
+.container {
+  border: 2px solid blue;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.book-grid {
+  display: flex;
+  border: solid 1px red;
+  min-width: 20vw;
+  max-width: 20vw;
+  max-height: 40vh;
+  min-height: 40vh;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.container img {
+}
+
+.book-grid img {
+  max-height: 250px;
+  min-height: 250px;
+}
