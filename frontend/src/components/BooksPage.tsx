@@ -11,7 +11,7 @@ const BooksPage: React.FC = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    async function fetchBook(page = 1, limit = 25) {
+    async function fetchBook(page = 1, limit = 42) {
       setLoading(true);
 
       try {
@@ -35,7 +35,7 @@ const BooksPage: React.FC = () => {
         <input type="text"></input>
       </form>
       {loading ? (
-        <p>Loading books...</p>
+        <p>Fetching books...</p>
       ) : (
         <div style={{ border: "1px solid black" }}>
           <h2 style={{ display: "flex", justifyContent: "center" }}>Results for: {query}</h2>
@@ -57,6 +57,7 @@ const BooksPage: React.FC = () => {
               </div>
             ))}
           </div>
+          <a>{books.length}</a>
         </div>
       )}
     </div>
