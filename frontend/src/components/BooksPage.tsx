@@ -4,6 +4,7 @@ import "../components/LandingPage/BooksPage.css";
 
 const BooksPage: React.FC = () => {
   const [searchedFor, setSearchedFor] = useState("");
+  const [err, setErr] = useState("");
 
   const [searchParams] = useSearchParams();
   const query = searchParams.get("Naruto") || "Way of Kings";
@@ -38,7 +39,7 @@ const BooksPage: React.FC = () => {
         <p>Fetching books...</p>
       ) : (
         <div style={{ border: "1px solid black" }}>
-          <h2 style={{ display: "flex", justifyContent: "center" }}>Results for: {query}</h2>
+          <h2>Results for: {query}</h2>
           <p style={{ display: "flex", justifyContent: "center" }}>Found {books?.length} books</p>
           <button onClick={() => console.log(books)}>Log Books to Console</button>
           <div className="container">
@@ -57,7 +58,7 @@ const BooksPage: React.FC = () => {
               </div>
             ))}
           </div>
-          <a>{books.length}</a>
+          <a></a>
         </div>
       )}
     </div>
