@@ -27,7 +27,6 @@ Interactive	Forest Green	#2D6A4F	Subtle yet noticeable for buttons/links
   background-color: var(--background);
   min-height: 10vh;
   width: 100%;
-  z-index: 1000;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
@@ -39,7 +38,7 @@ Interactive	Forest Green	#2D6A4F	Subtle yet noticeable for buttons/links
 }
 
 .signup {
-  background-color: var(--buttons);
+  background-color: var(--secondary-accent);
   height: 35px;
   display: flex;
   border-radius: 5px;
@@ -48,7 +47,6 @@ Interactive	Forest Green	#2D6A4F	Subtle yet noticeable for buttons/links
 
 .signup a {
   display: flex;
-  color: var(--background);
   align-items: center;
 }
 
