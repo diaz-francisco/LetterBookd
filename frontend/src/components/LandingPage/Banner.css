@@ -1,17 +1,18 @@
-.banner-container {
+/* .banner-container {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
   height: 100%;
-}
+} */
 
 .main-banner {
   display: flex;
   align-items: center;
-  width: 80%;
+  width: 100%;
   justify-content: space-evenly;
   padding-top: 10px;
+  background-color: var(--surface);
 }
 
 .main-banner img {
@@ -28,13 +29,13 @@
   justify-content: center;
   height: 20vh;
   border-radius: 10px;
-  background-color: var(--white);
+  background-color: var(--surface);
   padding: 10px;
 }
 
 .banner-words button {
   background: var(--brown);
-  color: var(--white);
+  color: var(--surface);
   border-radius: 5px;
   width: 125px;
   white-space: nowrap;

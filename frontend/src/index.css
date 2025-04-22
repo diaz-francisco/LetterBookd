@@ -3,11 +3,20 @@
 :root {
   font-family: Geneva, Tahoma, sans-serif;
 
-  background: linear-gradient(
-    to right,
-    #7ac08e,
-    #396e48
-  );
+  --brown: rgb(192, 120, 98);
+  --green: #165a2a;
+  --dark-green: #396e48;
+  --blue: #4660d4;
+  --white: #e9e6de;
+
+  --background: #1c1c1c;
+  --surface: #2a2a2a;
+  --primary-accent: #d35f5f;
+  --secondary-accent: #7f9ac3;
+  --main-text: #ece6dc;
+  --muted-text: #9a9a9a;
+  --highlight: #c88b49;
+  --buttons: #3e716a;
 }
 
 * {
