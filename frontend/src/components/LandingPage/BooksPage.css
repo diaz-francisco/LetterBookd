@@ -10,6 +10,11 @@
   flex-wrap: wrap;
 }
 
+.container a {
+  background-color: var(--muted-text);
+  border-radius: 5px;
+}
+
 .book-grid {
   /* border: solid 1px red; */
   display: flex;
@@ -40,12 +45,11 @@
 @media (min-width: 320px) and (max-width: 480px) {
   .book-grid,
   .book-grid img {
-    min-width: 20vw;
-    max-width: 20vw;
+    min-width: 22vw;
+    max-width: 22vw;
     max-height: 150px;
     min-height: 150px;
     margin: 5px;
-    overflow-y: hidden;
     border-radius: 5px;
   }
 

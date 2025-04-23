@@ -1,30 +1,22 @@
 @import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap");
- {
-  /* 
-Use Case	Color Name	Hex Code	Notes
-Background	Paper Beige	#F4F1E1	Soft, warm off-white
-Surface / Cards	Warm Taupe	#D1C6B1	Subtle contrast for content areas
-Primary Accent	Book Spine Red	#D35F5F	Bold, attention-grabbing
-Secondary Accent	Bookmark Blue	#6B9DFF	Calming, complementary
-Text (Main)	Charcoal Black	#2C2C2C	High contrast for readability
-Text (Muted)	Dusty Gray	#7A7A7A	For secondary text
-Highlight	Golden Highlight	#F4A261	Adds warmth and emphasis
-Interactive	Forest Green	#2D6A4F	Subtle yet noticeable for buttons/links
-*/
-}
 
 * {
   font-size: 1.15rem;
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+}
+
+.navbar,
+.navbar li,
+.navbar ul,
+.navbar a,
+.right-item {
+  background-color: var(--background);
+  color: var(--muted-text);
 }
 
 .navbar {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: var(--background);
   min-height: 10vh;
   width: 100%;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -38,21 +30,24 @@ Interactive	Forest Green	#2D6A4F	Subtle yet noticeable for buttons/links
 }
 
 .signup {
-  background-color: var(--secondary-accent);
   height: 35px;
   display: flex;
   border-radius: 5px;
   margin-right: 10px;
+  background-color: var(--buttons);
+  border: 1px dashed red;
 }
 
 .signup a {
   display: flex;
   align-items: center;
+  background-color: var(--buttons);
+  color: var(--background);
 }
 
 .monthly a,
 .title {
-  color: var(--buttons);
+  color: var(--secondary-accent);
 }
 
 .title {
@@ -69,13 +64,24 @@ Interactive	Forest Green	#2D6A4F	Subtle yet noticeable for buttons/links
 
 .material-symbols-outlined {
   font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
-
   font-size: 1.5rem;
 }
 
 .burger-menu {
   display: flex;
   display: none;
+}
+
+.burger-menu.open .menu:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.burger-menu.open .menu:nth-child(2) {
+  opacity: 0;
+}
+
+.burger-menu.open .menu:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
 }
 
 a {
@@ -97,19 +103,21 @@ ul {
   list-style: none;
 }
 
-.burger-menu.open .menu:nth-child(1) {
-  transform: translateY(7px) rotate(45deg);
-}
-
-.burger-menu.open .menu:nth-child(2) {
-  opacity: 0;
-}
-
-.burger-menu.open .menu:nth-child(3) {
-  transform: translateY(-7px) rotate(-45deg);
-}
-
 @media (min-width: 320px) and (max-width: 480px) {
+  .navbar li,
+  .navbar ul,
+  .navbar a,
+  .right-item {
+    background-color: var(--surface);
+  }
+
+  .navbar ul {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    transition: opacity 0.4s ease, transform 0.4s ease, top 0.4s ease;
+  }
+
   .header-container {
     width: 100%;
     font-size: 0.5rem;
@@ -117,7 +125,6 @@ ul {
   }
 
   .navbar {
-    z-index: 999;
     justify-content: center;
   }
 
@@ -132,7 +139,7 @@ ul {
     position: fixed;
     left: 10vw;
     top: 4vh;
-    z-index: 1;
+    background-color: var(--background);
   }
 
   .menu {
@@ -164,7 +171,7 @@ ul {
     transition: 0.4s ease;
   }
 
-  #sign-in {
+  .signin {
     position: fixed;
     top: 2.5vh;
     right: 5vw;
@@ -173,9 +180,17 @@ ul {
     margin: 0;
     border: solid 1px black;
     border-radius: 5px;
+    background-color: var(--buttons);
   }
 
-  #sign-in a {
+  .signin a {
     font-size: 15px;
+    background-color: var(--buttons);
+    color: var(--background);
+  }
+
+  .home {
+    background-color: var(--background);
+    border: 1px solid red;
   }
 }

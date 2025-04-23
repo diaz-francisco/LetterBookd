@@ -7,7 +7,7 @@ const BooksPage: React.FC = () => {
   const [err, setErr] = useState("");
 
   const [searchParams] = useSearchParams();
-  const query = searchParams.get("Naruto") || "Way of Kings";
+  const query = searchParams.get("Naruto") || "House of lEaves";
   const [books, setBooks] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -19,7 +19,10 @@ const BooksPage: React.FC = () => {
         const res = await fetch(`https://openlibrary.org/search.json?q=${query}&page=${[page]}&limit=${limit}`);
 
         const data = await res.json();
-        setBooks(data.docs);
+
+        const filteredDocs = data.docs.filter(book => book.cover_i);
+
+        setBooks(filteredDocs);
       } catch (err) {
         console.error(err);
       } finally {
@@ -41,7 +44,7 @@ const BooksPage: React.FC = () => {
         <div style={{ border: "1px solid black" }}>
           <h2>Results for: {query}</h2>
           <p style={{ display: "flex", justifyContent: "center" }}>Found {books?.length} books</p>
-          <button onClick={() => console.log(books)}>Log Books to Console</button>
+          {/* <button onClick={() => console.log(books)}>Log Books to Console</button> */}
           <div className="container">
             {books.map((book, index) => (
               <div className="book-grid" key={book.key || index}>
@@ -54,7 +57,7 @@ const BooksPage: React.FC = () => {
                     }
                   />
                 </a>
-                <p>{book.title}</p>
+                {/* <p>{book.title}</p> */}
               </div>
             ))}
           </div>

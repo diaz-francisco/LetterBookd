@@ -9,6 +9,10 @@ const Header: React.FC = () => {
     setOpenMenu(!openMenu);
   };
 
+  const closeMenu = () => {
+    setOpenMenu(false);
+  };
+
   useEffect(() => {
     if (openMenu) {
       document.body.style.overflow = "hidden";
@@ -25,7 +29,7 @@ const Header: React.FC = () => {
           <span className="menu"></span>
           <span className="menu"></span>
         </div>
-        <Link to="/" className="title">
+        <Link to="/" className="title" onClick={closeMenu}>
           LetterBookd
         </Link>
         <ul className={openMenu ? "open" : ""}>
@@ -36,29 +40,43 @@ const Header: React.FC = () => {
                 alignItems: "center",
               }}
               to="/home"
+              onClick={closeMenu}
             >
               Home
-              <span style={{ marginLeft: "5px" }} className="material-symbols-outlined">
+              <span
+                style={{ marginLeft: "5px", backgroundColor: "var(--surface)" }}
+                className="material-symbols-outlined home"
+              >
                 house
               </span>
             </Link>
           </li>
           <li className="monthly">
-            <Link to="/monthly">Monthly Book</Link>
+            <Link to="/monthly" onClick={closeMenu}>
+              Monthly Book
+            </Link>
           </li>
           <li>
-            <Link to={"books"}>Books</Link>
+            <Link to={"books"} onClick={closeMenu}>
+              Books
+            </Link>
           </li>
           <li>
-            <Link to="#monthly-book">Members</Link>
+            <Link to="#monthly-book" onClick={closeMenu}>
+              Members
+            </Link>
           </li>
           <div></div>
           <div className="right-item">
             <li className="signup">
-              <Link to="signup">Sign Up</Link>
+              <Link to="signup" onClick={closeMenu}>
+                Sign Up
+              </Link>
             </li>
-            <li id="sign-in">
-              <Link to="signin">Sign In</Link>
+            <li className="signin">
+              <Link to="signin" onClick={closeMenu}>
+                Sign In
+              </Link>
             </li>
           </div>
         </ul>
