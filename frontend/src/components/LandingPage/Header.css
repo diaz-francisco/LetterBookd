@@ -35,7 +35,6 @@
   border-radius: 5px;
   margin-right: 10px;
   background-color: var(--buttons);
-  border: 1px dashed red;
 }
 
 .signup a {
@@ -43,6 +42,9 @@
   align-items: center;
   background-color: var(--buttons);
   color: var(--background);
+}
+
+.signin {
 }
 
 .monthly a,
@@ -122,10 +124,13 @@ ul {
     width: 100%;
     font-size: 0.5rem;
     z-index: 999;
+    max-height: 5vh;
   }
 
   .navbar {
     justify-content: center;
+    max-height: 5vh;
+    min-height: 5vh;
   }
 
   .signup {
@@ -137,8 +142,7 @@ ul {
     flex-direction: column;
     cursor: pointer;
     position: fixed;
-    left: 10vw;
-    top: 4vh;
+    left: 5vw;
     background-color: var(--background);
   }
 
@@ -154,43 +158,25 @@ ul {
     margin-left: -1000vw;
   }
 
-  ul.closed {
-    transition: ease 0.4s;
-  }
-
   ul.open {
     position: absolute;
-    top: 10vh;
-    right: 0;
+    top: 5vh;
     flex-direction: column;
-    background-color: var(--surface);
-    align-items: center;
     justify-content: space-evenly;
-    min-height: 90vh;
+    min-height: 95vh;
     width: 100%;
-    transition: 0.4s ease;
   }
 
   .signin {
     position: fixed;
-    top: 2.5vh;
-    right: 5vw;
     display: flex;
-    padding: 0;
-    margin: 0;
-    border: solid 1px black;
-    border-radius: 5px;
-    background-color: var(--buttons);
+    align-items: center;
+    top: 0px;
+    right: 1vw;
+    max-height: 5vh;
   }
 
   .signin a {
-    font-size: 15px;
-    background-color: var(--buttons);
-    color: var(--background);
-  }
-
-  .home {
     background-color: var(--background);
-    border: 1px solid red;
   }
 }
