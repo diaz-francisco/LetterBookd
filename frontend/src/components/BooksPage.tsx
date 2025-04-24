@@ -1,36 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import "../components/LandingPage/BooksPage.css";
+import { useFetchBook } from "../hooks/useFetchBook";
 
 const BooksPage: React.FC = () => {
-  const [searchedFor, setSearchedFor] = useState("");
-  const [err, setErr] = useState("");
-
   const [searchParams] = useSearchParams();
-  const query = searchParams.get("Naruto") || "House of lEaves";
-  const [books, setBooks] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
+  const query = searchParams.get("qeury") || "House of Leaves";
 
-  useEffect(() => {
-    async function fetchBook(page = 1, limit = 42) {
-      setLoading(true);
-
-      try {
-        const res = await fetch(`https://openlibrary.org/search.json?q=${query}&page=${[page]}&limit=${limit}`);
-
-        const data = await res.json();
-
-        const filteredDocs = data.docs.filter(book => book.cover_i);
-
-        setBooks(filteredDocs);
-      } catch (err) {
-        console.error(err);
-      } finally {
-        setLoading(false);
-      }
-    }
-    fetchBook();
-  }, [query]);
+  const { books, loading } = useFetchBook(query);
 
   return (
     <div>

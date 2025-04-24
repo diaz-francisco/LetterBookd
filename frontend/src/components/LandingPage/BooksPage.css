@@ -11,7 +11,7 @@
 }
 
 .container a {
-  background-color: var(--muted-text);
+  background-color: var(--primary-accent);
   border-radius: 5px;
 }
 

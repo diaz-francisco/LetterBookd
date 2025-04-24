@@ -43,10 +43,7 @@ const Header: React.FC = () => {
               onClick={closeMenu}
             >
               Home
-              <span
-                style={{ marginLeft: "5px", backgroundColor: "var(--surface)" }}
-                className="material-symbols-outlined home"
-              >
+              <span style={{ marginLeft: "5px" }} className="material-symbols-outlined home">
                 house
               </span>
             </Link>

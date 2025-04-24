@@ -8,7 +8,8 @@
 .navbar li,
 .navbar ul,
 .navbar a,
-.right-item {
+.right-item,
+.house span {
   background-color: var(--background);
   color: var(--muted-text);
 }
@@ -42,9 +43,6 @@
   align-items: center;
   background-color: var(--buttons);
   color: var(--background);
-}
-
-.signin {
 }
 
 .monthly a,
@@ -109,7 +107,8 @@ ul {
   .navbar li,
   .navbar ul,
   .navbar a,
-  .right-item {
+  .right-item,
+  .house span {
     background-color: var(--surface);
   }
 
@@ -178,5 +177,9 @@ ul {
 
   .signin a {
     background-color: var(--background);
+  }
+
+  .signin span {
+    font-size: 30px;
   }
 }
