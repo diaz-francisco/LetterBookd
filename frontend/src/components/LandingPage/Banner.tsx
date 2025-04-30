@@ -3,7 +3,7 @@ import "./Banner.css";
 import { useFetchBook } from "../../hooks/useFetchBook";
 
 const Banner: React.FC = () => {
-  const { books, loading } = useFetchBook("Popular");
+  const { books, loading } = useFetchBook("Comic");
   const frontDisplay = books.slice(0, 8);
 
   return (

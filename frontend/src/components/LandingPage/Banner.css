@@ -1,15 +1,19 @@
 .frontpage {
   display: flex;
   border: solid 1px red;
+  height: 40vh;
   overflow-y: auto;
+  justify-content: space-evenly;
+  align-items: center;
 }
 
 .frontpage img {
   display: flex;
-
   border: solid 1px blue;
   min-height: 150px;
   max-height: 150px;
+  min-width: 100px;
+  max-width: 100px;
 }
 
 @media (min-width: 320px) and (max-width: 480px) {
