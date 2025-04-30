@@ -1,12 +1,10 @@
 import "./Banner.css";
-import { useSearchParams } from "react-router-dom";
+
 import { useFetchBook } from "../../hooks/useFetchBook";
 
 const Banner: React.FC = () => {
-  const [searchParams] = useSearchParams();
-
-  const { books, loading } = useFetchBook("House of Leaves");
-  const frontDisplay = books.slice(0, 4);
+  const { books, loading } = useFetchBook("Popular");
+  const frontDisplay = books.slice(0, 8);
 
   return (
     <div>
@@ -26,7 +24,6 @@ const Banner: React.FC = () => {
                 </div>
               ))}
             </div>
-            <a></a>
           </div>
         )}
       </div>

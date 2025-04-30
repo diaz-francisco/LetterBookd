@@ -1,10 +1,27 @@
 .frontpage {
   display: flex;
-  flex-direction: column;
   border: solid 1px red;
+  overflow-y: auto;
 }
 
 .frontpage img {
   display: flex;
+
   border: solid 1px blue;
+  min-height: 150px;
+  max-height: 150px;
+}
+
+@media (min-width: 320px) and (max-width: 480px) {
+  .frontpage {
+    display: flex;
+    border: solid 1px red;
+  }
+
+  .frontpage img {
+    display: flex;
+    border: solid 1px blue;
+    min-height: 200px;
+    max-height: 200px;
+  }
 }

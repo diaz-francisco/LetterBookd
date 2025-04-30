@@ -112,11 +112,24 @@ ul {
     background-color: var(--surface);
   }
 
+  .navbar {
+    justify-content: center;
+    max-height: 5vh;
+    min-height: 5vh;
+  }
+
   .navbar ul {
+    display: none;
+  }
+
+  .navbar ul.open {
     display: flex;
-    align-items: center;
-    list-style: none;
-    transition: opacity 0.4s ease, transform 0.4s ease, top 0.4s ease;
+    position: absolute;
+    top: 5vh;
+    flex-direction: column;
+    justify-content: space-evenly;
+    min-height: 95vh;
+    width: 100%;
   }
 
   .header-container {
@@ -124,12 +137,6 @@ ul {
     font-size: 0.5rem;
     z-index: 999;
     max-height: 5vh;
-  }
-
-  .navbar {
-    justify-content: center;
-    max-height: 5vh;
-    min-height: 5vh;
   }
 
   .signup {
@@ -153,15 +160,6 @@ ul {
     transition: 0.4s ease;
   }
 
-  ul.open {
-    position: absolute;
-    top: 5vh;
-    flex-direction: column;
-    justify-content: space-evenly;
-    min-height: 95vh;
-    width: 100%;
-  }
-
   .signin {
     position: fixed;
     display: flex;
@@ -175,5 +173,10 @@ ul {
 
   .signin span {
     font-size: 30px;
+  }
+
+  .title {
+    border: solid 1px yellow;
+    background-color: aqua;
   }
 }
