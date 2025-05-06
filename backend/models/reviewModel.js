@@ -2,42 +2,33 @@ const mongoose = require("mongoose");
 const User = require("./userModel");
 
 const reviewSchema = new mongoose.Schema({
-  review: {
-    type: String,
-    required: [true, "Review cant be left empty"],
+  book: {
+    type: mongoose.Schema.ObjectId,
+    ref: "Book",
+    required: [true, "Review must belong to a book"],
   },
-  progress: {
-    type: String,
-    required: true,
-    enum: [
-      "Want to Read",
-      "Currently Reading",
-      "Completed",
-    ],
+  user: {
+    type: mongoose.Schema.ObjectId,
+    ref: "User",
+    required: [true, "Review must belong to a user"],
   },
   rating: {
     type: Number,
-    required: [true, "Please leave a rating."],
-    min: [0.0, "Rating must be over a 0."],
-    max: [5.0, "Rating cant be over 5."],
+    required: [true, "Please leave a rating"],
+    min: [0.0, "Rating must be at least 0"],
+    max: [5.0, "Rating can't be over 5"],
   },
-  dateCreated: {
+  text: {
+    type: String,
+    trim: true,
+    required: [true, "Please leave a review text"],
+  },
+  createdAt: {
     type: Date,
     default: Date.now,
   },
-  reviewer: {
-    type: mongoose.Schema.ObjectId,
-    ref: "User",
-    required: [
-      true,
-      "Must be signed in to leave a review",
-    ],
-  },
 });
 
-const Review = mongoose.model(
-  "Review",
-  reviewSchema
-);
+const Review = mongoose.model("Review", reviewSchema);
 
 module.exports = Review;

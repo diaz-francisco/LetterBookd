@@ -6,133 +6,89 @@ const APIFeatures = require("../utils/apiFeatures");
 const filterObj = (obj, ...allowedFields) => {
   const newObj = {};
   Object.keys(obj).forEach(el => {
-    if (allowedFields.includes(el))
-      newObj[el] = obj[el];
+    if (allowedFields.includes(el)) newObj[el] = obj[el];
   });
   return newObj;
 };
 
-exports.getAllUsers = catchAsync(
-  async (req, res, _next) => {
-    const features = new APIFeatures(
-      User.find(),
-      req.query
-    )
-      .filter()
-      .sort()
-      .limitFields()
-      .paginate();
+exports.getAllUsers = catchAsync(async (req, res, _next) => {
+  const features = new APIFeatures(User.find(), req.query).filter().sort().limitFields().paginate();
 
-    const users = await features.query;
+  const users = await features.query;
 
-    res.status(200).json({
-      status: "Success",
-      results: users.length,
-      data: { data: users },
-    });
+  res.status(200).json({
+    status: "Success",
+    results: users.length,
+    data: { data: users },
+  });
+});
+
+exports.getUser = catchAsync(async (req, res, _next) => {
+  const user = await User.findById(req.params.id);
+
+  res.status(200).json({
+    status: "Success",
+    data: { user },
+  });
+});
+
+exports.createUser = catchAsync(async (req, res, _next) => {
+  const newUser = await User.create({
+    name: req.body.name,
+    email: req.body.email,
+    password: req.body.body.password,
+    passwordConfirm: req.body.passwordConfirm,
+  });
+
+  res.status(201).json({
+    status: "Success",
+    data: {
+      user: newUser,
+    },
+  });
+});
+
+exports.updateUser = catchAsync(async (req, res, _next) => {
+  const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+    runValidators: true,
+  });
+
+  res.status(200).json({
+    status: "Success",
+    data: {
+      user: updatedUser,
+    },
+  });
+});
+
+exports.deleteMe = catchAsync(async (req, res, _next) => {
+  await User.findByIdAndUpdate(req.user.id, {
+    active: false,
+  });
+
+  res.status(204).json({
+    status: "Success",
+    data: null,
+  });
+});
+
+exports.updateMe = catchAsync(async (req, res, next) => {
+  //Error if user POSTS password data
+  if (req.body.password || req.body.passwordConfirm) {
+    return next(new AppError("This is not the intended route for password resseting, please use /updatePassword", 400));
   }
-);
+  //Filtered unwanted field names
+  const filteredBody = filterObj(req.body, "name", "email");
 
-exports.getUser = catchAsync(
-  async (req, res, _next) => {
-    const user = await User.findById(
-      req.params.id
-    );
+  //Find User
+  const updatedUser = await User.findByIdAndUpdate(req.user.id, filteredBody, { new: true, runValidators: true });
 
-    res.status(200).json({
-      status: "Success",
-      data: { user },
-    });
-  }
-);
-
-exports.createUser = catchAsync(
-  async (req, res, _next) => {
-    const newUser = await User.create({
-      name: req.body.name,
-      email: req.body.email,
-      password: req.body.body.password,
-      passwordConfirm: req.body.passwordConfirm,
-    });
-
-    res.status(201).json({
-      status: "Success",
-      data: {
-        user: newUser,
-      },
-    });
-  }
-);
-
-exports.updateUser = catchAsync(
-  async (req, res, _next) => {
-    const updatedUser =
-      await User.findByIdAndUpdate(
-        req.params.id,
-        req.body,
-        {
-          new: true,
-          runValidators: true,
-        }
-      );
-
-    res.status(200).json({
-      status: "Success",
-      data: {
-        user: updatedUser,
-      },
-    });
-  }
-);
-
-exports.deleteMe = catchAsync(
-  async (req, res, _next) => {
-    await User.findByIdAndUpdate(req.user.id, {
-      active: false,
-    });
-
-    res.status(204).json({
-      status: "Success",
-      data: null,
-    });
-  }
-);
-
-exports.updateMe = catchAsync(
-  async (req, res, next) => {
-    //Error if user POSTS password data
-    if (
-      req.body.password ||
-      req.body.passwordConfirm
-    ) {
-      return next(
-        new AppError(
-          "This is not the intended route for password resseting, please use /updatePassword",
-          400
-        )
-      );
-    }
-    //Filtered unwanted field names
-    const filteredBody = filterObj(
-      req.body,
-      "name",
-      "email"
-    );
-
-    //Find User
-    const updatedUser =
-      await User.findByIdAndUpdate(
-        req.user.id,
-        filteredBody,
-        { new: true, runValidators: true }
-      );
-
-    //Update user data
-    res.status(200).json({
-      staus: "Success",
-      data: { user: updatedUser },
-    });
-  }
-);
+  //Update user data
+  res.status(200).json({
+    staus: "Success",
+    data: { user: updatedUser },
+  });
+});
 
 module.exports;
