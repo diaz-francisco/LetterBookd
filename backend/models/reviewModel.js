@@ -29,6 +29,11 @@ const reviewSchema = new mongoose.Schema({
   },
 });
 
+userSchema.pre(/^find/, function (next) {
+  this.find({ active: { $ne: false } });
+  next();
+});
+
 const Review = mongoose.model("Review", reviewSchema);
 
 module.exports = Review;

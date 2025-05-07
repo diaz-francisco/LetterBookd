@@ -37,6 +37,11 @@ const bookSchema = new mongoose.Schema({
   },
 });
 
+bookSchema.pre(/^find/, function (next) {
+  this.find({ active: { $ne: false } });
+  next();
+});
+
 const Book = new mongoose.model("Book", bookSchema);
 
 module.exports = Book;
