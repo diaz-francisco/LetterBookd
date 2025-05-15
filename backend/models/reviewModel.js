@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const User = require("./userModel");
 
 const reviewSchema = new mongoose.Schema({
   book: {
@@ -14,19 +13,39 @@ const reviewSchema = new mongoose.Schema({
   },
   rating: {
     type: Number,
-    required: [true, "Please leave a rating"],
-    min: [0.0, "Rating must be at least 0"],
-    max: [5.0, "Rating can't be over 5"],
+    min: [0.5, "Rating must be at least 0.5"],
+    max: [5, "Rating cannot exceed 5"],
+    validate: {
+      validator: function (val) {
+        // Allow half-star ratings (0.5, 1, 1.5, 2, 2.5, etc.)
+        return val % 0.5 === 0;
+      },
+      message: "Rating must be in increments of 0.5",
+    },
   },
-  text: {
+  review: {
     type: String,
     trim: true,
     required: [true, "Please leave a review text"],
+    maxlength: [1500, "Review cannot exceed 1500 characters"],
   },
+  liked: { type: Boolean, default: false },
+  active: { type: Boolean, default: true, select: false },
   createdAt: {
     type: Date,
     default: Date.now,
   },
+  updatedAt: {
+    type: Date,
+    default: Date.now,
+  },
+});
+
+reviewSchema.index({ book: 1, user: 1 }, { unique: true });
+
+reviewSchema.pre("save", function (next) {
+  this.updatedAt = Date.now();
+  next();
 });
 
 userSchema.pre(/^find/, function (next) {
