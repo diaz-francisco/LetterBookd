@@ -1,19 +1,37 @@
 const helperFunction = async openLibraryId => {
   try {
-    const res = await fetch(`https://openlibrary.org/works/${openLibraryId}.json`);
+    const bookRes = await fetch(`https://openlibrary.org/works/${openLibraryId}.json`);
 
-    if (!res.ok) {
-      throw new Error(res.status);
+    if (!bookRes.ok) {
+      throw new Error(`Book not found : ${bookRes.status}`);
     }
 
-    const bookData = await res.json();
+    const bookData = await bookRes.json();
 
     console.log(bookData);
 
-    return bookData;
+    if (!bookData.authors || bookData.authors.length === 0) {
+      throw new Error(`No authors for this book`);
+    }
+
+    const authorKey = bookData.authors[0].author.key;
+    const authorRes = await fetch(`https://openlibrary.org${authorKey}.json`);
+
+    let authorName = null;
+    if (authorKey.ok) {
+      const authorData = await authorRes.json();
+      authorName = authorData.personal_name || authorData.name;
+    }
+
+    return {
+      id: openLibraryId,
+      title: bookData.title,
+      authorKey: authorKey,
+      author: authorName,
+      cover: bookData.covers?.[0] ? `https://covers.openlibrary.org/b/id/${bookData.covers[0]}-S.jpg` : null,
+    };
   } catch (err) {
     console.error("Error fetching book data:", err.message);
-    throw err;
   }
 };
 
