@@ -12,14 +12,14 @@ exports.getAllReviews = catchAsync(async (req, res, _next) => {
 });
 
 exports.getReview = catchAsync(async (req, res, _next) => {
-  const review = Review.findById(req.params.id);
+  const review = await Review.findById(req.params.id);
 
   res.status(200).json({
     staus: "Success",
     data: review,
   });
 });
-z;
+
 exports.createReview = catchAsync(async (req, res, _next) => {
   const newReview = await Review.create(req.body);
 
@@ -42,7 +42,7 @@ exports.updateReview = catchAsync(async (req, res, _next) => {
 });
 
 exports.deleteReview = catchAsync(async (req, res, _next) => {
-  Review.findByIdAndUpdate(req.params.id, {
+  await Review.findByIdAndUpdate(req.params.id, {
     active: false,
   });
 
