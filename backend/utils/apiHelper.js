@@ -1,4 +1,4 @@
-const helperFunction = async openLibraryId => {
+const bookFetcher = async openLibraryId => {
   try {
     const bookRes = await fetch(`https://openlibrary.org/works/${openLibraryId}.json`);
 
@@ -8,8 +8,6 @@ const helperFunction = async openLibraryId => {
 
     const bookData = await bookRes.json();
 
-    console.log(bookData);
-
     if (!bookData.authors || bookData.authors.length === 0) {
       throw new Error(`No authors for this book`);
     }
@@ -17,8 +15,9 @@ const helperFunction = async openLibraryId => {
     const authorKey = bookData.authors[0].author.key;
     const authorRes = await fetch(`https://openlibrary.org${authorKey}.json`);
 
-    let authorName = null;
-    if (authorKey.ok) {
+    let authorName = "Unknown Author";
+
+    if (authorRes.ok) {
       const authorData = await authorRes.json();
       authorName = authorData.personal_name || authorData.name;
     }
@@ -32,7 +31,8 @@ const helperFunction = async openLibraryId => {
     };
   } catch (err) {
     console.error("Error fetching book data:", err.message);
+    throw err;
   }
 };
 
-helperFunction("OL257943W");
+bookFetcher("OL257943W");
