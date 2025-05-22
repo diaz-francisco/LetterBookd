@@ -1,6 +1,6 @@
 # BookClub
 
-This is a full-stack web application for managing a book club.
+This is a full-stack web application of a LetterBoxd styled social platform for books!
 
 ## Credits
 
