@@ -1,4 +1,4 @@
-import "./ClubInfo.css";
+import "./styles/ClubInfo.css";
 
 export default function ClubInfo() {
   return (

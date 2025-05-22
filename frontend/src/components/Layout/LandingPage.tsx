@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
-import Header from "./LandingPage/Header";
-import MainPage from "./MainPage";
-import BooksPage from "./BooksPage";
+import Header from "./Header";
+import MainPage from "../Home/MainPage";
+import BooksPage from "../Books/BooksPage";
 
 const Layout: React.FC = () => {
   return (

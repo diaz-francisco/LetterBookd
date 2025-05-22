@@ -1,4 +1,4 @@
-import "./Home.css";
+import "./styles/Home.css";
 import Banner from "./Banner";
 import ClubInfo from "./ClubInfo";
 
