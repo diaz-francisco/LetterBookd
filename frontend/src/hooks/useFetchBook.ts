@@ -1,11 +1,5 @@
 import { useState, useEffect } from "react";
 
-// interface Book {
-//   key: string;
-//   title: string;
-//   cover_i: number;
-// }
-
 export function useFetchBook(query: string, page = 1, limit = 42) {
   const [loading, setLoading] = useState(false);
   const [books, setBooks] = useState<[]>([]);

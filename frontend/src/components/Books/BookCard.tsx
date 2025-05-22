@@ -14,11 +14,11 @@ interface BookCardProps {
 const BookCard: React.FC<BookCardProps> = ({ book }) => {
   return (
     <div className="book-grid">
-      <a href={`/books/${book.key}`}>
+      <a href={`/books/${book.key}.json`}>
         <img
           src={
             book.cover_i
-              ? `https://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg`
+              ? `https://covers.openlibrary.org/b/id/${book.cover_i}-L.jpg`
               : "https://raw.githubusercontent.com/MrCheks/FilmSearch/756265bcd9696223d2193fa8c4cbd98a6e55040c/image-missing.svg"
           }
           alt={book.title || "Book cover"}

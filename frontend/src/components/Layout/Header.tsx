@@ -16,9 +16,12 @@ const Header: React.FC = () => {
   useEffect(() => {
     if (openMenu) {
       document.body.style.overflow = "hidden";
+      document.body.classList.add("menu-open");
     } else {
       document.body.style.overflow = "auto";
+      document.body.classList.remove("menu-open");
     }
+    return () => document.body.classList.remove("menu-open");
   }, [openMenu]);
 
   return (

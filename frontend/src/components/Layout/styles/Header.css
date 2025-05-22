@@ -21,6 +21,8 @@
   min-height: 10vh;
   width: 100%;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: relative;
+  z-index: 9999;
 }
 
 .right-item {
@@ -45,8 +47,7 @@
   color: var(--background);
 }
 
-.monthly a,
-.title {
+.monthly a {
   color: var(--secondary-accent);
 }
 
@@ -55,6 +56,7 @@
   align-items: center;
   font-size: 1.5rem;
   margin-left: 3.5vw;
+  color: var(--muted-text) !important;
 }
 
 .house span:hover {
@@ -68,8 +70,14 @@
 }
 
 .burger-menu {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  z-index: 10001;
   display: flex;
-  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  background: var(--surface, rgba(30, 30, 30, 0.98));
 }
 
 .burger-menu.open .menu:nth-child(1) {
@@ -103,6 +111,14 @@ ul {
   list-style: none;
 }
 
+.header-container {
+  width: 100%;
+  font-size: 0.5rem;
+  z-index: 9999;
+  max-height: 5vh;
+  position: relative;
+}
+
 @media (min-width: 320px) and (max-width: 480px) {
   .navbar li,
   .navbar ul,
@@ -124,19 +140,24 @@ ul {
 
   .navbar ul.open {
     display: flex;
-    position: absolute;
-    top: 5vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    min-height: 100vh;
     flex-direction: column;
     justify-content: space-evenly;
-    min-height: 95vh;
-    width: 100%;
+    z-index: 9999;
+    background: var(--surface, rgba(30, 30, 30, 0.98));
   }
 
   .header-container {
     width: 100%;
     font-size: 0.5rem;
-    z-index: 999;
+    z-index: 1;
     max-height: 5vh;
+    position: relative;
   }
 
   .signup {
@@ -165,6 +186,8 @@ ul {
     display: flex;
     top: 5px;
     right: 1vw;
+    z-index: 1;
+    background: var(--surface, rgba(30, 30, 30, 0.98));
   }
 
   .signin a {
@@ -176,7 +199,21 @@ ul {
   }
 
   .title {
-    border: solid 1px yellow;
-    background-color: aqua;
+    background-color: #0047bb;
   }
+}
+
+.close-menu {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 2rem;
+  z-index: 10000;
+  color: var(--muted-text);
+  cursor: pointer;
+  background: none;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
