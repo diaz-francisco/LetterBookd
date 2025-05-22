@@ -2,29 +2,32 @@ import React from "react";
 import { useSearchParams } from "react-router-dom";
 import "./styles/BooksPage.css";
 import { useFetchBook } from "../../hooks/useFetchBook";
-import BookCard from "./BookCard";
+import SearchBar from "./SearchBar";
+import BookList from "./BookList";
+
+// interface Book {
+//   key: string;
+//   cover_i?: number;
+//   title?: string;
+// }
 
 const BooksPage: React.FC = () => {
-  const [searchParams] = useSearchParams();
-  const query = searchParams.get("qeury") || "House of Leaves";
-
+  const [searchParams, setSearchParams] = useSearchParams();
+  const query = searchParams.get("query") || "Lost";
   const { books, loading } = useFetchBook(query);
+
+  const handleSearch = (newQuery: string) => {
+    setSearchParams({ query: newQuery });
+  };
 
   return (
     <div>
-      <form>
-        <h1>Look for a book</h1>
-        <input type="text"></input>
-      </form>
-      {loading ? (
-        <p>Fetching books...</p>
-      ) : (
-        <div className="container">
-          {books.map((book, index) => (
-            <BookCard key={book.key || index} book={book} />
-          ))}
-        </div>
-      )}
+      <SearchBar onSearch={handleSearch} />
+      <div>
+        <h2>Results for: {query}</h2>
+        <p>Found {books?.length} books</p>
+        <BookList books={books} loading={loading} />
+      </div>
     </div>
   );
 };
