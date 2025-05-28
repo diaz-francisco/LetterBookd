@@ -155,8 +155,8 @@
 
 @media (max-width: 480px) {
   .carousel-slide img {
-    height: 200px;
-    width: 133px;
+    height: 300px;
+    width: 200px;
   }
 
   .book-title {
