@@ -62,4 +62,3 @@ exports.deleteList = catchAsync(async (req, res, next) => {
     data: null,
   });
 });
-module.exports;

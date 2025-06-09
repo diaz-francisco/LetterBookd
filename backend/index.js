@@ -29,8 +29,7 @@ if (process.env.NODE_ENV === "development") {
 const limiter = rateLimit({
   max: 100,
   windowMs: 60 * 60 * 1000,
-  message:
-    "Too many requests from this IP, please try again in an hour.",
+  message: "Too many requests from this IP, please try again in an hour.",
 });
 
 app.use("/api", limiter);
@@ -58,12 +57,7 @@ app.post(
 //Prevent parameter pollution
 app.use(
   hpp({
-    whitelist: [
-      "author",
-      "pages",
-      "rating",
-      "title",
-    ],
+    whitelist: ["author", "pages", "rating", "title"],
   })
 );
 
@@ -75,20 +69,19 @@ app.use((req, _res, next) => {
 
 const bookRoute = require("./routes/bookRoute");
 const userRoute = require("./routes/userRoute");
+const listRoute = require("./routes/listRoute");
+const reviewRoute = require("./routes/reviewRoute");
 
 app.use("/api/v1/books", bookRoute);
 app.use("/api/v1/users", userRoute);
+app.use("/api/v1/lists", listRoute);
+app.use("/api/v1/reviews", reviewRoute);
 
 const globalErrorHandler = require("./controllers/errorController");
 const AppError = require("./utils/appError");
 
 app.all("*", (req, _res, next) => {
-  next(
-    new AppError(
-      `Can't find ${req.originalUrl} on this server!`,
-      404
-    )
-  );
+  next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
 });
 
 app.use(globalErrorHandler);
