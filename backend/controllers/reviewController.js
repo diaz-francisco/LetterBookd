@@ -16,19 +16,16 @@ exports.getAllReviews = catchAsync(async (req, res, _next) => {
   });
 });
 
-exports.getReview = catchAsync(async (req, res, _next) => {
+exports.getReview = catchAsync(async (req, res, next) => {
   const review = await Review.findById(req.params.id).populate({ path: "user", select: "name photo" });
 
   if (!review) {
-    return res.status(404).json({
-      status: "fail",
-      message: "Review not found",
-    });
+    return next(new AppError("No active review found with that ID", 404));
   }
 
   res.status(200).json({
     status: "Success",
-    data: review,
+    data: { review },
   });
 });
 
