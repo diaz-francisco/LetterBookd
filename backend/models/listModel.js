@@ -28,6 +28,7 @@ const listSchema = new mongoose.Schema(
       },
     ],
     isPrivate: { type: Boolean, default: false },
+    active: { type: Boolean, default: true },
     likes: [
       {
         type: mongoose.Schema.ObjectId,
