@@ -4,25 +4,12 @@ const authController = require("../controllers/authController");
 
 const router = epxress.Router();
 
-router
-  .route("/")
-  .get(
-    authController.protect,
-    bookController.getAllBooks
-  )
-  .post(bookController.submitBook);
+router.route("/").get(authController.protect, bookController.getAllBooks).post(bookController.submitBook);
 
 router
   .route("/:id")
   .get(bookController.getBook)
   .patch(bookController.updateBook)
-  .delete(
-    authController.protect,
-    authController.restrictTo(
-      "admin",
-      "moderator"
-    ),
-    bookController.deleteBook
-  );
+  .patch(authController.protect, authController.restrictTo("admin", "moderator"), bookController.deleteBook);
 
 module.exports = router;

@@ -48,7 +48,7 @@ reviewSchema.pre("save", function (next) {
   next();
 });
 
-userSchema.pre(/^find/, function (next) {
+reviewSchema.pre(/^find/, function (next) {
   this.find({ active: { $ne: false } });
   next();
 });

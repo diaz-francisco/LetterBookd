@@ -1,6 +1,6 @@
 const catchAsync = require("../utils/catchAsync");
 const Review = require("../models/reviewModel");
-const bookFetcher = require("../utils/apiHelper");
+const AppError = require("../utils/appError");
 const mongoose = require("mongoose");
 
 exports.getAllReviews = catchAsync(async (req, res, _next) => {
@@ -20,24 +20,41 @@ exports.getReview = catchAsync(async (req, res, _next) => {
   const review = await Review.findById(req.params.id).populate({ path: "user", select: "name photo" });
 
   if (!review) {
-    return ras.status(404).json({
+    return res.status(404).json({
       status: "fail",
       message: "Review not found",
     });
   }
 
   res.status(200).json({
-    staus: "Success",
+    status: "Success",
     data: review,
   });
 });
 
-exports.createReview = catchAsync(async (req, res, _next) => {
-  // const newReview = await Review.create(req.body);
-  // res.status(201).json({
-  //   status: "Success",
-  //   data: newReview,
-  // });
+exports.createReview = catchAsync(async (req, res, next) => {
+  const existingReview = await Review.findOne({
+    book: req.body.book,
+    user: req.user.id,
+  });
+
+  if (existingReview) {
+    return next(new AppError("You have already reviewed this book", 400));
+  }
+
+  const newReview = await Review.create({
+    book: req.body.book,
+    rating: req.body.rating,
+    review: req.body.review,
+    user: req.user.id,
+  });
+
+  res.status(201).json({
+    status: "Success",
+    data: {
+      review: newReview,
+    },
+  });
 });
 
 exports.updateReview = catchAsync(async (req, res, _next) => {

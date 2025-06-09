@@ -2,6 +2,7 @@ const crypto = require("crypto");
 const bcrypt = require("bcrypt");
 const mongoose = require("mongoose");
 const validator = require("validator");
+const { validate } = require("./reviewModel");
 
 const userSchema = new mongoose.Schema({
   name: {
@@ -12,12 +13,17 @@ const userSchema = new mongoose.Schema({
   username: {
     type: String,
     required: [true, "Please enter a username"],
+    minlength: [3, "Username must be at least 3 characters long"],
+    maxlength: [30, "Username cannot exceed 30 characters"],
+    match: [/^[a-zA-Z0-9_-]+$/, "Username can only contain letters, numbers, underscores, and hyphens"],
+    lowercase: true,
     unique: [true, "That username is taken"],
     trim: true,
   },
   email: {
     type: String,
     required: [true, "Please provide your email"],
+    maxLength: [254, "Password too long"],
     unique: true,
     lowercase: true,
     validate: [validator.isEmail, "Please provide a valid email"],
@@ -31,12 +37,25 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
     required: [true, "Please provide a password!"],
-    minlength: [8, "Password must be atleas 8 characters long"],
+    minlength: [8, "Password must be at least 8 characters long"],
+    maxLength: [128, "Password too long"],
     select: false,
+    validate: {
+      validator: function (password) {
+        if (!/[A-Z]/.test(password)) return false;
+
+        if (!/[a-z]/.test(password)) return false;
+
+        if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) return false;
+
+        return true;
+      },
+      message: "Password must contain at least one uppercase letter, one lowercase letter and one special character",
+    },
   },
   dateCreated: {
-    type: String,
-    default: Date.now(),
+    type: Date,
+    default: Date.now,
   },
   passwordConfirm: {
     type: String,

@@ -35,8 +35,9 @@ exports.getUser = catchAsync(async (req, res, _next) => {
 exports.createUser = catchAsync(async (req, res, _next) => {
   const newUser = await User.create({
     name: req.body.name,
+    username: req.body.username,
     email: req.body.email,
-    password: req.body.body.password,
+    password: req.body.password,
     passwordConfirm: req.body.passwordConfirm,
   });
 
@@ -62,7 +63,7 @@ exports.updateUser = catchAsync(async (req, res, _next) => {
   });
 });
 
-exports.deleteMe = catchAsync(async (req, res, _next) => {
+exports.deactivateMe = catchAsync(async (req, res, _next) => {
   await User.findByIdAndUpdate(req.user.id, {
     active: false,
   });
