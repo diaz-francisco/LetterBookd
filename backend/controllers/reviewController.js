@@ -57,22 +57,66 @@ exports.createReview = catchAsync(async (req, res, next) => {
   });
 });
 
-exports.updateReview = catchAsync(async (req, res, _next) => {
-  const updatedReview = await Review.findByIdAndUpdate(req.params.id, req.body, {
-    new: true,
-    runValidators: true,
-  });
+exports.updateReview = catchAsync(async (req, res, next) => {
+  // Only allow updating specific fields
+  const allowedUpdates = ["review", "rating", "liked"];
+  const updates = Object.keys(req.body);
+
+  // Check if any non-allowed fields are being updated
+  const isValidOperation = updates.every(update => allowedUpdates.includes(update));
+  if (!isValidOperation) {
+    return next(new AppError("Invalid updates! Only review, rating, and liked status can be updated.", 400));
+  }
+
+  // Find and update in one operation
+  const review = await Review.findOneAndUpdate(
+    {
+      _id: req.params.id,
+      active: { $ne: false }, // Only update active reviews
+    },
+    req.body,
+    {
+      new: true,
+      runValidators: true,
+    }
+  );
+
+  //Check if review with id exists
+  if (!review) {
+    return next(new AppError("No active review found with that ID", 404));
+  }
+
+  // Check if user owns the review
+  if (review.user.toString() !== req.user.id) {
+    return next(new AppError("You can only update your own reviews", 403));
+  }
 
   res.status(200).json({
     status: "Success",
-    data: updatedReview,
+    data: { review },
   });
 });
 
-exports.deleteReview = catchAsync(async (req, res, _next) => {
-  await Review.findByIdAndUpdate(req.params.id, {
-    active: false,
+exports.deleteReview = catchAsync(async (req, res, next) => {
+  // Find the review and check if it exists and is active
+  const review = await Review.findOne({
+    _id: req.params.id,
+    active: { $ne: false },
   });
+
+  if (!review) {
+    return next(new AppError("No active review found with that ID", 404));
+  }
+
+  // Check if the user owns the review
+  if (review.user.toString() !== req.user.id) {
+    return next(new AppError("You can only delete your own reviews", 403));
+  }
+
+  // Soft delete the review
+  review.active = false;
+  review.updatedAt = Date.now();
+  await review.save();
 
   res.status(204).json({
     status: "Success",

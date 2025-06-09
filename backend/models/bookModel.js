@@ -5,15 +5,17 @@ const bookSchema = new mongoose.Schema({
     type: String,
     required: [true, "Please enter a title."],
     trim: true,
+    index: true,
   },
 
   author: {
     type: String,
     required: [true, "Please enter an author"],
     trim: true,
+    index: true,
   },
 
-  isbn: { type: String, unique: true },
+  isbn: { type: String, unique: true, index: true },
 
   openLibraryId: { type: String, unique: true },
 
@@ -37,6 +39,14 @@ const bookSchema = new mongoose.Schema({
   },
 });
 
+//Text index for full-text search
+bookSchema.index({
+  title: "text",
+  author: "text",
+  description: "text",
+});
+
+//Checking for Soft-Deletion
 bookSchema.pre(/^find/, function (next) {
   this.find({ active: { $ne: false } });
   next();
