@@ -1,10 +1,16 @@
 const mongoose = require("mongoose");
 
 const reviewSchema = new mongoose.Schema({
-  book: {
-    type: mongoose.Schema.ObjectId,
-    ref: "Book",
-    required: [true, "Review must belong to a book"],
+  bookId: {
+    type: String,
+    required: [true, "Review must have a book ID"],
+    index: true,
+  },
+  bookSource: {
+    type: String,
+    required: [true, "Review must specify the book data source"],
+    enum: ["openLibrary", "googleBooks", "isbn"],
+    default: "openLibrary",
   },
   user: {
     type: mongoose.Schema.ObjectId,
@@ -13,7 +19,7 @@ const reviewSchema = new mongoose.Schema({
   },
   rating: {
     type: Number,
-    min: [0.5, "Rating must be at least 0.5"],
+    min: [0, "Rating cannot be lower than a 0"],
     max: [5, "Rating cannot exceed 5"],
     validate: {
       validator: function (val) {
@@ -41,7 +47,8 @@ const reviewSchema = new mongoose.Schema({
   },
 });
 
-reviewSchema.index({ book: 1, user: 1 }, { unique: true });
+// Index for ensuring one review per user per book
+reviewSchema.index({ bookId: 1, user: 1 }, { unique: true });
 
 reviewSchema.pre("save", function (next) {
   this.updatedAt = Date.now();

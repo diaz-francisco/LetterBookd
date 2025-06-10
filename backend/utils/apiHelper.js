@@ -35,4 +35,38 @@ const bookFetcher = async openLibraryId => {
   }
 };
 
-bookFetcher("OL257943W");
+const searchBooks = async (query, page = 1, limit = 20) => {
+  try {
+    const searchRes = await fetch(
+      `https://openlibrary.org/search.json?q=${encodeURIComponent(query)}&page=${page}&limit=${limit}`
+    );
+
+    if (!searchRes.ok) {
+      throw new Error(`Search failed: ${searchRes.status}`);
+    }
+
+    const searchData = await searchRes.json();
+
+    return {
+      books: searchData.docs.map(book => ({
+        id: book.key,
+        title: book.title,
+        author: book.author_name ? book.author_name[0] : "Unknown",
+        cover: book.cover_i ? `https://covers.openlibrary.org/b/id/${book.cover_i}-S.jpg` : null,
+        firstPublished: book.first_publish_year,
+        publisher: book.publisher ? book.publisher[0] : "Unknown",
+      })),
+      total: searchData.numFound,
+      page: searchData.start / limit + 1,
+      pages: Math.ceil(searchData.numFound / limit),
+    };
+  } catch (err) {
+    console.error("Error searching books:", err.message);
+    throw err;
+  }
+};
+
+module.exports = {
+  bookFetcher,
+  searchBooks,
+};
