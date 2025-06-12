@@ -46,7 +46,6 @@ const searchBooks = async (query, page = 1, limit = 20) => {
     }
 
     const searchData = await searchRes.json();
-
     return {
       books: searchData.docs.map(book => ({
         id: book.key,
