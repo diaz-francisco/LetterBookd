@@ -9,6 +9,9 @@ interface Book {
 }
 
 const searchTerms = [
+  "House of Leaves",
+  "Mistborne",
+  "Blood Meridian",
   "Fantasy",
   "Science Fiction",
   "Mystery",
