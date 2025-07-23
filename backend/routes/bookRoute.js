@@ -10,6 +10,6 @@ router
   .route("/:id")
   .get(bookController.getBook)
   .patch(bookController.updateBook)
-  .patch(authController.protect, authController.restrictTo("admin", "moderator"), bookController.deleteBook);
+  .patch(authController.protect, bookController.deleteBook);
 
 module.exports = router;
