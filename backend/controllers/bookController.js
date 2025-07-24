@@ -1,6 +1,7 @@
 const Book = require("./../models/bookModel");
 const catchAsync = require("./../utils/catchAsync");
 const APIFeatures = require("./../utils/apiFeatures");
+const AppError = require("../utils/appError");
 
 exports.getAllBooks = catchAsync(async (req, res, _next) => {
   // Use APIFeatures to handle query parameters
@@ -49,7 +50,12 @@ exports.updateBook = catchAsync(async (req, res, _next) => {
   });
 });
 
-exports.deleteBook = catchAsync(async (req, res, _next) => {
+exports.deleteBook = catchAsync(async (req, res, next) => {
+  const book = await Book.findById(req.params.id);
+  if (!book) {
+    return next(new AppError("No book found with that id"));
+  }
+
   await Book.findByIdAndUpdate(req.params.id, {
     active: false,
   });
@@ -61,5 +67,3 @@ exports.deleteBook = catchAsync(async (req, res, _next) => {
 });
 
 module.exports;
-
-//test
