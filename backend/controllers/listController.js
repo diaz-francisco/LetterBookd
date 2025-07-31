@@ -1,6 +1,7 @@
 const List = require("../models/listModel");
 const catchAsync = require("../utils/catchAsync");
 const AppError = require("../utils/appError");
+const User = require("../models/userModel");
 
 exports.getAllLists = catchAsync(async (req, res, _next) => {
   const lists = await List.find();
@@ -26,6 +27,8 @@ exports.getList = catchAsync(async (req, res, _next) => {
 });
 
 exports.createList = catchAsync(async (req, res, _next) => {
+  req.body.creator = req.user.id;
+
   const list = await List.create(req.body);
 
   res.status(201).json({

@@ -21,7 +21,8 @@ const listSchema = new mongoose.Schema(
     },
     books: [
       {
-        book: { type: mongoose.Schema.ObjectId, ref: "Book", required: [true, " A list must have books"] },
+        bookId: { type: String, required: [true, " A list must have books"] },
+        bookSource: { type: String, default: "openLibary" },
         note: { type: String, maxLength: [500, "note cant exceed 500 characters"] },
         order: { type: Number, required: true },
         addedAt: { type: Date, default: Date.now },
@@ -49,9 +50,6 @@ listSchema.pre(/^find/, function (next) {
   this.populate({
     path: "creator",
     select: "name username photo",
-  }).populate({
-    path: "books.book",
-    select: "title author cover",
   });
   next();
 });
