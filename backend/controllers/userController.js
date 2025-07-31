@@ -74,6 +74,10 @@ exports.deactivateMe = catchAsync(async (req, res, _next) => {
   });
 });
 
+exports.activateMe = catchAsync(async (req, res, next) => {
+  await User.findByIdAndUpdate(req.user.id, {});
+});
+
 exports.updateMe = catchAsync(async (req, res, next) => {
   //Error if user POSTS password data
   if (req.body.password || req.body.passwordConfirm) {

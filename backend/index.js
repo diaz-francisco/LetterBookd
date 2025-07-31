@@ -67,12 +67,10 @@ app.use((req, _res, next) => {
   next();
 });
 
-const bookRoute = require("./routes/bookRoute");
 const userRoute = require("./routes/userRoute");
 const listRoute = require("./routes/listRoute");
 const reviewRoute = require("./routes/reviewRoute");
 
-app.use("/api/v1/books", bookRoute);
 app.use("/api/v1/users", userRoute);
 app.use("/api/v1/lists", listRoute);
 app.use("/api/v1/reviews", reviewRoute);

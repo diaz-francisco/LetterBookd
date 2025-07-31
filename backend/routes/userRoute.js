@@ -12,7 +12,7 @@ router.patch("/updatePassword", authController.protect, authController.updatePas
 router.patch("/updateMe", authController.protect, userController.updateMe);
 router.patch("/deactivateMe", authController.protect, userController.deactivateMe);
 
-router.route("/").get(userController.getAllUsers).post(userController.createUser);
+router.route("/").get(authController.protect, userController.getAllUsers).post(userController.createUser);
 
 router.route("/:id").get(userController.getUser).patch(userController.updateUser);
 
