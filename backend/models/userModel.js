@@ -2,7 +2,6 @@ const crypto = require("crypto");
 const bcrypt = require("bcrypt");
 const mongoose = require("mongoose");
 const validator = require("validator");
-const { validate } = require("./reviewModel");
 
 const userSchema = new mongoose.Schema({
   name: {

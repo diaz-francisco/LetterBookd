@@ -10,10 +10,17 @@ router.post("/forgotPassword", authController.forgotPassword);
 router.patch("/resetPassword/:token", authController.resetPassword);
 router.patch("/updatePassword", authController.protect, authController.updatePassword);
 router.patch("/updateMe", authController.protect, userController.updateMe);
+router.patch("/updateUser", authController.protect, userController.updateUser);
 router.patch("/deactivateMe", authController.protect, userController.deactivateMe);
 
-router.route("/").get(authController.protect, userController.getAllUsers).post(userController.createUser);
+router
+  .route("/")
+  .get(authController.protect, authController.restrictTo("admin"), userController.getAllUsers)
+  .post(userController.createUser);
 
-router.route("/:id").get(userController.getUser).patch(userController.updateUser);
+router
+  .route("/:id")
+  .get(authController.protect, userController.getUser)
+  .patch(authController.protect, userController.updateUser);
 
 module.exports = router;

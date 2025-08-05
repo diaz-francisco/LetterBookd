@@ -1,10 +1,13 @@
 const List = require("../models/listModel");
 const catchAsync = require("../utils/catchAsync");
 const AppError = require("../utils/appError");
-const User = require("../models/userModel");
 
-exports.getAllLists = catchAsync(async (req, res, _next) => {
+exports.getAllLists = catchAsync(async (req, res, next) => {
   const lists = await List.find();
+
+  if (!lists) {
+    return next(new AppError("No lists found"));
+  }
 
   res.status(200).json({
     status: "Success",
@@ -15,7 +18,7 @@ exports.getAllLists = catchAsync(async (req, res, _next) => {
   });
 });
 
-exports.getList = catchAsync(async (req, res, _next) => {
+exports.getList = catchAsync(async (req, res, next) => {
   const list = await List.findById(req.params.id);
 
   res.status(200).json({
@@ -39,7 +42,17 @@ exports.createList = catchAsync(async (req, res, _next) => {
   });
 });
 
-exports.updateList = catchAsync(async (req, res, _next) => {
+exports.updateList = catchAsync(async (req, res, next) => {
+  const list = await List.findByIdAndUpdate(req.params.id);
+
+  if (!list) {
+    return next(new AppError("No list found with that ID", 404));
+  }
+
+  if (list.creator.toString() !== req.user.id && req.user.role !== "admin") {
+    return next(new AppError("Not authorized", 403));
+  }
+
   const updatedList = await List.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
     runValidators: true,
@@ -54,7 +67,10 @@ exports.updateList = catchAsync(async (req, res, _next) => {
 });
 
 exports.deleteList = catchAsync(async (req, res, next) => {
-  const list = await List.findByIdAndUpdate(req.params.id, { active: false }, { new: true });
+  const list = await List.findByIdAndUpdate(req.params.id, {
+    active: false,
+    new: true,
+  });
 
   if (!list) {
     return next(new AppError("No list found with that ID", 404));

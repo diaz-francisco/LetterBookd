@@ -49,7 +49,11 @@ exports.createUser = catchAsync(async (req, res, _next) => {
   });
 });
 
-exports.updateUser = catchAsync(async (req, res, _next) => {
+exports.updateUser = catchAsync(async (req, res, next) => {
+  if (req.user.role !== "admin" && req.user.id !== req.param.id) {
+    return next(new AppError("Not authorized", 403));
+  }
+
   const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
     runValidators: true,

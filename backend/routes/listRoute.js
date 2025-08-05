@@ -4,8 +4,15 @@ const authController = require("../controllers/authController");
 
 const router = express.Router();
 
-router.route("/").get(listController.getAllLists).post(authController.protect, listController.createList);
+router
+  .route("/")
+  .get(authController.protect, listController.getAllLists)
+  .post(authController.protect, listController.createList);
 
-router.route("/:id").get(listController.getList).patch(listController.updateList).patch(listController.deleteList);
+router
+  .route("/:id")
+  .get(authController.protect, listController.getList)
+  .patch(authController.protect, listController.updateList)
+  .patch(authController.protect, listController.deleteList);
 
 module.exports = router;
