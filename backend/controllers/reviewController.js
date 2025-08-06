@@ -1,7 +1,6 @@
 const catchAsync = require("../utils/catchAsync");
 const Review = require("../models/reviewModel");
 const AppError = require("../utils/appError");
-const mongoose = require("mongoose");
 
 exports.getAllReviews = catchAsync(async (req, res, _next) => {
   const reviews = await Review.find().populate({

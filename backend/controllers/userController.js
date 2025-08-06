@@ -50,11 +50,17 @@ exports.createUser = catchAsync(async (req, res, _next) => {
 });
 
 exports.updateUser = catchAsync(async (req, res, next) => {
-  if (req.user.role !== "admin" && req.user.id !== req.param.id) {
+  let updatedUser = await User.findById(req.params.id);
+
+  if (!updatedUser) {
+    return next(new AppError("User does not exist", 404));
+  }
+
+  if (req.user.role !== "admin" && req.user.id !== req.params.id) {
     return next(new AppError("Not authorized", 403));
   }
 
-  const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body, {
+  updatedUser = await User.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
     runValidators: true,
   });
@@ -78,8 +84,15 @@ exports.deactivateMe = catchAsync(async (req, res, _next) => {
   });
 });
 
-exports.activateMe = catchAsync(async (req, res, next) => {
-  await User.findByIdAndUpdate(req.user.id, {});
+exports.activateMe = catchAsync(async (req, res, _next) => {
+  await User.findByIdAndUpdate(req.user.id, {
+    active: true,
+  });
+
+  res.status(200).json({
+    status: "Success",
+    data: null,
+  });
 });
 
 exports.updateMe = catchAsync(async (req, res, next) => {
@@ -95,7 +108,7 @@ exports.updateMe = catchAsync(async (req, res, next) => {
 
   //Update user data
   res.status(200).json({
-    staus: "Success",
+    status: "Success",
     data: { user: updatedUser },
   });
 });
