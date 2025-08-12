@@ -8,3 +8,15 @@ const bookLikeSchema = new mongoose.Schema({
 const Like = new mongoose.model("bookLike", bookLikeSchema);
 
 module.exports = Like;
+
+/*
+user
+bookId
+bookSource
+status
+created
+
+remember to index
+
+book interaction
+*/
