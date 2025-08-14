@@ -17,18 +17,6 @@ const reviewSchema = new mongoose.Schema({
     ref: "User",
     required: [true, "Review must belong to a user"],
   },
-  rating: {
-    type: Number,
-    min: [0, "Rating cannot be lower than a 0"],
-    max: [5, "Rating cannot exceed 5"],
-    validate: {
-      validator: function (val) {
-        // Allow half-star ratings (0.5, 1, 1.5, 2, 2.5, etc.)
-        return val % 0.5 === 0;
-      },
-      message: "Rating must be in increments of 0.5",
-    },
-  },
   review: {
     type: String,
     trim: true,
