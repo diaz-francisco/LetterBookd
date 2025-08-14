@@ -35,7 +35,6 @@ const reviewSchema = new mongoose.Schema({
     required: [true, "Please leave a review text"],
     maxlength: [1500, "Review cannot exceed 1500 characters"],
   },
-  liked: { type: Boolean, default: false },
   active: { type: Boolean, default: true, select: false },
   createdAt: {
     type: Date,
