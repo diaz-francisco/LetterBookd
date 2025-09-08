@@ -17,7 +17,12 @@ const Signin: React.FC = () => {
       {mode === "signin" ? (
         <form>
           <input type="email" name="email" placeholder="Email" autoComplete="email" required />
-          <input type="password" name="password" placeholder="Password" autoComplete="password" required /> b
+          <input type="password" name="password" placeholder="Password" autoComplete="password" required />
+          <button type="submit">Sign In</button>
+          <div>
+            <a href="/forgot-password">Forgot Password</a>
+            <button type="button">Continue with google</button>
+          </div>
         </form>
       ) : (
         <form></form>
