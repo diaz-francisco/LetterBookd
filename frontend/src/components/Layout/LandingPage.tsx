@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
 import Header from "./Header";
 import MainPage from "../Home/MainPage";
 import BooksPage from "../Books/BooksPage";
+import Signin from "../Auth/Signin";
 
 const Layout: React.FC = () => {
   return (
@@ -23,6 +24,7 @@ export default function LandingPage() {
             <Route index element={<MainPage />} />
             <Route path="home" element={<MainPage />} />
             <Route path="books" element={<BooksPage />} />
+            <Route path="signin" element={<Signin />} />
           </Route>
         </Routes>
       </BrowserRouter>
