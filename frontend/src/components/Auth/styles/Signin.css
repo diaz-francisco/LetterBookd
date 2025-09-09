@@ -1,3 +1,7 @@
+.buttons {
+  display: flex;
+}
+
 .modal {
   position: fixed;
   top: 0;
@@ -11,9 +15,14 @@
 }
 
 .modal-content {
-  background: white;
+  background: gray;
   padding: 20px;
   border-radius: 5px;
   width: 300px;
   text-align: center;
+}
+
+button,
+input {
+  color: white;
 }
