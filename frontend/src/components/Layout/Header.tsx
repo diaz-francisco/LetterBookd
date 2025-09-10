@@ -4,6 +4,7 @@ import "./styles/Header.css";
 
 const Header: React.FC = () => {
   const [openMenu, setOpenMenu] = useState(false);
+  const [openSignin, setOpenSignin] = useState(false);
 
   const toggleMenu = () => {
     setOpenMenu(!openMenu);
@@ -11,6 +12,14 @@ const Header: React.FC = () => {
 
   const closeMenu = () => {
     setOpenMenu(false);
+  };
+
+  const toggleSignin = () => {
+    setOpenSignin(!openSignin);
+  };
+
+  const closeSignin = () => {
+    setOpenSignin(false);
   };
 
   useEffect(() => {
@@ -69,14 +78,14 @@ const Header: React.FC = () => {
           <div></div>
           <div className="right-item">
             <li className="signin" style={{ backgroundColor: "var(--background)" }}>
-              <Link to="signin" onClick={closeMenu}>
+              <a onClick={closeMenu}>
                 <span
                   style={{ backgroundColor: "var(--background)", borderRadius: "5px", marginTop: "3px" }}
                   className="material-symbols-outlined home"
                 >
-                  person{" "}
+                  person
                 </span>
-              </Link>
+              </a>
             </li>
           </div>
         </ul>
