@@ -14,15 +14,14 @@
 .modal-container {
   display: flex;
   flex-direction: column;
-
-  gap: 15px;
+  height: 40vh;
+  width: 70vw;
+  gap: 20px;
   border: solid 1px blue;
 }
 
 .modal-content {
-  padding: 20px;
   border-radius: 5px;
-  width: 300px;
   text-align: center;
   border: solid 1px yellow;
 }

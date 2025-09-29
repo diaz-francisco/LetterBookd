@@ -3,6 +3,15 @@ import "./styles/Signin.css";
 
 const Signin: React.FC = () => {
   const [mode, setMode] = useState<"signin" | "signup">("signin");
+  const [openSignin, setOpenSignin] = useState(false);
+
+  const toggleSignin = () => {
+    setOpenSignin(!openSignin);
+  };
+
+  const closeSignin = () => {
+    setOpenSignin(false);
+  };
 
   return (
     <div className="modal">
