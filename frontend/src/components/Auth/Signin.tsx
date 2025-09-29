@@ -2,12 +2,20 @@ import { useState, useEffect } from "react";
 import "./styles/Signin.css";
 import { useNavigate } from "react-router-dom";
 
-const Signin: React.FC = () => {
-  const [mode, setMode] = useState<"signin" | "signup">("signin");
+type SigninProps = {
+  onClose?: () => void;
+};
+
+const Signin: React.FC<SigninProps> = ({ onClose }) => {
+  const [mode, setMode] = useState<"signin" | "signup">("signup");
   const navigate = useNavigate();
 
   const closeSignin = () => {
-    navigate(-1); // or navigate("/") if you prefer a fixed destination
+    if (onClose) {
+      onClose();
+      return;
+    }
+    navigate(-1); // fallback: go back if used as a route
   };
 
   useEffect(() => {
