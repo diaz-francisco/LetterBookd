@@ -78,14 +78,14 @@ const Header: React.FC = () => {
           <div></div>
           <div className="right-item">
             <li className="signin" style={{ backgroundColor: "var(--background)" }}>
-              <a onClick={closeMenu}>
+              <Link to="/signin" onClick={closeMenu}>
                 <span
                   style={{ backgroundColor: "var(--background)", borderRadius: "5px", marginTop: "3px" }}
                   className="material-symbols-outlined home"
                 >
                   person
                 </span>
-              </a>
+              </Link>
             </li>
           </div>
         </ul>
