@@ -1,21 +1,42 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./styles/Signin.css";
+import { useNavigate } from "react-router-dom";
 
 const Signin: React.FC = () => {
   const [mode, setMode] = useState<"signin" | "signup">("signin");
-  const [openSignin, setOpenSignin] = useState(false);
-
-  const toggleSignin = () => {
-    setOpenSignin(!openSignin);
-  };
+  const navigate = useNavigate();
 
   const closeSignin = () => {
-    setOpenSignin(false);
+    navigate(-1); // or navigate("/") if you prefer a fixed destination
   };
 
+  useEffect(() => {
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        closeSignin();
+      }
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  });
+
   return (
-    <div className="modal">
-      <div className="modal-container">
+    <div
+      className="modal"
+      role="dialog"
+      aria-modal="true"
+      onClick={e => {
+        if (e.target === e.currentTarget) {
+          closeSignin();
+        }
+      }}
+    >
+      <div
+        className="modal-container"
+        onClick={e => {
+          e.stopPropagation();
+        }}
+      >
         {/* Mode Switch */}
         {mode === "signin" ? (
           <form className="modal-content">
@@ -25,7 +46,7 @@ const Signin: React.FC = () => {
             <div>
               <a href="/forgot-password">Forgot Password</a>
               <button type="button">Continue with google</button>
-              <p>Remember me</p>
+              <a>Remember me</a>
               <input type="checkbox"></input>
             </div>
           </form>
