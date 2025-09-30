@@ -23,6 +23,14 @@ const Header: React.FC = () => {
     setOpenSignin(false);
   };
 
+  const resetUI =
+    (after?: () => void): React.MouseEventHandler =>
+    () => {
+      setOpenMenu(false);
+      setOpenSignin(false);
+      after?.();
+    };
+
   useEffect(() => {
     if (openMenu) {
       document.body.style.overflow = "hidden";
@@ -38,12 +46,19 @@ const Header: React.FC = () => {
     <>
       <header className="header-container">
         <nav className="navbar">
-          <div className={`burger-menu ${openMenu ? "open" : ""}`} onClick={toggleMenu}>
+          <div className={`burger-menu ${openMenu ? "open" : ""}`} onClick={resetUI(toggleMenu)}>
             <span className="menu"></span>
             <span className="menu"></span>
             <span className="menu"></span>
           </div>
-          <Link to="/" className="title" onClick={closeMenu}>
+          <Link
+            to="/"
+            className="title"
+            onClick={() => {
+              closeMenu();
+              closeSignin();
+            }}
+          >
             LetterBookd
           </Link>
           <ul className={openMenu ? "open" : ""}>
@@ -54,7 +69,10 @@ const Header: React.FC = () => {
                   alignItems: "center",
                 }}
                 to="/home"
-                onClick={closeMenu}
+                onClick={() => {
+                  closeMenu();
+                  closeSignin();
+                }}
               >
                 Home
                 <span style={{ marginLeft: "5px" }} className="material-symbols-outlined home">
@@ -63,24 +81,48 @@ const Header: React.FC = () => {
               </Link>
             </li>
             <li className="monthly">
-              <Link to="/monthly" onClick={closeMenu}>
+              <Link
+                to="/monthly"
+                onClick={() => {
+                  closeMenu();
+                  closeSignin();
+                }}
+              >
                 Monthly Book
               </Link>
             </li>
             <li>
-              <Link to={"books"} onClick={closeMenu}>
+              <Link
+                to={"books"}
+                onClick={() => {
+                  closeMenu();
+                  closeSignin();
+                }}
+              >
                 Books
               </Link>
             </li>
             <li>
-              <Link to="#monthly-book" onClick={closeMenu}>
+              <Link
+                to="#monthly-book"
+                onClick={() => {
+                  closeMenu();
+                  closeSignin();
+                }}
+              >
                 Members
               </Link>
             </li>
             <div></div>
             <div className="right-item">
               <li className="signin" style={{ backgroundColor: "var(--background)" }}>
-                <a onClick={closeMenu} style={{ cursor: "pointer" }}>
+                <a
+                  onClick={() => {
+                    closeMenu();
+                    toggleSignin();
+                  }}
+                  style={{ cursor: "pointer" }}
+                >
                   <span
                     style={{ backgroundColor: "var(--background)", borderRadius: "5px", marginTop: "3px" }}
                     className="material-symbols-outlined home"

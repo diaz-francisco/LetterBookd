@@ -1,6 +1,12 @@
 import { useState, useEffect } from "react";
 import "./styles/Signin.css";
 
+{
+  /*const { signIn } = (await import("../../contexts/AuthContext")).useAuth();
+const resp = await login(email, password);
+signIn(resp?.data?.user);
+onClose();*/
+}
 interface SigninProps {
   onClose: () => void;
 }
@@ -37,23 +43,52 @@ const Signin: React.FC<SigninProps> = ({ onClose }) => {
       >
         {/* Mode Switch */}
         {mode === "signin" ? (
-          <form className="modal-content">
+          <form
+            className="modal-content"
+            onSubmit={async e => {
+              e.preventDefault();
+              const form = e.currentTarget as HTMLFormElement;
+              const formData = new FormData(form);
+              const email = String(formData.get("email") || "");
+              const password = String(formData.get("password") || "");
+
+              try {
+                const { login } = await import("../../services/auth");
+                await login(email, password);
+                onClose();
+              } catch (err: any) {
+                alert(err?.message || "Login failed");
+              }
+            }}
+          >
             <input type="email" name="email" placeholder="Email" autoComplete="email" required />
-            <input type="password" name="password" placeholder="Password" autoComplete="password" required />
+            <input type="password" name="password" placeholder="Password" autoComplete="current-password" required />
             <button type="submit">Submit</button>
             <div>
               <a href="/forgot-password">Forgot Password</a>
               <button type="button">Continue with google</button>
-              <a>Remember me</a>
-              <input type="checkbox"></input>
+              <label>
+                Remember me <input type="checkbox" name="remember" />
+              </label>
             </div>
           </form>
         ) : (
-          <form className="modal-content">
+          <form
+            className="modal-content"
+            onSubmit={e => {
+              e.preventDefault();
+            }}
+          >
             <input type="email" name="email" placeholder="Email" autoComplete="email" required />
-            <input type="password" name="password" placeholder="Password" autoComplete="password" required />
-            <input type="password" name="password" placeholder="Re-enter Password" autoComplete="password" required />
-            <button type="button">Submit</button>
+            <input type="password" name="password" placeholder="Password" autoComplete="new-password" required />
+            <input
+              type="password"
+              name="passwordConfirm"
+              placeholder="Re-enter Password"
+              autoComplete="new-password"
+              required
+            />
+            <button type="submit">Submit</button>
           </form>
         )}
         <div className="buttons">
