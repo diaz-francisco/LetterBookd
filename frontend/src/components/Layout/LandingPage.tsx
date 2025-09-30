@@ -24,7 +24,6 @@ export default function LandingPage() {
             <Route index element={<MainPage />} />
             <Route path="home" element={<MainPage />} />
             <Route path="books" element={<BooksPage />} />
-            <Route path="signin" element={<Signin />} />
           </Route>
         </Routes>
       </BrowserRouter>

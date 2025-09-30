@@ -1,32 +1,22 @@
 import { useState, useEffect } from "react";
 import "./styles/Signin.css";
-import { useNavigate } from "react-router-dom";
 
-type SigninProps = {
-  onClose?: () => void;
-};
+interface SigninProps {
+  onClose: () => void;
+}
 
 const Signin: React.FC<SigninProps> = ({ onClose }) => {
-  const [mode, setMode] = useState<"signin" | "signup">("signup");
-  const navigate = useNavigate();
-
-  const closeSignin = () => {
-    if (onClose) {
-      onClose();
-      return;
-    }
-    navigate(-1); // fallback: go back if used as a route
-  };
+  const [mode, setMode] = useState<"signin" | "signup">("signin");
 
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
-        closeSignin();
+        onClose();
       }
     };
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
-  });
+  }, [onClose]);
 
   return (
     <div
@@ -35,7 +25,7 @@ const Signin: React.FC<SigninProps> = ({ onClose }) => {
       aria-modal="true"
       onClick={e => {
         if (e.target === e.currentTarget) {
-          closeSignin();
+          onClose();
         }
       }}
     >
