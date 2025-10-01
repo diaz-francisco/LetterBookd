@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Signin from "../Auth/Signin";
+import { useAuth } from "../../contexts/AuthContext";
 import "./styles/Header.css";
 
 const Header: React.FC = () => {
   const [openMenu, setOpenMenu] = useState(false);
   const [openSignin, setOpenSignin] = useState(false);
+  const { user, loading, signOut } = useAuth();
 
   const toggleMenu = () => {
     setOpenMenu(!openMenu);
@@ -115,22 +117,44 @@ const Header: React.FC = () => {
             </li>
             <div></div>
             <div className="right-item">
-              <li className="signin" style={{ backgroundColor: "var(--background)" }}>
-                <a
-                  onClick={() => {
-                    closeMenu();
-                    toggleSignin();
-                  }}
-                  style={{ cursor: "pointer" }}
-                >
-                  <span
-                    style={{ backgroundColor: "var(--background)", borderRadius: "5px", marginTop: "3px" }}
-                    className="material-symbols-outlined home"
+              {loading ? (
+                <li>Loading...</li>
+              ) : user ? (
+                <li className="user-menu" style={{ display: "flex", gap: "8px", alignItems: "center" }}>
+                  <span>{user.name || user.username || user.email}</span>
+                  <button
+                    onClick={async () => {
+                      // optimistic UI update
+                      signOut();
+                      try {
+                        const { logout } = await import("../../services/auth");
+                        await logout();
+                      } catch {
+                        // ignore network errors on logout
+                      }
+                    }}
                   >
-                    person
-                  </span>
-                </a>
-              </li>
+                    Sign Out
+                  </button>
+                </li>
+              ) : (
+                <li className="signin" style={{ backgroundColor: "var(--background)" }}>
+                  <a
+                    onClick={() => {
+                      closeMenu();
+                      toggleSignin();
+                    }}
+                    style={{ cursor: "pointer" }}
+                  >
+                    <span
+                      style={{ backgroundColor: "var(--background)", borderRadius: "5px", marginTop: "3px" }}
+                      className="material-symbols-outlined home"
+                    >
+                      person
+                    </span>
+                  </a>
+                </li>
+              )}
             </div>
           </ul>
         </nav>

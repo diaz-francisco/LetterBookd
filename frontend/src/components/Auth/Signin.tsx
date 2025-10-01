@@ -1,18 +1,14 @@
 import { useState, useEffect } from "react";
+import { useAuth } from "../../contexts/AuthContext";
 import "./styles/Signin.css";
 
-{
-  /*const { signIn } = (await import("../../contexts/AuthContext")).useAuth();
-const resp = await login(email, password);
-signIn(resp?.data?.user);
-onClose();*/
-}
 interface SigninProps {
   onClose: () => void;
 }
 
 const Signin: React.FC<SigninProps> = ({ onClose }) => {
   const [mode, setMode] = useState<"signin" | "signup">("signin");
+  const { signIn } = useAuth();
 
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
@@ -54,10 +50,13 @@ const Signin: React.FC<SigninProps> = ({ onClose }) => {
 
               try {
                 const { login } = await import("../../services/auth");
-                await login(email, password);
+                const resp = await login(email, password);
+
+                signIn(resp?.data?.user);
                 onClose();
-              } catch (err: any) {
-                alert(err?.message || "Login failed");
+              } catch (err) {
+                const message = err instanceof Error ? err.message : "Login failed";
+                alert(message);
               }
             }}
           >

@@ -19,3 +19,11 @@ export async function login(email: string, password: string) {
   }
   return data;
 }
+
+export async function logout() {
+  const res = await fetch("http://localhost:3001/api/v1/users/logout", {
+    method: "POST",
+    credentials: "include",
+  });
+  return res.ok;
+}

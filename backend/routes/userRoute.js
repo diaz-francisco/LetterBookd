@@ -12,6 +12,7 @@ router.patch("/updatePassword", authController.protect, authController.updatePas
 router.patch("/updateMe", authController.protect, userController.updateMe);
 router.patch("/updateUser", authController.protect, userController.updateUser);
 router.patch("/deactivateMe", authController.protect, userController.deactivateMe);
+router.post("/logout", authController.logout);
 
 router
   .route("/")

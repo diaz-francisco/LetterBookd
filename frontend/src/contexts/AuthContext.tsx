@@ -34,7 +34,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   }, []);
 
   const signIn = (u: NonNullable<User>) => setUser(u);
-  const signOut = () => setUser(null); // optionally call a backend /logout that clears cookie
+  const signOut = () => setUser(null);
 
   return <Ctx.Provider value={{ user, loading, signIn, signOut }}>{children}</Ctx.Provider>;
 };
