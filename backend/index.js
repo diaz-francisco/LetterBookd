@@ -6,6 +6,7 @@ const mongoSanitize = require("express-mongo-sanitize");
 const { body } = require("express-validator");
 const hpp = require("hpp");
 const cors = require("cors");
+const cookieParser = require("cookie-parser");
 
 const app = express();
 
@@ -24,6 +25,9 @@ app.use(helmet());
 if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
 }
+
+//Parse Cookies
+app.use(cookieParser());
 
 //Rate Limiter (requests from same api)
 const limiter = rateLimit({

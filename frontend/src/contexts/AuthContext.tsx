@@ -1,17 +1,5 @@
-// frontend/src/contexts/AuthContext.tsx
-import { createContext, useContext, useEffect, useState } from "react";
-
-type User = { _id: string; email: string; name?: string; username?: string } | null;
-
-type AuthCtx = {
-  user: User;
-  loading: boolean;
-  signIn: (user: NonNullable<User>) => void;
-  signOut: () => void;
-};
-
-const Ctx = createContext<AuthCtx>({ user: null, loading: true, signIn: () => {}, signOut: () => {} });
-export const useAuth = () => useContext(Ctx);
+import { useEffect, useState } from "react";
+import { Ctx, type User } from "../services/auth";
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User>(null);

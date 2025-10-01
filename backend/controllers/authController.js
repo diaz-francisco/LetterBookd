@@ -16,7 +16,7 @@ const createSendToken = (user, statusCode, res) => {
   const token = signToken(user._id);
 
   const cookieOptions = {
-    expires: new Date(Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000),
+    expires: new Date(Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000), //1 day
     httpOnly: true,
     secure: true,
     sameSite: process.env.NODE_ENV === "production" ? "strict" : "none",
@@ -63,6 +63,17 @@ exports.login = catchAsync(async (req, res, next) => {
   //Send Token
   createSendToken(user, 200, res);
 });
+
+exports.logout = (req, res) => {
+  const isProd = process.env.NODE_ENV === "production";
+  res.cookie("jwt", "", {
+    httpOnly: true,
+    secure: isProd,
+    sameSite: isProd ? "none" : "lax",
+    expires: new Date(0),
+  });
+  return res.status(204).send();
+};
 
 exports.protect = catchAsync(async (req, res, next) => {
   //Get Token and Check
@@ -186,15 +197,5 @@ exports.updatePassword = catchAsync(async (req, res, next) => {
   // Log user in
   createSendToken(user, 200, res);
 });
-
-exports.logout = (req, res) => {
-  res.cookie("jwt", "", {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "lax",
-    expires: new Date(0),
-  });
-  return res.status(204).send();
-};
 
 module.exports;

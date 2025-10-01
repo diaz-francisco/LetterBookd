@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Signin from "../Auth/Signin";
-import { useAuth } from "../../contexts/AuthContext";
+import { useAuth } from "../../services/auth";
 import "./styles/Header.css";
 
 const Header: React.FC = () => {
