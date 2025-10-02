@@ -8,11 +8,8 @@ const DB = process.env.DATABASE.replace("<PASSWORD>", process.env.DATABASE_PASSW
 
 mongoose
   .connect(DB, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    tls: true,
-    tlsAllowInvalidCertificates: true,
-    tlsAllowInvalidHostnames: true,
+    ssl: false,
+    tls: false,
   })
   .then(_con => {
     console.log("Connection to database established");
