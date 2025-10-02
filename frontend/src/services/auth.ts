@@ -13,8 +13,10 @@ export const Ctx = createContext<AuthCtx>({ user: null, loading: true, signIn: (
 
 export const useAuth = () => useContext(Ctx);
 
+const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:3001";
+
 export async function login(email: string, password: string) {
-  const res = await fetch("http://localhost:3001/api/v1/users/login", {
+  const res = await fetch(`${API_BASE_URL}/api/v1/users/login`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     credentials: "include",
@@ -36,7 +38,7 @@ export async function login(email: string, password: string) {
 }
 
 export async function logout() {
-  const res = await fetch("http://localhost:3001/api/v1/users/logout", {
+  const res = await fetch(`${API_BASE_URL}/api/v1/users/logout`, {
     method: "POST",
     credentials: "include",
   });
