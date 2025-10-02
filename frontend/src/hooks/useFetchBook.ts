@@ -13,7 +13,7 @@ export function useFetchBook(query: string, page = 1, limit = 42) {
 
         const data = await res.json();
 
-        const filteredBooks = data.docs.filter(books => books.cover_i);
+        const filteredBooks = data.docs.filter((book: any) => book.cover_i);
 
         setBooks(filteredBooks);
       } catch (err) {
