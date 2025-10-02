@@ -10,8 +10,7 @@ mongoose
   .connect(DB, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    ssl: true,
-    sslValidate: false,
+    tls: true,
     tlsAllowInvalidCertificates: true,
     tlsAllowInvalidHostnames: true,
   })
