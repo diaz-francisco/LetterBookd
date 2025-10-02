@@ -19,11 +19,10 @@ const createSendToken = (user, statusCode, res) => {
 
   const cookieOptions = {
     // expires: new Date(Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000), //1 day
-    maxAge: Number(process.env.JWT_EXPIRES_IN),
+    maxAge: process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000, // Convert days to milliseconds
     httpOnly: true,
     secure: isProd,
     sameSite: isProd ? "strict" : "lax",
-    partitioned: true,
   };
 
   res.cookie("jwt", token, cookieOptions);
@@ -199,6 +198,10 @@ exports.updatePassword = catchAsync(async (req, res, next) => {
   await user.save();
   // Log user in
   createSendToken(user, 200, res);
+});
+
+exports.me = catchAsync(async (req, res, next) => {
+  res.status(200).json({ status: "Success", data: { user: req.user } });
 });
 
 module.exports;

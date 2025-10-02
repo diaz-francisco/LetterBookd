@@ -14,6 +14,8 @@ router.patch("/updateUser", authController.protect, userController.updateUser);
 router.patch("/deactivateMe", authController.protect, userController.deactivateMe);
 router.post("/logout", authController.logout);
 
+router.get("/me", authController.protect, authController.me);
+
 router
   .route("/")
   .get(authController.protect, authController.restrictTo("admin"), userController.getAllUsers)
@@ -24,7 +26,4 @@ router
   .get(authController.protect, userController.getUser)
   .patch(authController.protect, userController.updateUser);
 
-router.get("/me", authController.protect, (req, res) => {
-  res.status(200).json({ status: "Success", data: { user: req.user } });
-});
 module.exports = router;
