@@ -6,6 +6,8 @@ const AppError = require("../utils/appError.js");
 const User = require("./../models/userModel.js");
 const catchAsync = require("./../utils/catchAsync");
 
+const isProd = process.env.NODE_ENV === "production";
+
 const signToken = id => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
     expiresIn: process.env.JWT_EXPIRES_IN,
@@ -16,15 +18,13 @@ const createSendToken = (user, statusCode, res) => {
   const token = signToken(user._id);
 
   const cookieOptions = {
-    expires: new Date(Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000), //1 day
+    // expires: new Date(Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000), //1 day
+    maxAge: Number(process.env.JWT_EXPIRES_IN),
     httpOnly: true,
-    secure: true,
-    sameSite: process.env.NODE_ENV === "production" ? "strict" : "none",
+    secure: isProd,
+    sameSite: isProd ? "strict" : "lax",
     partitioned: true,
   };
-
-  // if (process.env.NODE_ENV === "production")
-  //   cookieOptions.secure = true;
 
   res.cookie("jwt", token, cookieOptions);
 
@@ -65,7 +65,6 @@ exports.login = catchAsync(async (req, res, next) => {
 });
 
 exports.logout = (req, res) => {
-  const isProd = process.env.NODE_ENV === "production";
   res.cookie("jwt", "", {
     httpOnly: true,
     secure: isProd,
@@ -81,6 +80,10 @@ exports.protect = catchAsync(async (req, res, next) => {
 
   if (req.headers.authorization && req.headers.authorization.startsWith("Bearer")) {
     token = req.headers.authorization.split(" ")[1];
+  }
+
+  if (!token && req.cookies && req.cookies.jwt) {
+    token = req.cookies.jwt;
   }
 
   if (!token) {
