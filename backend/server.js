@@ -6,9 +6,22 @@ dotenv.config({ path: "./config.env" });
 
 const DB = process.env.DATABASE.replace("<PASSWORD>", process.env.DATABASE_PASSWORD);
 
-mongoose.connect(DB, {}).then(_con => {
-  console.log("Connection to database established");
-});
+mongoose
+  .connect(DB, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    ssl: true,
+    sslValidate: false,
+    tlsAllowInvalidCertificates: true,
+    tlsAllowInvalidHostnames: true,
+  })
+  .then(_con => {
+    console.log("Connection to database established");
+  })
+  .catch(err => {
+    console.error("Database connection error:", err);
+    process.exit(1);
+  });
 
 const port = process.env.PORT || 3001;
 
