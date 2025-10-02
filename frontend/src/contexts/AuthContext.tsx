@@ -8,7 +8,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   useEffect(() => {
     (async () => {
       try {
-        const res = await fetch("http://localhost:3001/api/v1/users/me", { credentials: "include" });
+        const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:3001";
+        const res = await fetch(`${API_BASE_URL}/api/v1/users/me`, { credentials: "include" });
 
         if (res.ok) {
           const data = await res.json();
