@@ -15,7 +15,7 @@ app.use(
   cors({
     origin: [
       "http://localhost:5173", // Development
-      "https://your-frontend-domain.vercel.app", // Production (update this)
+      "https://letter-bookd.vercel.app/", // Production (update this)
     ],
     credentials: true,
   })
