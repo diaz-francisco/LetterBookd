@@ -11,3 +11,4 @@ createRoot(document.getElementById("root")!).render(
     </AuthProvider>
   </StrictMode>
 );
+document.body.classList.add("loaded");
