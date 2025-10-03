@@ -63,6 +63,32 @@ const Header: React.FC = () => {
           >
             LetterBookd
           </Link>
+          {!user && (
+            <button
+              className="signin"
+              onClick={() => {
+                closeMenu();
+                toggleSignin();
+              }}
+              style={{
+                backgroundColor: "var(--background)",
+                cursor: "pointer",
+                background: "none",
+                border: "none",
+              }}
+            >
+              <span
+                style={{
+                  backgroundColor: "grey",
+                  borderRadius: "5px",
+                  marginRight: "5vw",
+                }}
+                className="material-symbols-outlined home"
+              >
+                person
+              </span>
+            </button>
+          )}
           <ul className={openMenu ? "open" : ""}>
             <li className="house">
               <Link

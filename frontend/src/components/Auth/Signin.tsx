@@ -78,6 +78,7 @@ const Signin: React.FC<SigninProps> = ({ onClose }) => {
               e.preventDefault();
             }}
           >
+            <input type="username" name="username" placeholder="Username" autoComplete="new-username" />
             <input type="email" name="email" placeholder="Email" autoComplete="email" required />
             <input type="password" name="password" placeholder="Password" autoComplete="new-password" required />
             <input

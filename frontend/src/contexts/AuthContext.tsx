@@ -19,7 +19,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
         const contentType = res.headers.get("content-type") || "";
         if (!contentType.includes("application/json")) {
-          console.warn("/me response is not JSON; got:", contentType);
           setUser(null);
           return;
         }
@@ -27,7 +26,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         const data = await res.json();
         setUser(data?.data?.user ?? null);
       } catch (error) {
-        console.error("Error in /me request:", error);
         setUser(null);
       } finally {
         setLoading(false);

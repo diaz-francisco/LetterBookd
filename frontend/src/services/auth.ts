@@ -13,7 +13,9 @@ export const Ctx = createContext<AuthCtx>({ user: null, loading: true, signIn: (
 
 export const useAuth = () => useContext(Ctx);
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:3001";
+const API_BASE_URL = import.meta.env.DEV
+  ? "http://localhost:3001" // Development
+  : "https://letter-bookd.up.railway.app";
 
 export async function login(email: string, password: string) {
   const res = await fetch(`${API_BASE_URL}/api/v1/users/login`, {
@@ -27,11 +29,42 @@ export async function login(email: string, password: string) {
   try {
     data = await res.json();
   } catch (err) {
-    console.error(err);
+    if (import.meta.env.DEV) {
+      console.error(err);
+    }
   }
 
   if (!res.ok) {
     const message = data?.message || "Login failed";
+    throw new Error(message);
+  }
+  return data;
+}
+
+export async function signup(username: string, email: string, password: string, passwordConfirm: string) {
+  const res = await fetch(`${API_BASE_URL}/api/v1/users/signup`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    credentials: "include",
+    body: JSON.stringify({
+      username,
+      email,
+      password,
+      passwordConfirm,
+    }),
+  });
+
+  let data = null;
+  try {
+    data = await res.json();
+  } catch (err) {
+    if (import.meta.env.DEV) {
+      console.error(err);
+    }
+  }
+
+  if (!res.ok) {
+    const message = data?.message || "Signup failed";
     throw new Error(message);
   }
   return data;
