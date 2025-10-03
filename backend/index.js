@@ -17,7 +17,7 @@ app.use(
   cors({
     origin: [
       "http://localhost:5173", // Development
-      "https://letter-bookd.vercel.app/", // Production (update this)
+      "https://letter-bookd.vercel.app", // Production (no trailing slash)
     ],
     credentials: true,
   })

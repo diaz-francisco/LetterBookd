@@ -22,7 +22,8 @@ const createSendToken = (user, statusCode, res) => {
     maxAge: process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000, // Convert days to milliseconds
     httpOnly: true,
     secure: isProd,
-    sameSite: isProd ? "strict" : "lax",
+    // For cross-site cookies (frontend on different domain), SameSite must be 'none' in prod
+    sameSite: isProd ? "none" : "lax",
   };
 
   res.cookie("jwt", token, cookieOptions);

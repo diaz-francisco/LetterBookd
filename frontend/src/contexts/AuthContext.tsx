@@ -12,12 +12,20 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
         const res = await fetch(`${API_BASE_URL}/api/v1/users/me`, { credentials: "include" });
 
-        if (res.ok) {
-          const data = await res.json();
-          setUser(data?.data?.user ?? null);
-        } else {
+        if (!res.ok) {
           setUser(null);
+          return;
         }
+
+        const contentType = res.headers.get("content-type") || "";
+        if (!contentType.includes("application/json")) {
+          console.warn("/me response is not JSON; got:", contentType);
+          setUser(null);
+          return;
+        }
+
+        const data = await res.json();
+        setUser(data?.data?.user ?? null);
       } catch (error) {
         console.error("Error in /me request:", error);
         setUser(null);
