@@ -74,11 +74,31 @@ const Signin: React.FC<SigninProps> = ({ onClose }) => {
         ) : (
           <form
             className="modal-content"
-            onSubmit={e => {
+            onSubmit={async e => {
               e.preventDefault();
+              const form = e.currentTarget as HTMLFormElement;
+              const formData = new FormData(form);
+
+              const name = String(formData.get("name") || "");
+              const username = String(formData.get("username") || "");
+              const email = String(formData.get("email") || "");
+              const password = String(formData.get("password") || "");
+              const passwordConfirm = String(formData.get("passwordConfirm") || "");
+
+              try {
+                const { signup } = await import("../../services/auth");
+                const resp = await signup(name, username, email, password, passwordConfirm);
+
+                signIn(resp?.data?.user);
+                onClose();
+              } catch (err) {
+                const message = err instanceof Error ? err.message : "Signup failed";
+                alert(message);
+              }
             }}
           >
-            <input type="username" name="username" placeholder="Username" autoComplete="new-username" />
+            <input type="text" name="name" placeholder="Full Name" autoComplete="name" required />
+            <input type="text" name="username" placeholder="Username" autoComplete="new-username" required />
             <input type="email" name="email" placeholder="Email" autoComplete="email" required />
             <input type="password" name="password" placeholder="Password" autoComplete="new-password" required />
             <input

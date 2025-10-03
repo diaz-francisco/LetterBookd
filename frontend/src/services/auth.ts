@@ -41,12 +41,15 @@ export async function login(email: string, password: string) {
   return data;
 }
 
-export async function signup(username: string, email: string, password: string, passwordConfirm: string) {
+export async function signup(name: string, username: string, email: string, password: string, passwordConfirm: string) {
+  const API_BASE_URL = import.meta.env.DEV ? "http://localhost:3001" : "https://letter-bookd.up.railway.app";
+
   const res = await fetch(`${API_BASE_URL}/api/v1/users/signup`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     credentials: "include",
     body: JSON.stringify({
+      name,
       username,
       email,
       password,
@@ -67,6 +70,7 @@ export async function signup(username: string, email: string, password: string, 
     const message = data?.message || "Signup failed";
     throw new Error(message);
   }
+
   return data;
 }
 
