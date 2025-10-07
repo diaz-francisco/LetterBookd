@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./styles/BooksPage.css";
 
 interface Book {
@@ -12,9 +13,12 @@ interface BookCardProps {
 }
 
 const BookCard: React.FC<BookCardProps> = ({ book }) => {
+  // Remove leading slash from book.key to avoid double slashes
+  const cleanKey = book.key.startsWith("/") ? book.key.slice(1) : book.key;
+
   return (
     <div className="book-grid">
-      <a href={`/books/${book.key}.json`}>
+      <Link to={`/books/${cleanKey}`}>
         <img
           src={
             book.cover_i
@@ -23,7 +27,7 @@ const BookCard: React.FC<BookCardProps> = ({ book }) => {
           }
           alt={book.title || "Book cover"}
         />
-      </a>
+      </Link>
     </div>
   );
 };

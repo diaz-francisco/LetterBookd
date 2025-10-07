@@ -94,12 +94,12 @@ const Banner: React.FC = () => {
             <div className="carousel-track" style={{ transform: `translateX(-${currentIndex * 100}%)` }}>
               {frontDisplay.map((book, i) => (
                 <div key={book.key || i} className="carousel-slide">
-                  <a href={`/books/${book.key}`}>
+                  <a href={`/books${book.key}`}>
                     <img
                       src={
                         book.cover_i
                           ? `https://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg`
-                          : "https://raw.githubusercontent.com/MrCheks/FilmSearch/756265bcd9696223d2193fa8c4cbd98a6e55040c/image-missing.svg"
+                          : "https://ra.githubusercontent.com/MrCheks/FilmSearch/756265bcd9696223d2193fa8c4cbd98a6e55040c/image-missing.svg"
                       }
                       alt={book.title || "Book cover"}
                     />

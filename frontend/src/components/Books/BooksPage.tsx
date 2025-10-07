@@ -5,12 +5,6 @@ import { useFetchBook } from "../../hooks/useFetchBook";
 import SearchBar from "./SearchBar";
 import BookList from "./BookList";
 
-// interface Book {
-//   key: string;
-//   cover_i?: number;
-//   title?: string;
-// }
-
 const BooksPage: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const query = searchParams.get("query") || "Lost";

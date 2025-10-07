@@ -26,36 +26,38 @@ export function useFetchBookDetails(bookId: string) {
       setError(null);
 
       try {
-        const bookTitle = bookId.replace(/-/g, " ");
-        const searchRes = await fetch(`https://openlibrary.org/search.json?q=${encodeURIComponent(bookTitle)}&limit=1`);
-
-        if (!searchRes.ok) {
-          throw new Error("Book search failed");
+        let apiBookId;
+        if (bookId.startsWith("works/")) {
+          apiBookId = `/${bookId}`;
+        } else if (bookId.startsWith("/works/")) {
+          apiBookId = bookId;
+        } else {
+          // Just the OLID, add /works/ prefix
+          apiBookId = `/works/${bookId}`;
         }
 
-        const bookData = await searchRes.json();
+        const apiUrl = `https://openlibrary.org${apiBookId}.json`;
 
-        if (!bookData.docs || bookData.docs.length === 0) {
-          throw new Error("Book not found");
-        }
-
-        const bookDoc = bookData.docs[0];
-
-        if (!bookDoc.key) {
-          throw new Error("Book key not found");
-        }
-
-        const detailRes = await fetch(`https://openlibrary.org${bookDoc.key}.json`);
+        const detailRes = await fetch(apiUrl);
+        console.log("Response status:", detailRes.status);
 
         if (!detailRes.ok) {
-          throw new Error(`Book details not found`);
+          throw new Error(`Book details not found: ${detailRes.status}`);
         }
 
         const detailData = await detailRes.json();
-        setBook(detailData);
+        console.log("API Response:", detailData);
+
+        const processedBook: BookDetails = {
+          ...detailData,
+          id: bookId,
+          cover: detailData.covers?.[0] ? `https://covers.openlibrary.org/b/id/${detailData.covers[0]}-L.jpg` : null,
+        };
+
+        setBook(processedBook);
       } catch (err) {
         setError(err instanceof Error ? err.message : "Failed to fetch book details");
-        console.error(err);
+        console.error("Error details:", err);
       } finally {
         setLoading(false);
       }
