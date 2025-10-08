@@ -63,7 +63,7 @@ const Header: React.FC = () => {
           >
             LetterBookd
           </Link>
-          {!user && (
+          {!user && !openMenu && (
             <button
               className="signin"
               onClick={() => {
@@ -79,7 +79,7 @@ const Header: React.FC = () => {
             >
               <span
                 style={{
-                  backgroundColor: "grey",
+                  backgroundColor: "var(--gray)",
                   borderRadius: "5px",
                   marginRight: "5vw",
                 }}
@@ -163,24 +163,8 @@ const Header: React.FC = () => {
                     Sign Out
                   </button>
                 </li>
-              ) : (
-                <li className="signin" style={{ backgroundColor: "var(--background)" }}>
-                  <a
-                    onClick={() => {
-                      closeMenu();
-                      toggleSignin();
-                    }}
-                    style={{ cursor: "pointer" }}
-                  >
-                    <span
-                      style={{ backgroundColor: "var(--background)", borderRadius: "5px", marginTop: "3px" }}
-                      className="material-symbols-outlined home"
-                    >
-                      person
-                    </span>
-                  </a>
-                </li>
-              )}
+              ) : null}{" "}
+              {/* Change from the sign-in button to null */}
             </div>
           </ul>
         </nav>

@@ -7,7 +7,7 @@ import BooksDetailPage from "../Books/BooksDetailPage";
 const Layout: React.FC = () => {
   return (
     <div>
-      <div style={{ position: "sticky", top: "0px" }}>
+      <div style={{ position: "sticky", top: "0px", zIndex: 10000 }}>
         <Header />
       </div>
       <Outlet /> {/* Route content injected here*/}

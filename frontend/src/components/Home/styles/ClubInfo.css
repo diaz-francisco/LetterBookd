@@ -1,5 +1,15 @@
 .info-container {
-  width: 100%;
-  min-height: 100vh;
+  display: flex;
+  align-items: flex-start;
+  height: 70vh;
   background-color: var(--white);
+  border: 1px solid red;
+}
+
+.main-info {
+  border: 1px solid blue;
+}
+
+.main-info button {
+  height: auto;
 }

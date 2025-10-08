@@ -4,6 +4,16 @@
   font-size: 1.15rem;
 }
 
+html {
+  overscroll-behavior-y: contain;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
 .navbar,
 .navbar li,
 .navbar ul,
@@ -21,8 +31,10 @@
   min-height: 10vh;
   width: 100%;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  position: relative;
-  z-index: 9999;
+  position: sticky; /* Change from relative to sticky */
+  top: 0; /* Add this */
+  z-index: 10002;
+  background-color: var(--background); /* Make sure it has a background */
 }
 
 .right-item {
@@ -70,10 +82,10 @@
 }
 
 .burger-menu {
-  position: fixed;
+  position: absolute; /* Change from fixed to absolute */
   top: 10px;
   left: 10px;
-  z-index: 10001;
+  z-index: 10003;
   display: flex;
   flex-direction: column;
   cursor: pointer;
@@ -114,7 +126,7 @@ ul {
 .header-container {
   width: 100%;
   font-size: 0.5rem;
-  z-index: 9999;
+  z-index: 10002;
   max-height: 5vh;
   position: relative;
 }
@@ -168,8 +180,10 @@ ul {
     display: flex;
     flex-direction: column;
     cursor: pointer;
-    position: fixed;
+    position: absolute; /* Change from fixed to absolute */
     left: 5vw;
+    top: 50%; /* Center vertically */
+    transform: translateY(-50%); /* Offset by half its height */
     background-color: var(--background);
   }
 
@@ -182,11 +196,11 @@ ul {
   }
 
   .signin {
-    position: fixed;
+    position: absolute; /* Change from fixed to absolute */
     display: flex;
     top: 5px;
     right: 1vw;
-    z-index: 1;
+    z-index: 10003;
     background: var(--surface, rgba(30, 30, 30, 0.98));
   }
 
