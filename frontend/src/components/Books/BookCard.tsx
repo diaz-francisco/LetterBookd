@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import slugify from "slugify";
 import "./styles/BooksPage.css";
 
 interface Book {
@@ -13,12 +14,21 @@ interface BookCardProps {
 }
 
 const BookCard: React.FC<BookCardProps> = ({ book }) => {
-  // Remove leading slash from book.key to avoid double slashes
-  const cleanKey = book.key.startsWith("/") ? book.key.slice(1) : book.key;
+  const createSlug = (title: string, workId: string) => {
+    const slug = slugify(title, {
+      lower: true,
+      strict: true,
+      remove: /[*+~.()'"!:@]/g,
+    });
+    return `${slug}-${workId}`;
+  };
+
+  const workId = book.key.replace("/works/", "");
+  const bookSlug = book.title ? createSlug(book.title, workId) : workId;
 
   return (
     <div className="book-grid">
-      <Link to={`/books/${cleanKey}`}>
+      <Link to={`/books/${bookSlug}`}>
         <img
           src={
             book.cover_i

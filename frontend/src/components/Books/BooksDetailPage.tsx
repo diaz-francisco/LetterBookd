@@ -2,8 +2,13 @@ import { useParams } from "react-router-dom";
 import { useFetchBookDetails } from "../../hooks/useFetchBookDetails";
 
 const BooksDetailPage: React.FC = () => {
-  const { bookId } = useParams<{ bookId: string }>();
-  const { book, loading, error } = useFetchBookDetails(bookId || "");
+  const { bookSlug } = useParams<{ bookSlug: string }>();
+
+  const workId = bookSlug?.split("-").pop() || "";
+
+  const { book, loading, error } = useFetchBookDetails(workId);
+
+  console.log("Book:", book);
 
   if (loading) return <div>Loading book details...</div>;
   if (error) return <div>Error: {error}</div>;
