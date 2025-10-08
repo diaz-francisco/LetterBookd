@@ -5,6 +5,7 @@ const sendEmail = require("../utils/email.js");
 const AppError = require("../utils/appError.js");
 const User = require("./../models/userModel.js");
 const catchAsync = require("./../utils/catchAsync");
+const path = require("path");
 
 const isProd = process.env.NODE_ENV === "production";
 
@@ -18,11 +19,10 @@ const createSendToken = (user, statusCode, res) => {
   const token = signToken(user._id);
 
   const cookieOptions = {
-    // expires: new Date(Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000), //1 day
-    maxAge: process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000, // Convert days to milliseconds
+    maxAge: process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000,
     httpOnly: true,
     secure: isProd,
-    // For cross-site cookies (frontend on different domain), SameSite must be 'none' in prod
+    path: "/",
     sameSite: isProd ? "none" : "lax",
   };
 
@@ -70,6 +70,7 @@ exports.logout = (req, res) => {
     secure: isProd,
     sameSite: isProd ? "none" : "lax",
     expires: new Date(0),
+    path: "/",
   });
   return res.status(204).send();
 };
