@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { Ctx, type User } from "../services/auth";
 
+const API_BASE_URL = import.meta.env.DEV ? "http://localhost:3001" : "https://letter-bookd.up.railway.app";
+
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User>(null);
   const [loading, setLoading] = useState(true);
@@ -8,9 +10,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   useEffect(() => {
     (async () => {
       try {
-        const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:3001";
-
-        const res = await fetch(`${API_BASE_URL}/api/v1/users/me`, { credentials: "include" });
+        const res = await fetch(`${API_BASE_URL}/api/v1/users/me`, {
+          credentials: "include",
+        });
 
         if (!res.ok) {
           setUser(null);
