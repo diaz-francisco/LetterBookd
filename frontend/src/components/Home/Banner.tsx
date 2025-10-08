@@ -1,5 +1,7 @@
 import React, { useState, TouchEvent, useEffect } from "react";
 import { useFetchBook } from "../../hooks/useFetchBook";
+import { Link } from "react-router-dom";
+import slugify from "slugify";
 import "./styles/Banner.css";
 
 interface Book {
@@ -76,6 +78,15 @@ const Banner: React.FC = () => {
     setTouchEnd(null);
   };
 
+  const createSlug = (title: string, workId: string) => {
+    const slug = slugify(title, {
+      lower: true,
+      strict: true,
+      remove: /[*+~.()'"!:@]/g,
+    });
+    return `${slug}-${workId}`;
+  };
+
   return (
     <div className="banner">
       {loading ? (
@@ -92,21 +103,26 @@ const Banner: React.FC = () => {
             onTouchEnd={handleTouchEnd}
           >
             <div className="carousel-track" style={{ transform: `translateX(-${currentIndex * 100}%)` }}>
-              {frontDisplay.map((book, i) => (
-                <div key={book.key || i} className="carousel-slide">
-                  <a href={`/books${book.key}`}>
-                    <img
-                      src={
-                        book.cover_i
-                          ? `https://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg`
-                          : "https://ra.githubusercontent.com/MrCheks/FilmSearch/756265bcd9696223d2193fa8c4cbd98a6e55040c/image-missing.svg"
-                      }
-                      alt={book.title || "Book cover"}
-                    />
-                    <div className="book-title">{book.title}</div>
-                  </a>
-                </div>
-              ))}
+              {frontDisplay.map((book, i) => {
+                const workId = book.key.replace("/works/", "");
+                const bookSlug = book.title ? createSlug(book.title, workId) : workId;
+
+                return (
+                  <div key={book.key || i} className="carousel-slide">
+                    <Link to={`/books/${bookSlug}`}>
+                      <img
+                        src={
+                          book.cover_i
+                            ? `https://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg`
+                            : "https://raw.githubusercontent.com/MrCheks/FilmSearch/756265bcd9696223d2193fa8c4cbd98a6e55040c/image-missing.svg"
+                        }
+                        alt={book.title || "Book cover"}
+                      />
+                      <div className="book-title">{book.title}</div>
+                    </Link>
+                  </div>
+                );
+              })}
             </div>
           </div>
           <button className="carousel-button next" onClick={nextSlide}>
