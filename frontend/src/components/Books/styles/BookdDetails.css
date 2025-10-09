@@ -1,0 +1,9 @@
+.detail-text {
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  color: beige;
+}
+
+.bookImg {
+  max-height: 250px;
+  max-width: 150px;
+}

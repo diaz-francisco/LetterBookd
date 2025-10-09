@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useFetchBookDetails } from "../../hooks/useFetchBookDetails";
+import "./styles/BookdDetails.css";
 
 const BooksDetailPage: React.FC = () => {
   const { bookSlug } = useParams<{ bookSlug: string }>();
@@ -7,8 +8,6 @@ const BooksDetailPage: React.FC = () => {
   const workId = bookSlug?.split("-").pop() || "";
 
   const { book, loading, error } = useFetchBookDetails(workId);
-
-  console.log("Book:", book);
 
   if (loading) return <div>Loading book details...</div>;
   if (error) return <div>Error: {error}</div>;
@@ -24,10 +23,23 @@ const BooksDetailPage: React.FC = () => {
     return "No description available";
   };
 
+  console.log(book);
+
   return (
-    <div>
+    <div className="detail-text">
       <h1>{book.title}</h1>
-      {book.cover && <img src={book.cover} alt={book.title} />}
+      {book.authors && book.authors.length > 0 && (
+        <div>
+          {book.authors.length > 1 ? <h3>Authors:</h3> : <h3>Author:</h3>}
+          <ul>
+            {book.authors.map((author, index) => (
+              <li key={index}>{author.name}</li>
+            ))}
+          </ul>
+        </div>
+      )}
+      <h4>{book.number_of_pages}</h4>
+      {book.cover && <img className="bookImg" src={book.cover} alt={book.title} />}
       <div>{getDescription(book.description)}</div>
       {}
     </div>
