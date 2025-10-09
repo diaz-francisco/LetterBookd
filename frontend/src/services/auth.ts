@@ -38,6 +38,11 @@ export async function login(email: string, password: string) {
     const message = data?.message || "Login failed";
     throw new Error(message);
   }
+
+  if (data?.token) {
+    localStorage.setItem("auth_token", data.token);
+  }
+
   return data;
 }
 
@@ -75,6 +80,7 @@ export async function signup(name: string, username: string, email: string, pass
 }
 
 export async function logout() {
+  localStorage.removeItem("auth_token");
   const res = await fetch(`${API_BASE_URL}/api/v1/users/logout`, {
     method: "POST",
     credentials: "include",

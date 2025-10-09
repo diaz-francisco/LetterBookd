@@ -10,12 +10,19 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   useEffect(() => {
     (async () => {
       try {
+        const token = localStorage.getItem("auth_token");
+        const headers: HeadersInit = {
+          ...(token && { Authorization: `Bearer ${token}` }),
+        };
+
         const res = await fetch(`${API_BASE_URL}/api/v1/users/me`, {
           credentials: "include",
+          headers,
         });
 
         if (!res.ok) {
           setUser(null);
+          localStorage.removeItem("auth_token");
           return;
         }
 
@@ -29,6 +36,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         setUser(data?.data?.user ?? null);
       } catch (error) {
         setUser(null);
+        localStorage.removeItem("auth_token");
       } finally {
         setLoading(false);
       }
