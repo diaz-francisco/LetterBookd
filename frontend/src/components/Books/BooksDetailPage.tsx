@@ -14,11 +14,22 @@ const BooksDetailPage: React.FC = () => {
   if (error) return <div>Error: {error}</div>;
   if (!book) return <div>Book not found</div>;
 
+  const getDescription = (description: any) => {
+    if (typeof description === "string") {
+      return description;
+    }
+    if (description && typeof description === "object" && description.value) {
+      return description.value;
+    }
+    return "No description available";
+  };
+
   return (
     <div>
       <h1>{book.title}</h1>
       {book.cover && <img src={book.cover} alt={book.title} />}
-      {/* Add more book details here */}
+      <div>{getDescription(book.description)}</div>
+      {}
     </div>
   );
 };

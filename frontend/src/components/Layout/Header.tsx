@@ -48,7 +48,11 @@ const Header: React.FC = () => {
     <>
       <header className="header-container">
         <nav className="navbar">
-          <div className={`burger-menu ${openMenu ? "open" : ""}`} onClick={resetUI(toggleMenu)}>
+          <div
+            className={`burger-menu ${openMenu ? "open" : ""}`}
+            style={{ backgroundColor: "var(--gray)" }}
+            onClick={resetUI(toggleMenu)}
+          >
             <span className="menu"></span>
             <span className="menu"></span>
             <span className="menu"></span>
@@ -60,6 +64,7 @@ const Header: React.FC = () => {
               closeMenu();
               closeSignin();
             }}
+            style={{ backgroundColor: "var(--gray)" }}
           >
             LetterBookd
           </Link>
@@ -146,17 +151,16 @@ const Header: React.FC = () => {
               {loading ? (
                 <li>Loading...</li>
               ) : user ? (
-                <li className="user-menu" style={{ display: "flex", gap: "8px", alignItems: "center" }}>
-                  <span>{user.name || user.username || user.email}</span>
+                <li className="signout">
+                  <span>{user.username}</span>
                   <button
                     onClick={async () => {
-                      // optimistic UI update
                       signOut();
                       try {
                         const { logout } = await import("../../services/auth");
                         await logout();
-                      } catch {
-                        // ignore network errors on logout
+                      } catch (err: any) {
+                        throw new Error(err);
                       }
                     }}
                   >
@@ -164,7 +168,6 @@ const Header: React.FC = () => {
                   </button>
                 </li>
               ) : null}{" "}
-              {/* Change from the sign-in button to null */}
             </div>
           </ul>
         </nav>
