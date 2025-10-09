@@ -23,15 +23,7 @@ const createSendToken = (user, statusCode, res) => {
     sameSite: isProd ? "none" : "lax",
   };
 
-  if (isProd) {
-    // Set the cookie header manually for better iOS compatibility
-    res.setHeader(
-      "Set-Cookie",
-      `jwt=${token}; Max-Age=${cookieOptions.maxAge}; Path=/; HttpOnly; Secure; SameSite=None; Partitioned`
-    );
-  } else {
-    res.cookie("jwt", token, cookieOptions);
-  }
+  res.cookie("jwt", token, cookieOptions);
 
   user.password = undefined;
 
@@ -70,17 +62,12 @@ exports.login = catchAsync(async (req, res, next) => {
 });
 
 exports.logout = (req, res) => {
-  if (isProd) {
-    res.setHeader("Set-Cookie", "jwt=; Max-Age=0; Path=/; HttpOnly; Secure; SameSite=None; Partitioned");
-  } else {
-    res.cookie("jwt", "", {
-      httpOnly: true,
-      secure: isProd,
-      path: "/",
-      sameSite: isProd ? "none" : "lax",
-      expires: new Date(0),
-    });
-  }
+  res.cookie("jwt", "", {
+    httpOnly: true,
+    secure: isProd,
+    sameSite: isProd ? "none" : "lax",
+    expires: new Date(0),
+  });
   return res.status(204).send();
 };
 
