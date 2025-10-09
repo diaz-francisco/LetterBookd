@@ -5,8 +5,6 @@ const sendEmail = require("../utils/email.js");
 const AppError = require("../utils/appError.js");
 const User = require("./../models/userModel.js");
 const catchAsync = require("./../utils/catchAsync");
-const path = require("path");
-
 const isProd = process.env.NODE_ENV === "production";
 
 const signToken = id => {
@@ -22,11 +20,18 @@ const createSendToken = (user, statusCode, res) => {
     maxAge: process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000,
     httpOnly: true,
     secure: isProd,
-    path: "/",
     sameSite: isProd ? "none" : "lax",
   };
 
-  res.cookie("jwt", token, cookieOptions);
+  if (isProd) {
+    // Set the cookie header manually for better iOS compatibility
+    res.setHeader(
+      "Set-Cookie",
+      `jwt=${token}; Max-Age=${cookieOptions.maxAge}; Path=/; HttpOnly; Secure; SameSite=None; Partitioned`
+    );
+  } else {
+    res.cookie("jwt", token, cookieOptions);
+  }
 
   user.password = undefined;
 
@@ -65,13 +70,17 @@ exports.login = catchAsync(async (req, res, next) => {
 });
 
 exports.logout = (req, res) => {
-  res.cookie("jwt", "", {
-    httpOnly: true,
-    secure: isProd,
-    sameSite: isProd ? "none" : "lax",
-    expires: new Date(0),
-    path: "/",
-  });
+  if (isProd) {
+    res.setHeader("Set-Cookie", "jwt=; Max-Age=0; Path=/; HttpOnly; Secure; SameSite=None; Partitioned");
+  } else {
+    res.cookie("jwt", "", {
+      httpOnly: true,
+      secure: isProd,
+      path: "/",
+      sameSite: isProd ? "none" : "lax",
+      expires: new Date(0),
+    });
+  }
   return res.status(204).send();
 };
 
