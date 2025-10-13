@@ -35,19 +35,27 @@ const BooksDetailPage: React.FC = () => {
       : firstSentenceExcerpt.excerpt.value;
   };
 
-  // const getSubjects = () => {
-  //   if (!book.subjects || book.subjects.length === 0) return null;
-  // };
+  const getSubjects = () => {
+    const ff = [];
+    if (!book.subjects || book.subjects.length === 0) return null;
+    const firstFive = book.subjects.slice(0, 5);
+    console.log(firstFive);
+  };
 
   const firstSentence = getFirstSentence();
+  const subjects = getSubjects();
   console.log(book);
 
   return (
     <div className="detail-text">
-      <div className="quote-overlay">
-        <blockquote className="first-sentence">"{firstSentence}"</blockquote>
-        <cite>— {book.title}</cite>
-      </div>
+      {firstSentence ? (
+        <div className="quote-overlay">
+          <blockquote className="first-sentence">"{firstSentence}"</blockquote>
+          <cite>— {book.title}</cite>
+        </div>
+      ) : (
+        <> </>
+      )}
       <h1>{book.title}</h1>
       {book.authors && book.authors.length > 0 && (
         <div>
