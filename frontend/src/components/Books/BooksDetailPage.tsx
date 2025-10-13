@@ -1,4 +1,5 @@
 import { useParams } from "react-router-dom";
+import { useState } from "react";
 import { useFetchBookDetails } from "../../hooks/useFetchBookDetails";
 import "./styles/BookdDetails.css";
 
@@ -8,6 +9,7 @@ const BooksDetailPage: React.FC = () => {
   const workId = bookSlug?.split("-").pop() || "";
 
   const { book, loading, error } = useFetchBookDetails(workId);
+  const [showMore, setShowmore] = useState(false);
 
   if (loading) return <div>Loading book details...</div>;
   if (error) return <div>Error: {error}</div>;
@@ -36,15 +38,25 @@ const BooksDetailPage: React.FC = () => {
   };
 
   const getSubjects = () => {
-    const ff = [];
     if (!book.subjects || book.subjects.length === 0) return null;
-    const firstFive = book.subjects.slice(0, 5);
-    console.log(firstFive);
+
+    return book.subjects
+      .filter(subject => {
+        const lower = subject.toLowerCase();
+        return (
+          !lower.includes("accessible book") &&
+          !lower.includes("in library") &&
+          !lower.includes("protected daisy") &&
+          subject.length < 50
+        );
+      })
+      .slice(0, 5);
   };
 
   const firstSentence = getFirstSentence();
   const subjects = getSubjects();
-  console.log(book);
+
+  const displayMore = showMore ? subjects : subjects.slice(0, 5);
 
   return (
     <div className="detail-text">
@@ -69,6 +81,13 @@ const BooksDetailPage: React.FC = () => {
       )}
       {book.cover && <img className="bookImg" src={book.cover} alt={book.title} />}
       <div>Description: {getDescription(book.description)}</div>
+      <div>
+        {subjects && (
+          <ul>
+            <li>{subjects.map(e => `${e}`)}</li>
+          </ul>
+        )}
+      </div>
     </div>
   );
 };
