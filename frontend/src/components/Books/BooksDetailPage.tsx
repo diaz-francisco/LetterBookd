@@ -23,10 +23,31 @@ const BooksDetailPage: React.FC = () => {
     return "No description available";
   };
 
+  const getFirstSentence = () => {
+    if (!book.excerpts || book.excerpts.length === 0) return null;
+
+    const firstSentenceExcerpt = book.excerpts.find(e => e.page === "First sentence") || book.excerpts[0];
+
+    if (!firstSentenceExcerpt) return null;
+
+    return typeof firstSentenceExcerpt.excerpt === "string"
+      ? firstSentenceExcerpt.excerpt
+      : firstSentenceExcerpt.excerpt.value;
+  };
+
+  // const getSubjects = () => {
+  //   if (!book.subjects || book.subjects.length === 0) return null;
+  // };
+
+  const firstSentence = getFirstSentence();
   console.log(book);
 
   return (
     <div className="detail-text">
+      <div className="quote-overlay">
+        <blockquote className="first-sentence">"{firstSentence}"</blockquote>
+        <cite>— {book.title}</cite>
+      </div>
       <h1>{book.title}</h1>
       {book.authors && book.authors.length > 0 && (
         <div>
@@ -38,10 +59,8 @@ const BooksDetailPage: React.FC = () => {
           </ul>
         </div>
       )}
-      <h4>{book.number_of_pages}</h4>
       {book.cover && <img className="bookImg" src={book.cover} alt={book.title} />}
-      <div>{getDescription(book.description)}</div>
-      {}
+      <div>Description: {getDescription(book.description)}</div>
     </div>
   );
 };

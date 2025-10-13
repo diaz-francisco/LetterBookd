@@ -7,6 +7,7 @@ interface BookDetails {
   authorKey: string;
   cover: string | null;
   description?: string | { value: string };
+  excerpts?: Array<{ excerpt: string | { value: string }; page?: string }>;
   first_sentence?: { value: string };
   subjects?: string[];
   publish_date?: string;
@@ -67,7 +68,6 @@ export function useFetchBookDetails(bookId: string) {
           (detailData.authors || []).map(async (author: any) => {
             const authorKey = author.author?.key || author.key;
 
-            // Check author cache first
             if (authorCache.has(authorKey)) {
               return {
                 key: authorKey,
