@@ -5,26 +5,29 @@
   height: 100%;
   background: rgba(0, 0, 0, 0.3);
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  border: solid 1px red;
+  backdrop-filter: blur(5px);
   z-index: 2;
 }
 
 .modal-container {
   display: flex;
   flex-direction: column;
+  padding: 10px;
   height: 40vh;
   width: 70vw;
   gap: 20px;
-  border: solid 1px blue;
+  border-radius: 5px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
+  /* border: solid 1px blue; */
 }
 
 .modal-content {
   border-radius: 5px;
   text-align: center;
-  border: solid 1px yellow;
+  padding-top: 3vh;
+  /* border: solid 1px yellow; */
 }
 
 .buttons {
@@ -32,6 +35,8 @@
   justify-content: center;
   align-items: center;
   gap: 20px;
+  padding-top: 10vh;
+  /* border: solid 1px red; */
 }
 
 button,

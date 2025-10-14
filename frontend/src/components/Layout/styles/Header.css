@@ -31,10 +31,11 @@ body {
   min-height: 10vh;
   width: 100%;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  position: sticky; /* Change from relative to sticky */
-  top: 0; /* Add this */
+  position: sticky;
+  top: 0;
   z-index: 10002;
-  background-color: var(--background); /* Make sure it has a background */
+  background-color: var(--background);
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 .right-item {
@@ -92,7 +93,7 @@ body {
 }
 
 .burger-menu {
-  position: absolute; /* Change from fixed to absolute */
+  position: absolute;
   top: 10px;
   left: 10px;
   z-index: 10003;
@@ -190,10 +191,10 @@ ul {
     display: flex;
     flex-direction: column;
     cursor: pointer;
-    position: absolute; /* Change from fixed to absolute */
+    position: absolute;
     left: 5vw;
-    top: 50%; /* Center vertically */
-    transform: translateY(-50%); /* Offset by half its height */
+    top: 50%;
+    transform: translateY(-50%);
     background-color: var(--background);
   }
 
@@ -206,7 +207,7 @@ ul {
   }
 
   .signin {
-    position: absolute; /* Change from fixed to absolute */
+    position: absolute;
     display: flex;
     top: 5px;
     right: 1vw;

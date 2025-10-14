@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { useState } from "react";
+// import { useState } from "react";
 import { useFetchBookDetails } from "../../hooks/useFetchBookDetails";
 import "./styles/BookdDetails.css";
 
@@ -9,7 +9,7 @@ const BooksDetailPage: React.FC = () => {
   const workId = bookSlug?.split("-").pop() || "";
 
   const { book, loading, error } = useFetchBookDetails(workId);
-  const [showMore, setShowmore] = useState(false);
+  // const [showMore, setShowmore] = useState(false);
 
   if (loading) return <div>Loading book details...</div>;
   if (error) return <div>Error: {error}</div>;
@@ -56,7 +56,7 @@ const BooksDetailPage: React.FC = () => {
   const firstSentence = getFirstSentence();
   const subjects = getSubjects();
 
-  const displayMore = showMore ? subjects : subjects.slice(0, 5);
+  // const displayMore = showMore ? subjects : subjects.slice(0, 5);
 
   return (
     <div className="detail-text">
