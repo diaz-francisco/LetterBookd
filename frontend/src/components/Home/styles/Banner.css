@@ -14,7 +14,6 @@
   align-items: center;
   justify-content: center;
   z-index: 1;
-  /* border: solid 1px yellow; */
 }
 
 .carousel-container {
@@ -27,7 +26,6 @@
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
-  /* border: solid 1px yellow; */
 }
 
 .carousel-track {
@@ -55,7 +53,6 @@
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   transition: transform 0.3s ease;
-  border: solid 1px yellow;
 }
 
 .carousel-slide img:hover {
