@@ -63,7 +63,6 @@ const BooksDetailPage: React.FC = () => {
       {firstSentence ? (
         <div className="quote-overlay">
           <blockquote className="first-sentence">"{firstSentence}"</blockquote>
-          <cite>— {book.title}</cite>
         </div>
       ) : (
         <> </>

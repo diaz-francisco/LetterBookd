@@ -7,3 +7,20 @@
   max-height: 250px;
   max-width: 150px;
 }
+
+.detail-text {
+  border: 1px solid blue;
+}
+
+.first-sentence {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: solid 0.1px var(--muted-text);
+  border-radius: 5px;
+  font-style: italic;
+  background-color: rgb(79, 76, 84);
+  color: rgb(221, 221, 221);
+  padding: 20px;
+  margin: 20px;
+}
