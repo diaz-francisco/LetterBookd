@@ -38,8 +38,8 @@
 }
 
 .bookImg {
-  grid-column: 1; /* left column */
-  grid-row: 2; /* sits left of title/metadata/chips */
+  grid-column: 1;
+  grid-row: 2;
   width: 150px;
   height: 225px;
   object-fit: cover;
@@ -47,7 +47,7 @@
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
 }
 .detail-content {
-  grid-column: 2; /* right column */
+  grid-column: 2;
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -105,7 +105,7 @@
 }
 
 .book-description {
-  grid-column: 1 / -1; /* spans full width */
+  grid-column: 1 / -1;
   margin-top: 24px;
   color: #cbd5e1;
   line-height: 1.6;
