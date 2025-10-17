@@ -56,17 +56,13 @@ const BooksDetailPage: React.FC = () => {
   const firstSentence = getFirstSentence();
   const subjects = getSubjects();
 
-  // const displayMore = showMore ? subjects : subjects.slice(0, 5);
-
   return (
-    <div className="detail-text">
+    <div className={`detail-text`}>
       {firstSentence ? (
         <div className="quote-overlay">
           <blockquote className="first-sentence">"{firstSentence}"</blockquote>
         </div>
-      ) : (
-        <> </>
-      )}
+      ) : null}
 
       {book.cover && <img className="bookImg" src={book.cover} alt={book.title} />}
 

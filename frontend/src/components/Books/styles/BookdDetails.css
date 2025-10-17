@@ -39,13 +39,13 @@
 
 .bookImg {
   grid-column: 1;
-  grid-row: 2;
   width: 150px;
   height: 225px;
   object-fit: cover;
   border-radius: 10px;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
 }
+
 .detail-content {
   grid-column: 2;
   display: flex;
@@ -110,4 +110,16 @@
   color: #cbd5e1;
   line-height: 1.6;
   max-width: 100%;
+}
+
+.detail-text.no-quote {
+  grid-template-rows: auto;
+}
+
+.detail-text.no-quote .bookImg {
+  grid-row: 1;
+}
+
+.detail-text.no-quote .detail-content {
+  grid-row: 1;
 }
