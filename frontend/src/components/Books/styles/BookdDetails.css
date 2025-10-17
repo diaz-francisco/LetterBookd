@@ -3,13 +3,20 @@
   color: beige;
 }
 
-.bookImg {
-  max-height: 250px;
-  max-width: 150px;
+.detail-text {
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  color: #e5e7eb;
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 16px;
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  grid-column-gap: 24px;
+  align-items: start;
 }
 
-.detail-text {
-  border: 1px solid blue;
+.quote-overlay {
+  grid-column: 1 / -1;
 }
 
 .first-sentence {
@@ -19,8 +26,88 @@
   border: solid 0.1px var(--muted-text);
   border-radius: 5px;
   font-style: italic;
-  background-color: rgb(79, 76, 84);
+  background-color: rgb(89, 89, 119);
   color: rgb(221, 221, 221);
-  padding: 20px;
-  margin: 20px;
+  padding: 2em;
+  margin-top: 1em;
+}
+
+.detail-hero {
+  display: flex;
+  flex-direction: column;
+}
+
+.bookImg {
+  grid-column: 1; /* left column */
+  grid-row: 2; /* sits left of title/metadata/chips */
+  width: 150px;
+  height: 225px;
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+}
+.detail-content {
+  grid-column: 2; /* right column */
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.detail-text h1 {
+  margin: 0 0 8px;
+  font-size: 36px;
+  line-height: 1.1;
+  color: #f3f4f6;
+}
+.detail-text h3 {
+  margin: 12px 0 6px;
+  color: #cbd5e1;
+}
+.detail-text ul {
+  margin: 0;
+  padding-left: 18px;
+}
+
+.lists {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 0;
+  margin: 8px 0 12px;
+}
+
+.chips {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 10px;
+  font-size: 12px;
+  line-height: 1;
+  color: #e5e7eb;
+  background-color: #2a2f3a;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 9999px;
+  white-space: nowrap;
+}
+
+.detail-text p {
+  margin: 6px 0 0;
+  color: #cbd5e1;
+  line-height: 1.6;
+  max-width: 62ch;
+}
+
+.detail-text > div > ul {
+  list-style: none;
+  padding: 0;
+  margin: 6px 0 12px;
+}
+
+.book-description {
+  grid-column: 1 / -1; /* spans full width */
+  margin-top: 24px;
+  color: #cbd5e1;
+  line-height: 1.6;
+  max-width: 100%;
 }

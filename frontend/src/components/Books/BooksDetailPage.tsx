@@ -50,7 +50,7 @@ const BooksDetailPage: React.FC = () => {
           subject.length < 50
         );
       })
-      .slice(0, 5);
+      .slice(0, 3);
   };
 
   const firstSentence = getFirstSentence();
@@ -67,26 +67,32 @@ const BooksDetailPage: React.FC = () => {
       ) : (
         <> </>
       )}
-      <h1>{book.title}</h1>
-      {book.authors && book.authors.length > 0 && (
-        <div>
-          {book.authors.length > 1 ? <h3>Authors:</h3> : <h3>Author:</h3>}
-          <ul>
-            {book.authors.map((author, index) => (
-              <li key={index}>{author.name}</li>
-            ))}
-          </ul>
-        </div>
-      )}
+
       {book.cover && <img className="bookImg" src={book.cover} alt={book.title} />}
-      <div>Description: {getDescription(book.description)}</div>
-      <div>
+
+      <div className="detail-content">
+        <h1>{book.title}</h1>
+        {book.authors && book.authors.length > 0 && (
+          <div>
+            {book.authors.length > 1 ? <h3>Authors:</h3> : <h3>Author:</h3>}
+            <ul>
+              {book.authors.map((author, index) => (
+                <li key={index}>{author.name}</li>
+              ))}
+            </ul>
+          </div>
+        )}
         {subjects && (
-          <ul>
-            <li>{subjects.map(e => `${e}`)}</li>
+          <ul className="lists">
+            {subjects.map((subject, index) => (
+              <li key={index} className="chips">
+                {subject}
+              </li>
+            ))}
           </ul>
         )}
       </div>
+      <div className="book-description">{getDescription(book.description)}</div>
     </div>
   );
 };
