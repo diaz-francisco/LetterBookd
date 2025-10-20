@@ -4,18 +4,17 @@ const authController = require("../controllers/authController");
 
 const router = express.Router();
 
-// Protect all routes
-router.use(authController.protect);
-
-router.route("/").get(reviewController.getAllReviews).post(reviewController.createReview);
-
-// Change this line to match your frontend call
+// Routes that don't require authentication (read operations) - PUT THESE FIRST
+router.route("/").get(reviewController.getAllReviews);
 router.route("/book/:bookId").get(reviewController.getReviewsByBookId);
+router.route("/:id").get(reviewController.getReview);
+
+// Routes that require authentication (create, update, delete) - PUT THESE AFTER
+router.route("/").post(authController.protect, reviewController.createReview);
 
 router
   .route("/:id")
-  .get(reviewController.getReview)
-  .patch(reviewController.updateReview)
-  .delete(reviewController.deleteReview);
+  .patch(authController.protect, reviewController.updateReview)
+  .delete(authController.protect, reviewController.deleteReview);
 
 module.exports = router;

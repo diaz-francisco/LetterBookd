@@ -108,7 +108,6 @@ const BooksDetailPage: React.FC = () => {
         </div>
       </div>
 
-      {/* Add reviews section */}
       <div className="reviews-section">
         <ReviewForm bookId={workId} bookSource="openLibrary" onReviewSubmitted={handleReviewSubmitted} />
         <ReviewList key={reviewsUpdated} bookId={workId} />

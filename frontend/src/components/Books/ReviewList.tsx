@@ -31,6 +31,10 @@ const ReviewList: React.FC<ReviewListProps> = ({ bookId }) => {
   }, [bookId]);
 
   const handleEdit = (review: Review) => {
+    if (!user) {
+      setError("Please sign in to edit reviews");
+      return;
+    }
     setEditingReview(review._id);
     setEditText(review.review);
   };
@@ -49,6 +53,11 @@ const ReviewList: React.FC<ReviewListProps> = ({ bookId }) => {
   };
 
   const handleDelete = async (reviewId: string) => {
+    if (!user) {
+      setError("Please sign in to delete reviews");
+      return;
+    }
+
     if (!window.confirm("Are you sure you want to delete this review?")) return;
 
     try {
@@ -82,6 +91,7 @@ const ReviewList: React.FC<ReviewListProps> = ({ bookId }) => {
                   <span className="reviewer-name">{review.user.name}</span>
                   <span className="review-date">{formatDate(review.createdAt)}</span>
                 </div>
+                {/* Only show edit/delete buttons if user is authenticated AND owns the review */}
                 {user && user._id === review.user._id && (
                   <div className="review-actions">
                     <button onClick={() => handleEdit(review)}>Edit</button>

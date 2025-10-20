@@ -23,7 +23,6 @@ const reviewSchema = new mongoose.Schema({
     required: [true, "Please leave a review text"],
     maxlength: [1500, "Review cannot exceed 1500 characters"],
   },
-  active: { type: Boolean, default: true, select: false },
   createdAt: {
     type: Date,
     default: Date.now,
@@ -39,11 +38,6 @@ reviewSchema.index({ bookId: 1, user: 1 }, { unique: true });
 
 reviewSchema.pre("save", function (next) {
   this.updatedAt = Date.now();
-  next();
-});
-
-reviewSchema.pre(/^find/, function (next) {
-  this.find({ active: { $ne: false } });
   next();
 });
 

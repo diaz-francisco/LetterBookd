@@ -24,6 +24,7 @@ export async function getReviewsByBookId(bookId: string): Promise<Review[]> {
   const token = localStorage.getItem("auth_token");
   const headers: HeadersInit = {
     "Content-Type": "application/json",
+    // Only add Authorization header if user is authenticated
     ...(token && { Authorization: `Bearer ${token}` }),
   };
 
@@ -60,9 +61,14 @@ export async function getReviewsByBookId(bookId: string): Promise<Review[]> {
 
 export async function createReview(reviewData: CreateReviewData): Promise<Review> {
   const token = localStorage.getItem("auth_token");
+
+  if (!token) {
+    throw new Error("Please sign in to create a review");
+  }
+
   const headers: HeadersInit = {
     "Content-Type": "application/json",
-    ...(token && { Authorization: `Bearer ${token}` }),
+    Authorization: `Bearer ${token}`,
   };
 
   const res = await fetch(`${API_BASE_URL}/api/v1/reviews`, {
@@ -83,9 +89,14 @@ export async function createReview(reviewData: CreateReviewData): Promise<Review
 
 export async function updateReview(reviewId: string, reviewText: string): Promise<Review> {
   const token = localStorage.getItem("auth_token");
+
+  if (!token) {
+    throw new Error("Please sign in to update a review");
+  }
+
   const headers: HeadersInit = {
     "Content-Type": "application/json",
-    ...(token && { Authorization: `Bearer ${token}` }),
+    Authorization: `Bearer ${token}`,
   };
 
   const res = await fetch(`${API_BASE_URL}/api/v1/reviews/${reviewId}`, {
@@ -106,9 +117,14 @@ export async function updateReview(reviewId: string, reviewText: string): Promis
 
 export async function deleteReview(reviewId: string): Promise<void> {
   const token = localStorage.getItem("auth_token");
+
+  if (!token) {
+    throw new Error("Please sign in to delete a review");
+  }
+
   const headers: HeadersInit = {
     "Content-Type": "application/json",
-    ...(token && { Authorization: `Bearer ${token}` }),
+    Authorization: `Bearer ${token}`,
   };
 
   const res = await fetch(`${API_BASE_URL}/api/v1/reviews/${reviewId}`, {

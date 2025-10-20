@@ -34,14 +34,16 @@ if (process.env.NODE_ENV === "development") {
 //Parse Cookies
 app.use(cookieParser());
 
-//Rate Limiter (requests from same api)
-const limiter = rateLimit({
-  max: 100,
-  windowMs: 60 * 60 * 1000,
-  message: "Too many requests from this IP, please try again in an hour.",
-});
+//Rate Limiter (requests from same api) - only in production
+if (process.env.NODE_ENV === "production") {
+  const limiter = rateLimit({
+    max: 100,
+    windowMs: 60 * 60 * 1000,
+    message: "Too many requests from this IP, please try again in an hour.",
+  });
 
-app.use("/api", limiter);
+  app.use("/api", limiter);
+}
 
 //Body parser, reading data from body into req.body
 app.use(
