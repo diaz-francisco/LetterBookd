@@ -1,15 +1,16 @@
 import { useParams } from "react-router-dom";
 import { useState } from "react";
 import { useFetchBookDetails } from "../../hooks/useFetchBookDetails";
+import ReviewForm from "./ReviewForm";
+import ReviewList from "./ReviewList";
 import "./styles/BookdDetails.css";
 
 const BooksDetailPage: React.FC = () => {
   const { bookSlug } = useParams<{ bookSlug: string }>();
-
   const workId = bookSlug?.split("-").pop() || "";
-
   const { book, loading, error } = useFetchBookDetails(workId);
   const [showMore, setShowmore] = useState(false);
+  const [reviewsUpdated, setReviewsUpdated] = useState(0);
 
   if (loading) return <div>Loading book details...</div>;
   if (error) return <div>Error: {error}</div>;
@@ -51,6 +52,10 @@ const BooksDetailPage: React.FC = () => {
         );
       })
       .slice(0, 3);
+  };
+
+  const handleReviewSubmitted = () => {
+    setReviewsUpdated(prev => prev + 1); // Trigger review list refresh
   };
 
   const firstSentence = getFirstSentence();
@@ -101,6 +106,12 @@ const BooksDetailPage: React.FC = () => {
         >
           {showMore ? description : truncDescription}
         </div>
+      </div>
+
+      {/* Add reviews section */}
+      <div className="reviews-section">
+        <ReviewForm bookId={workId} bookSource="openLibrary" onReviewSubmitted={handleReviewSubmitted} />
+        <ReviewList key={reviewsUpdated} bookId={workId} />
       </div>
     </div>
   );

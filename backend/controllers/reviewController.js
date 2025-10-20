@@ -28,9 +28,27 @@ exports.getReview = catchAsync(async (req, res, next) => {
   });
 });
 
+exports.getReviewsByBookId = catchAsync(async (req, res, next) => {
+  const reviews = await Review.find({
+    bookId: req.params.bookId,
+    active: { $ne: false },
+  }).populate({
+    path: "user",
+    select: "name photo",
+  });
+
+  res.status(200).json({
+    status: "Success",
+    results: reviews.length,
+    data: { reviews },
+  });
+});
+
+// Change from 'book' to 'bookId' later
+
 exports.createReview = catchAsync(async (req, res, next) => {
   const existingReview = await Review.findOne({
-    book: req.body.book,
+    bookId: req.body.bookId,
     user: req.user.id,
   });
 
@@ -39,8 +57,8 @@ exports.createReview = catchAsync(async (req, res, next) => {
   }
 
   const newReview = await Review.create({
-    book: req.body.book,
-    rating: req.body.rating,
+    bookId: req.body.bookId,
+    bookSource: req.body.bookSource || "openLibrary",
     review: req.body.review,
     user: req.user.id,
   });
@@ -117,6 +135,22 @@ exports.deleteReview = catchAsync(async (req, res, next) => {
   res.status(204).json({
     status: "Success",
     data: null,
+  });
+});
+
+exports.getReviewsByBookId = catchAsync(async (req, res, next) => {
+  const reviews = await Review.find({
+    bookId: req.params.bookId,
+    active: { $ne: false },
+  }).populate({
+    path: "user",
+    select: "name photo",
+  });
+
+  res.status(200).json({
+    status: "Success",
+    results: reviews.length,
+    data: { reviews },
   });
 });
 

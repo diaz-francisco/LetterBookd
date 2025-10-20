@@ -9,6 +9,9 @@ router.use(authController.protect);
 
 router.route("/").get(reviewController.getAllReviews).post(reviewController.createReview);
 
+// Change this line to match your frontend call
+router.route("/book/:bookId").get(reviewController.getReviewsByBookId);
+
 router
   .route("/:id")
   .get(reviewController.getReview)
