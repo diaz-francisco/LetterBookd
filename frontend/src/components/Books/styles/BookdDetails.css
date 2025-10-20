@@ -123,7 +123,26 @@
   max-width: 100%;
 }
 
-.detail-text.no-quote {
+.description-text.collapsed {
+  cursor: pointer;
+  background: linear-gradient(to bottom, currentColor 0%, currentColor 65%, transparent 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.description-text.expanded {
+  cursor: pointer;
+  background: none;
+  -webkit-text-fill-color: initial;
+}
+
+.description-text:focus {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+
+.book-description .detail-text.no-quote {
   grid-template-rows: auto;
 }
 

@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-// import { useState } from "react";
+import { useState } from "react";
 import { useFetchBookDetails } from "../../hooks/useFetchBookDetails";
 import "./styles/BookdDetails.css";
 
@@ -9,7 +9,7 @@ const BooksDetailPage: React.FC = () => {
   const workId = bookSlug?.split("-").pop() || "";
 
   const { book, loading, error } = useFetchBookDetails(workId);
-  // const [showMore, setShowmore] = useState(false);
+  const [showMore, setShowmore] = useState(false);
 
   if (loading) return <div>Loading book details...</div>;
   if (error) return <div>Error: {error}</div>;
@@ -55,6 +55,8 @@ const BooksDetailPage: React.FC = () => {
 
   const firstSentence = getFirstSentence();
   const subjects = getSubjects();
+  const description = getDescription(book.description);
+  const truncDescription = description.length ? description.slice(0, 240) : description;
 
   return (
     <div className={`detail-text`}>
@@ -83,7 +85,23 @@ const BooksDetailPage: React.FC = () => {
           </ul>
         )}
       </div>
-      <div className="book-description">{getDescription(book.description)}</div>
+      <div className="book-description">
+        <div
+          className={`description-text ${showMore ? "expanded" : "collapsed"}`}
+          role="button"
+          tabIndex={0}
+          aria-expanded={showMore}
+          onClick={() => setShowmore(v => !v)}
+          onKeyDown={e => {
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+              setShowmore(v => !v);
+            }
+          }}
+        >
+          {showMore ? description : truncDescription}
+        </div>
+      </div>
     </div>
   );
 };
