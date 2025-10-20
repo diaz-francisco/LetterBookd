@@ -68,14 +68,9 @@ const BooksDetailPage: React.FC = () => {
 
       <div className="detail-content">
         <h1>{book.title}</h1>
-        {book.authors && book.authors.length > 0 && (
-          <div>
-            {book.authors.length > 1 ? <h3>Authors:</h3> : <h3>Author:</h3>}
-            <ul>
-              {book.authors.map((author, index) => (
-                <li key={index}>{author.name}</li>
-              ))}
-            </ul>
+        {book.authors && (
+          <div className="authors-line">
+            <span>{book.authors.map(a => a.name).join(", ")}</span>
           </div>
         )}
         {subjects && (

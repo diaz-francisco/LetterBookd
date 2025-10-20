@@ -30,6 +30,7 @@
   color: rgb(221, 221, 221);
   padding: 2em;
   margin-top: 1em;
+  margin-bottom: 1em;
 }
 
 .detail-hero {
@@ -44,6 +45,16 @@
   object-fit: cover;
   border-radius: 10px;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+}
+.authors-line {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: baseline;
+}
+
+.authors-line h3 {
+  margin: 12px 0 6px;
 }
 
 .detail-content {
@@ -82,7 +93,7 @@
   align-items: center;
   justify-content: center;
   padding: 6px 10px;
-  font-size: 12px;
+  font-size: 15px;
   line-height: 1;
   color: #e5e7eb;
   background-color: #2a2f3a;
