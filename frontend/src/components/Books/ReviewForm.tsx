@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useAuth } from "../../services/auth";
 import { createReview, type CreateReviewData } from "../../services/reviews";
 
@@ -13,6 +13,27 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ bookId, bookSource, onReviewSub
   const [reviewText, setReviewText] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
+
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const toggleModal = () => {
+    setModalOpen(!modalOpen);
+  };
+
+  const closeModal = () => {
+    setModalOpen(false);
+  };
+
+  useEffect(() => {
+    if (modalOpen) {
+      document.body.style.overflow = "hidden";
+      document.body.classList.add("menu-open");
+    } else {
+      document.body.style.overflow = "auto";
+      document.body.classList.remove("menu-open");
+    }
+    return () => document.body.classList.remove("menu-open");
+  }, [modalOpen]);
 
   if (!user) {
     return (
@@ -49,6 +70,9 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ bookId, bookSource, onReviewSub
   return (
     <div className="review-form">
       <h3>Leave a Review</h3>
+      <div>
+        <button>Leave a Review</button>
+      </div>
       <form onSubmit={handleSubmit}>
         <textarea
           value={reviewText}
