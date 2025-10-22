@@ -31,7 +31,7 @@ exports.getReview = catchAsync(async (req, res, next) => {
   });
 });
 
-exports.getReviewsByBookId = catchAsync(async (req, res, next) => {
+exports.getReviewsByBookId = catchAsync(async (req, res, _next) => {
   const reviews = await Review.find({
     bookId: req.params.bookId,
   }).populate({

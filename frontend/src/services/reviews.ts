@@ -24,7 +24,6 @@ export async function getReviewsByBookId(bookId: string): Promise<Review[]> {
   const token = localStorage.getItem("auth_token");
   const headers: HeadersInit = {
     "Content-Type": "application/json",
-    // Only add Authorization header if user is authenticated
     ...(token && { Authorization: `Bearer ${token}` }),
   };
 
@@ -37,9 +36,7 @@ export async function getReviewsByBookId(bookId: string): Promise<Review[]> {
 
     if (!res.ok) {
       // More specific error handling
-      if (res.status === 401) {
-        throw new Error("Please sign in to view reviews");
-      } else if (res.status === 404) {
+      if (res.status === 404) {
         throw new Error("No reviews found for this book");
       } else if (res.status >= 500) {
         throw new Error("Server error. Please try again later");
