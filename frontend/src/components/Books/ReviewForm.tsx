@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useAuth } from "../../services/auth";
 import { createReview, type CreateReviewData } from "../../services/reviews";
+import "./styles/ReviewForm.css";
 
 interface ReviewFormProps {
   bookId: string;
@@ -20,19 +21,19 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ bookId, bookSource, onReviewSub
     setModalOpen(!modalOpen);
   };
 
-  const closeModal = () => {
-    setModalOpen(false);
-  };
+  // const closeModal = () => {
+  //   setModalOpen(false);
+  // };
 
   useEffect(() => {
     if (modalOpen) {
       document.body.style.overflow = "hidden";
-      document.body.classList.add("menu-open");
+      document.body.classList.add("modal-open");
     } else {
       document.body.style.overflow = "auto";
-      document.body.classList.remove("menu-open");
+      document.body.classList.remove("modal-open");
     }
-    return () => document.body.classList.remove("menu-open");
+    return () => document.body.classList.remove("modal-open");
   }, [modalOpen]);
 
   if (!user) {
@@ -69,25 +70,24 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ bookId, bookSource, onReviewSub
 
   return (
     <div className="review-form">
-      <h3>Leave a Review</h3>
-      <div>
-        <button>Leave a Review</button>
+      <div className={`modal-content ${modalOpen ? "open" : ""}`}>
+        <button onClick={toggleModal}>Leave a Review</button>
+        <form className={`${modalOpen ? "" : "none"}`} onSubmit={handleSubmit}>
+          <textarea
+            value={reviewText}
+            onChange={e => setReviewText(e.target.value)}
+            placeholder="Share your thoughts about this book..."
+            maxLength={1500}
+            rows={4}
+            required
+          />
+          <div className="char-count">{reviewText.length}/1500 characters</div>
+          {error && <div className="error-message">{error}</div>}
+          <button type="submit" disabled={isSubmitting || !reviewText.trim()}>
+            {isSubmitting ? "Submitting..." : "Submit Review"}
+          </button>
+        </form>
       </div>
-      <form onSubmit={handleSubmit}>
-        <textarea
-          value={reviewText}
-          onChange={e => setReviewText(e.target.value)}
-          placeholder="Share your thoughts about this book..."
-          maxLength={1500}
-          rows={4}
-          required
-        />
-        <div className="char-count">{reviewText.length}/1500 characters</div>
-        {error && <div className="error-message">{error}</div>}
-        <button type="submit" disabled={isSubmitting || !reviewText.trim()}>
-          {isSubmitting ? "Submitting..." : "Submit Review"}
-        </button>
-      </form>
     </div>
   );
 };

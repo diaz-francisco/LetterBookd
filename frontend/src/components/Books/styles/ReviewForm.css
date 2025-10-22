@@ -1,0 +1,23 @@
+.modal-content.open {
+  display: flex;
+  position: fixed;
+  padding: 0;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  min-width: 100vw;
+  height: 100vh;
+  min-height: 100vh;
+  background: var(--surface, rgba(30, 30, 30, 0.98));
+  z-index: 10000;
+}
+
+.modal-content.open button {
+  display: flex;
+  height: 75px;
+  width: 75px;
+}
+
+.none {
+  display: none;
+}

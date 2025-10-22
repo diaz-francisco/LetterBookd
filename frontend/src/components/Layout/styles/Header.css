@@ -162,7 +162,6 @@ ul {
   }
 
   .navbar ul.open {
-    /* animation: fadeInUp 0.2s ease forwards; */
     display: flex;
     position: fixed;
     top: 0;
