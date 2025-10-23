@@ -1,8 +1,11 @@
 import { useParams } from "react-router-dom";
 import { useState } from "react";
 import { useFetchBookDetails } from "../../hooks/useFetchBookDetails";
-import ReviewForm from "./ReviewForm";
-import ReviewList from "./ReviewList";
+import BookHeader from "./BookHeader";
+import BookActions from "./BookActions";
+import BookDescription from "./BookDescription";
+
+import BookReviews from "./BookReviews";
 import "./styles/BookdDetails.css";
 
 const BooksDetailPage: React.FC = () => {
@@ -16,7 +19,7 @@ const BooksDetailPage: React.FC = () => {
   if (error) return <div>Error: {error}</div>;
   if (!book) return <div>Book not found</div>;
 
-  const getDescription = (description: any) => {
+  const getDescription = (description: string | { value: string } | undefined) => {
     if (typeof description === "string") {
       return description;
     }
@@ -55,63 +58,28 @@ const BooksDetailPage: React.FC = () => {
   };
 
   const handleReviewSubmitted = () => {
-    setReviewsUpdated(prev => prev + 1); // Trigger review list refresh
+    setReviewsUpdated(prev => prev + 1);
   };
 
   const firstSentence = getFirstSentence();
   const subjects = getSubjects();
   const description = getDescription(book.description);
-  const truncDescription = description.length ? description.slice(0, 240) : description;
 
   return (
     <div className={`detail-text`}>
-      {firstSentence ? (
+      {firstSentence && (
         <div className="quote-overlay">
           <blockquote className="first-sentence">"{firstSentence}"</blockquote>
         </div>
-      ) : null}
+      )}
 
-      {book.cover && <img className="bookImg" src={book.cover} alt={book.title} />}
+      <BookHeader book={book} subjects={subjects} />
 
-      <div className="detail-content">
-        <h1>{book.title}</h1>
-        {book.authors && (
-          <div className="authors-line">
-            <span>{book.authors.map(a => a.name).join(", ")}</span>
-          </div>
-        )}
-        {subjects && (
-          <ul className="lists">
-            {subjects.map((subject, index) => (
-              <li key={index} className="chips">
-                {subject}
-              </li>
-            ))}
-          </ul>
-        )}
-      </div>
-      <div className="book-description">
-        <div
-          className={`description-text ${showMore ? "expanded" : "collapsed"}`}
-          role="button"
-          tabIndex={0}
-          aria-expanded={showMore}
-          onClick={() => setShowmore(v => !v)}
-          onKeyDown={e => {
-            if (e.key === "Enter" || e.key === " ") {
-              e.preventDefault();
-              setShowmore(v => !v);
-            }
-          }}
-        >
-          {showMore ? description : truncDescription}
-        </div>
-      </div>
+      <BookActions />
 
-      <div className="reviews-section">
-        <ReviewForm bookId={workId} bookSource="openLibrary" onReviewSubmitted={handleReviewSubmitted} />
-        <ReviewList key={reviewsUpdated} bookId={workId} />
-      </div>
+      <BookDescription description={description} showMore={showMore} setShowMore={setShowmore} />
+
+      <BookReviews bookId={workId} reviewsUpdated={reviewsUpdated} onReviewSubmitted={handleReviewSubmitted} />
     </div>
   );
 };
