@@ -1,21 +1,34 @@
-// import React, { useState } from "react";
+import React, { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
-// import { Star, Heart, MessageCircle } from "lucide-react";
+import { Heart } from "lucide-react";
+import "./styles/BookActions.css";
 
 const BookActions: React.FC = () => {
-  //   const [isLiked, setIsLiked] = useState(false);
+  const [isLiked, setIsLiked] = useState(false);
+  const [isAnimating, setIsAnimating] = useState(false);
 
-  //   const toggleLiked = () => {
-  //     setIsLiked(!isLiked);
-  //   };
+  const toggleLiked = () => {
+    const newLikedState = !isLiked;
+    setIsLiked(newLikedState);
+    setIsAnimating(true);
 
-  const notify = () => toast("Wow so easy!");
+    // Show notification
+    toast(`You have ${newLikedState ? "liked" : "unliked"} the book`);
+
+    // Reset animation after a short delay
+    setTimeout(() => setIsAnimating(false), 300);
+  };
 
   return (
-    <div>
-      <h1>test</h1>
-      <button onClick={notify}>Notify!</button>
-      <ToastContainer />
+    <div className="action-hero">
+      <div className="action-modal">
+        <div className="like-system">
+          <button onClick={toggleLiked} className={`like-button ${isAnimating ? "animating" : ""}`}>
+            <Heart className={`heart-icon ${isLiked ? "liked" : "not-liked"} ${isAnimating ? "pulse" : ""}`} />
+          </button>
+          {/* <ToastContainer /> */}
+        </div>
+      </div>
     </div>
   );
 };
