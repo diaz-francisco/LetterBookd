@@ -3,7 +3,6 @@
   align-items: flex-start;
   height: 70vh;
   background-color: var(--white);
-  border: 1px solid red;
 }
 
 .main-info {

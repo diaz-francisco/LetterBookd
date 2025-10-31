@@ -4,7 +4,7 @@ export default function ClubInfo() {
   return (
     <div className="info-container">
       <div className="main-info">
-        <button>hello</button>
+        <button>To Do</button>
       </div>
     </div>
   );
