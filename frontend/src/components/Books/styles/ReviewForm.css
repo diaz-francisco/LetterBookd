@@ -53,7 +53,7 @@
   top: 5vh;
   left: 5vw;
   width: 90vw;
-  height: 90vh;
+  height: 70vh;
   border: solid 2px black;
 }
 
@@ -65,7 +65,7 @@
 .char-count {
   position: absolute;
   left: 30vw;
-  bottom: 0px;
+  bottom: 20vh;
   justify-content: center;
   align-items: center;
 }

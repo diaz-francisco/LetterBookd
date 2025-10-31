@@ -26,7 +26,7 @@ const StarRating: React.FC<StarRatingProps> = ({
 
   const getStarClass = (step: number) => {
     if (value >= step) return "star filled";
-    if (value > 0 && value >= step - 0.5) return "star half"; // Added value > 0 check
+    if (value > 0 && value >= step - 0.5) return "star half";
     return "star empty";
   };
 
