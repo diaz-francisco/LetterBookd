@@ -81,10 +81,12 @@ app.use((req, _res, next) => {
 const userRoute = require("./routes/userRoute");
 const listRoute = require("./routes/listRoute");
 const reviewRoute = require("./routes/reviewRoute");
+const likeRoute = require("./routes/likeRoute");
 
 app.use("/api/v1/users", userRoute);
 app.use("/api/v1/lists", listRoute);
 app.use("/api/v1/reviews", reviewRoute);
+app.use("/api/v1/likes", likeRoute);
 
 const globalErrorHandler = require("./controllers/errorController");
 const AppError = require("./utils/appError");

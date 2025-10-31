@@ -21,10 +21,6 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ bookId, bookSource, onReviewSub
     setModalOpen(!modalOpen);
   };
 
-  // const closeModal = () => {
-  //   setModalOpen(false);
-  // };
-
   useEffect(() => {
     if (modalOpen) {
       document.body.style.overflow = "hidden";
@@ -71,7 +67,9 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ bookId, bookSource, onReviewSub
   return (
     <div className="review-form">
       <div className={`modal-content ${modalOpen ? "open" : ""}`}>
-        <button onClick={toggleModal}>Leave a Review</button>
+        <button className="open-close" onClick={toggleModal}>
+          {modalOpen ? "Cancel" : "Leave a review!"}
+        </button>
         <form className={`${modalOpen ? "" : "none"}`} onSubmit={handleSubmit}>
           <textarea
             value={reviewText}
@@ -83,8 +81,9 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ bookId, bookSource, onReviewSub
           />
           <div className="char-count">{reviewText.length}/1500 characters</div>
           {error && <div className="error-message">{error}</div>}
-          <button type="submit" disabled={isSubmitting || !reviewText.trim()}>
-            {isSubmitting ? "Submitting..." : "Submit Review"}
+          <h1 className="review-header">🤔🤔🤔</h1>
+          <button className="submit-button" type="submit" disabled={isSubmitting || !reviewText.trim()}>
+            {isSubmitting ? "Submitting..." : "Save"}
           </button>
         </form>
       </div>

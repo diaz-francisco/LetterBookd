@@ -73,7 +73,7 @@ const BooksDetailPage: React.FC = () => {
         </div>
       )}
 
-      <BookHeader book={book} subjects={subjects} />
+      <BookHeader book={book} subjects={subjects} bookId={workId} />
 
       <BookActions />
 

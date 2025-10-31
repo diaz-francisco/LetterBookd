@@ -115,7 +115,7 @@ const Header: React.FC = () => {
             </li>
             <li className="monthly">
               <Link
-                to="/monthly"
+                to={"https://letter-bookd.vercel.app/books/vacuum-diagrams-OL72859W"}
                 onClick={() => {
                   closeMenu();
                   closeSignin();
