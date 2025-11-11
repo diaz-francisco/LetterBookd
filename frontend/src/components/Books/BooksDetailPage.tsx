@@ -75,8 +75,9 @@ const BooksDetailPage: React.FC = () => {
 
       <BookHeader book={book} subjects={subjects} bookId={workId} />
 
-      <BookActions />
-
+      <div className="testing-action">
+        <BookActions />
+      </div>
       <BookDescription description={description} showMore={showMore} setShowMore={setShowmore} />
 
       <BookReviews bookId={workId} reviewsUpdated={reviewsUpdated} onReviewSubmitted={handleReviewSubmitted} />

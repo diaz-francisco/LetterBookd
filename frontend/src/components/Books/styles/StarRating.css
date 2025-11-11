@@ -2,12 +2,13 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  margin-top: 20px;
+  margin-top: 0px;
 }
 
 .stars-container {
+  /* position: fixed; */
   display: flex;
-  gap: 2px;
+  /* gap: 0px; */
 }
 
 .star-rating.readonly .star {
@@ -68,8 +69,9 @@
   color: #f5a623;
 }
 
+/* 
 .rating-value {
   font-weight: 400;
   color: var(--accent);
   font-size: 1.2em;
-}
+} */

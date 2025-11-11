@@ -72,3 +72,9 @@
     transform: scale(1);
   }
 }
+
+.rating-system {
+  border: solid 1px red;
+  display: flex;
+  position: fixed;
+}

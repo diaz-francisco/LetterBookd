@@ -40,14 +40,12 @@ const BookActions: React.FC = () => {
     try {
       setIsAnimating(true);
       if (userLike) {
-        // Update existing like
         const updated = await updateRating(workId, rating);
         setUserLike(updated);
       } else {
-        // Create new like with rating
         const newLike = await createOrUpdateLike({
           bookId: workId,
-          bookSource: "openLibrary", // Add this if needed
+          bookSource: "openLibrary",
           status: "Read",
           rating,
         });
@@ -55,7 +53,7 @@ const BookActions: React.FC = () => {
       }
     } catch (err) {
       console.error("Failed to update rating:", err);
-      // Show user-friendly error message
+
       alert(err instanceof Error ? err.message : "Failed to save rating");
     } finally {
       setTimeout(() => setIsAnimating(false), 300);

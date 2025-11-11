@@ -92,14 +92,14 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 10px 10px;
+  padding: 8px 8px;
   font-size: 16px;
   line-height: 1;
   color: #e5e7eb;
   background-color: #2a2f3a;
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 9999px;
-  white-space: nowrap;
+  /* white-space: nowrap; */
 }
 
 .detail-text p {
@@ -152,4 +152,10 @@
 
 .detail-text.no-quote .detail-content {
   grid-row: 1;
+}
+
+.testing-action {
+  border: solid 1px blue;
+  padding: 10px;
+  display: none;
 }
